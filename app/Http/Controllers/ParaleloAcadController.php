@@ -67,13 +67,13 @@ class ParaleloAcadController extends Controller
         $id = $this->getId();
         ParaleloAcad::create ([
             'id' => $id,
-            'nombre_paralelo'=> strtoupper($request->input('nombre_paralelo')),
-            'abreviatura'=> strtoupper($request->input('abreviatura')),
+            'nombre_paralelo'=> mb_strtoupper($request->input('nombre_paralelo')),
+            'abreviatura'=> mb_strtoupper($request->input('abreviatura')),
             'id_homologacion_sene'=>$request->input('id_homologacion_sene'),
             'observacion'=> strtoupper($request->input('observacion')),
             'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/paraleloAcad/');
     }
 
     /**
@@ -110,8 +110,8 @@ class ParaleloAcadController extends Controller
     public function update(Request $request, $id)
     {
         $data=ParaleloAcad::find($id);
-        $data->nombre_paralelo=$request->input('nombre_paralelo');
-        $data->abreviatura=$request->input('abreviatura');
+        $data->nombre_paralelo=mb_strtoupper($request->input('nombre_paralelo'));
+        $data->abreviatura=mb_strtoupper($request->input('abreviatura'));
         $data->id_homologacion_sene=$request->input('id_homologacion_sene');
         $data->observacion=$request->input('observacion');
         $data->save();

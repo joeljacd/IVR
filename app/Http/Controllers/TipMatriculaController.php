@@ -52,10 +52,10 @@ class TipMatriculaController extends Controller
         $id=Auth::user()->id;
         $dato = TipMatricula::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
             'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/tipoMatricula');
     }
 
     /**
@@ -91,7 +91,7 @@ class TipMatriculaController extends Controller
     public function update(Request $request, $id)
     {
         $data=TipMatricula::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
         $data->save();
         return redirect('/admin/tipoMatricula/');
     }

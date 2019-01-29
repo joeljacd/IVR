@@ -53,7 +53,7 @@ class MallasCarreraController extends Controller
     public function create()
     {
         $getdatos=$this->getdatos();
-        return view('admin.mallasCarrera.index1',['getdato' =>$getdatos]);
+        return view('admin.mallasCarrera.index',['getdato' =>$getdatos]);
     }
 
     /**
@@ -73,7 +73,7 @@ class MallasCarreraController extends Controller
                 'id_carrera'=>$request->input('id_carrera'),
                 'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/mallasCarrera');
     }
 
     /**

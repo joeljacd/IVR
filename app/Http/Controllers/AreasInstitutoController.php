@@ -50,10 +50,10 @@ class AreasInstitutoController extends Controller
         $id = Auth::user()->id;
         $dato = AreasInstituto::create ([
             'id' => $this->getId(),
-            'nombre'=> strtoupper($request->input('nombre')),
+            'nombre'=> mb_strtoupper($request->input('nombre')),
             'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/areasInstituto');
     }
 
     /**
@@ -89,7 +89,7 @@ class AreasInstitutoController extends Controller
     public function update(Request $request, $id)
     {
         $data=AreasInstituto::find($id);
-        $data->nombre=$request->input('nombre');
+        $data->nombre=mb_strtoupper($request->input('nombre'));
         $data->save();
         return redirect('/admin/areasInstituto/');
     }
@@ -102,8 +102,8 @@ class AreasInstitutoController extends Controller
      */
     public function destroy($id)
     {
-        $JornadaCarrera=AreasInstituto::find($id);
-        $JornadaCarrera->delete();
+        $areasInsituto=AreasInstituto::find($id);
+        $areasInsituto->delete();
         return redirect('/admin/areasInstituto/');
     }
 

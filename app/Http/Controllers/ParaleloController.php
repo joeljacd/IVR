@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Paralelo;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\ParaleloRequest;
 class ParaleloController extends Controller
 {
     /**
@@ -45,15 +46,15 @@ class ParaleloController extends Controller
         return $next;
     }
 
-    public function store(Request $request)
+    public function store(ParaleloRequest $request)
     {
         $id=Auth::user()->id;
         $dato = Paralelo::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
             'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/paralelo');
     }
 
     /**
@@ -86,10 +87,10 @@ class ParaleloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ParaleloRequest $request, $id)
     {
         $data=Paralelo::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
         $data->save();
         return redirect('/admin/paralelo/');
     }

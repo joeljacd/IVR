@@ -7,7 +7,7 @@
         			{!! Form::model($data,['route' => ['nivelAcademico.update',$data->id],'method'=>'PUT']) !!}
         				<div class="form-group">
         					<label>Nombre de Etiqueta</label>
-					    	{!!Form::text('etiqueta',null,['class'=>'form-control'])!!}
+							<input type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+" class="{!!Form::text('etiqueta',null,['class'=>'form-control'])!!}
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>

@@ -3,11 +3,11 @@
 <div id="content-wrapper">
     <div class="container-fluid">
         	<div class="row">
-        		<div class="col-md-4">
+        		<div class="col-md-4"d>
         			{!! Form::open(['url' => 'admin/modCarrera', 'method' => 'POST']) !!}
         				<div class="form-group">
         					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta">
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>

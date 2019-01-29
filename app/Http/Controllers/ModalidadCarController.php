@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ModalidadCar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Routing\Tests\Utf8RouteCompiler;
 
 class ModalidadCarController extends Controller
 {
@@ -50,10 +51,10 @@ class ModalidadCarController extends Controller
         $id=Auth::user()->id;
         $dato = ModalidadCar::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
             'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/modCarrera');
     }
 
     /**
@@ -89,7 +90,7 @@ class ModalidadCarController extends Controller
     public function update(Request $request, $id)
     {
         $data=ModalidadCar::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
         $data->save();
         return redirect('/admin/modCarrera/');
     }

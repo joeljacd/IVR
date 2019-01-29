@@ -8,21 +8,22 @@
 					<div class="form-group">
 						<div class="form-group">
 							<label>Paralelo Academico</label>
-							<input class="form-control" type="text" name="nombre_paralelo">
+							<input class="form-control" type="text" name="nombre_paralelo" required pattern="[A-Za-zá-úÁ-Ú0-9--_ ]+">
 						</div>
 						<div class="form-group">
 							<label>Abreviatura</label>
-							<input class="form-control" type="text" name="abreviatura">
+							<input class="form-control" type="text" name="abreviatura" required pattern="[A-Za-zá-úÁ-Ú0-9--_ ]+">
 						</div>
-						<label>Seleccionar 	Paralelo</label>
-						<select class="form-control" name="id_homologacion_sene">
+						<label>Seleccionar 	Paralelo Senecyt</label>
+						<select class="form-control" name="id_homologacion_sene" required>
+							<option value="">--Seleccione--</option>
 							@foreach($getdatos['Paralelo'] as $getdata)
 								<option value="{{$getdata->id}}">{{$getdata->etiqueta}}</option>
 							@endforeach
 						</select>
 						<div class="form-group">
 							<label>Observaciones</label>
-							<textarea class="form-control" name="observacion"></textarea>
+							<textarea style="width: 250px; height:125px; resize:none" class="form-control" name="observacion"></textarea>
 						</div>
 					</div>
 
@@ -45,9 +46,7 @@
 									<tr>
 										<th>Nombre</th>
 										<th>Abreviatura</th>
-										<th>Paralelo</th>
-										<th>Creado</th>
-										<th>Modificado</th>
+										<th>Paralelo Senecyt</th>
 										<th>Editar</th>
 										<th>Estado</th>
 									</tr>
@@ -58,8 +57,6 @@
 											<td>{{$datas->nombre_paralelo}}</td>
 											<td>{{$datas->abreviatura}}</td>
 											<td>{{$datas->etiqueta}}</td>
-											<td>{{$datas->fecha_cre}}</td>
-											<td>{{$datas->fecha_mod}}</td>
 											<td>
 												@if($datas->deleted_at!='')
 													{!!link_to_route('paraleloAcad.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn disabled']);!!}

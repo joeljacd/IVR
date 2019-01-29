@@ -51,10 +51,10 @@ class JornadaCarController extends Controller
         $id=Auth::user()->id;
         $dato = JornadaCar::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
             'id_usu_cre' => $this->getId(),
         ]);
-        return $this->index();
+        return redirect('/admin/jornadaCarrera');;
     }
 
     /**
@@ -90,7 +90,7 @@ class JornadaCarController extends Controller
     public function update(Request $request, $id)
     {
         $data=JornadaCar::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
         $data->save();
         return redirect('/admin/jornadaCarrera/');
     }

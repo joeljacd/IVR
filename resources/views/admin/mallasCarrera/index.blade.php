@@ -3,11 +3,12 @@
 	<div id="content-wrapper">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-4">
 					{!! Form::open(['url' => 'admin/mallasCarrera', 'method' => 'POST']) !!}
 					<div class="form-group">
 						<label>Seleccionar 	Malla</label>
-						<select class="form-control" name="id_malla">
+						<select class="form-control" name="id_malla" required>
+							<option value="">--Seleccione--</option>
 							@foreach($getdato['mall'] as $getdata)
 								<option value="{{$getdata->id}}">{{$getdata->nombre_malla}}</option>
 							@endforeach
@@ -16,7 +17,8 @@
 
 					<div class="form-group">
 						<label>Seleccionar 	Carrera</label>
-						<select class="form-control" name="id_carrera">
+						<select class="form-control" name="id_carrera" required>
+							<option value="">--Seleccione--</option>
 							@foreach($getdato['carrera'] as $getdata)
 								<option value="{{$getdata->id}}">{{$getdata->nombreCarrera}}</option>
 							@endforeach
@@ -30,7 +32,7 @@
 					{!! Form::close() !!}
 					@include('mensaje.mensajeerror')
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-8">
 					<div class="card mb-3">
 						<div class="card-header">
 							<i class="fas fa-table"></i>
@@ -42,8 +44,6 @@
 									<tr>
 										<th>Mallas</th>
 										<th>Carrera</th>
-										<th>Creado</th>
-										<th>Modificado</th>
 										<th>Editar</th>
 										<th>Estado</th>
 									</tr>
@@ -53,8 +53,6 @@
 										<tr>
 											<td>{{$datas->nombre_malla}}</td>
 											<td>{{$datas->nombreCarrera}}</td>
-											<td>{{$datas->fecha_cre}}</td>
-											<td>{{$datas->fecha_mod}}</td>
 											<td>
 												@if($datas->deleted_at!='')
 													{!!link_to_route('mallasCarrera.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn disabled']);!!}

@@ -21,7 +21,7 @@
 							<label>Seleccionar 	Carrera</label>
 							<select class="form-control" name="id_carrera">
 								@foreach($getdato['carrera'] as $getdata)
-									@if($data->id_malla==$getdata->id)
+									@if($data->id_carrera==$getdata->id)
 										<option selected="yes" value="{{$getdata->id}}">{{$getdata->nombreCarrera}}</option>
 									@else
 										<option value="{{$getdata->id}}">{{$getdata->nombreCarrera}}</option>
