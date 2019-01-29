@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('auth.login');
 });
-
+//wiii
 //hola que hace
 
 Auth::routes();
