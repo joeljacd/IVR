@@ -7,11 +7,11 @@
         			{!! Form::open(['url' => 'admin/ciclos', 'method' => 'POST']) !!}
         				<div class="form-group">
         					<label>Nombre de Ciclo</label>
-					    	<input class="form-control" type="text" name="nombre">
+					    	<input class="form-control" type="text" name="nombre" required pattern="[A-Za-zá-úÁ-Ú ]+">
         				</div>
         				<div class="form-group">
         					<label>Nombre de Corto Ciclo</label>
-					    	<input class="form-control" type="text" name="nombre_corto">
+					    	<input class="form-control" type="text" name="nombre_corto" required pattern="[A-Za-zá-úÁ-Ú ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>
@@ -46,7 +46,11 @@
 										<td>{{$datas->fecha_cre}}</td>
 										<td>{{$datas->fecha_mod}}</td>
 										<td>
-											{!!link_to_route('ciclos.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@if($datas->deleted_at!='')
+												{!!link_to_route('ciclos.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn disabled']);!!}
+											@else
+												{!!link_to_route('ciclos.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@endif
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
