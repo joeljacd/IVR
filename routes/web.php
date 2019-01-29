@@ -219,8 +219,41 @@ Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController
             Route::post('/docentes/provincias','DocentesController@getProvincias');
             Route::post('/docentes/cantones','DocentesControllerf@getCantones');
 
+Route::group(['middleware' => ['web', 'admin']], function() {
 
-//Admin Docentes Nivel
+			Route::Resource('admin/Areas_Materias','AreasMateriasController');
+			Route::get('/admin/Areas_Materias/{id}/restaurar','AreasMateriasController@restaurar');
+
+			//************************* MANTENIMIENTO ACAD SEDES **************************
+			Route::Resource('admin/academicoSedes','admin\mant_academico\AcadSedesController');
+			Route::get('/admin/academicoSedes/{id}/restaurar','admin\mant_academico\AcadSedesController@restaurar');
+		//*****************************************************************************
+
+			Route::Resource('/admin/materias', 'MateriasController');
+			Route::get('/admin/materias/{id}/restaurar','MateriasController@restaurar');
+
+
+			Route::Resource('/admin/asignacion', 'ParaleloSeneJornadaCarreraController');
+			Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
+			Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
+
+
+			//Paralelo Academico
+		    Route::Resource('/admin/paraleloAcad','ParaleloAcadController');
+		    Route::get('/admin/paraleloAcad/{id}/restaurar', 'ParaleloAcadController@restaurar');
+
+
+		    Route::Resource('admin/AcadPeriodos','AcadPeriodosController');
+			Route::get('/admin/AcadPeriodos/{id}/restaurar','AcadPeriodosController@restaurar');
+
+
+			//joel campoverde y guaman
+			Route::Resource('admin/materiaparalelo','MateriaXPeriodoController');
+			Route::post('admin/materiaparalelosede','MateriaXPeriodoController@sedes');
+			Route::post('admin/materiaparalelomalla','MateriaXPeriodoController@mallas');
+			//Route::get('admin/materiaparalelomostrar','MateriaXPeriodoController@mostrar');
+			Route::post('admin/materiaparalelomostrarfiltrar','MateriaXPeriodoController@mostrarfiltro');
+	//Admin Docentes Nivel
         Route::Resource('/admin/docentes/nivel','NivForDoceController');
         Route::get('/admin/docentes/nivel/{id}/restaurar','NivForDoceController@restaurar');
 
@@ -248,42 +281,6 @@ Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController
 		Route::Resource('admin/academicoCarreraCoordinador','admin\mant_academico\AcadCarreraCoordinadorController');
 		Route::get('admin/academicoCarreraCoordinador/{id}/restaurar','admin\mant_academico\AcadCarreraCoordinadorController@restaurar');
 
-		Route::post('informacionGlobal/createEstuLaboral','InformacionGlobalController@AcaEstuLabEco');
-
-Route::group(['middleware' => ['web', 'admin']], function() {
-
-	Route::Resource('admin/Areas_Materias','AreasMateriasController');
-	Route::get('/admin/Areas_Materias/{id}/restaurar','AreasMateriasController@restaurar');
-
-	//************************* MANTENIMIENTO ACAD SEDES **************************
-	Route::Resource('admin/academicoSedes','admin\mant_academico\AcadSedesController');
-	Route::get('/admin/academicoSedes/{id}/restaurar','admin\mant_academico\AcadSedesController@restaurar');
-//*****************************************************************************
-
-	Route::Resource('/admin/materias', 'MateriasController');
-	Route::get('/admin/materias/{id}/restaurar','MateriasController@restaurar');
-
-
-	Route::Resource('/admin/asignacion', 'ParaleloSeneJornadaCarreraController');
-	Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
-	Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
-
-
-	//Paralelo Academico
-    Route::Resource('/admin/paraleloAcad','ParaleloAcadController');
-    Route::get('/admin/paraleloAcad/{id}/restaurar', 'ParaleloAcadController@restaurar');
-
-
-    Route::Resource('admin/AcadPeriodos','AcadPeriodosController');
-	Route::get('/admin/AcadPeriodos/{id}/restaurar','AcadPeriodosController@restaurar');
-
-
-	//joel campoverde y guaman
-	Route::Resource('admin/materiaparalelo','MateriaXPeriodoController');
-	Route::post('admin/materiaparalelosede','MateriaXPeriodoController@sedes');
-	Route::post('admin/materiaparalelomalla','MateriaXPeriodoController@mallas');
-	//Route::get('admin/materiaparalelomostrar','MateriaXPeriodoController@mostrar');
-	Route::post('admin/materiaparalelomostrarfiltrar','MateriaXPeriodoController@mostrarfiltro');
-
-
 });
+
+Route::post('informacionGlobal/createEstuLaboral','InformacionGlobalController@AcaEstuLabEco');
