@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+//hola que hace
+
 Auth::routes();
 //administrador
 	//admin rol
@@ -41,7 +43,7 @@ Auth::routes();
 	Route::Resource('admin/discapacidad','discapacidadcontroller');
 	Route::get('/admin/discapacidad/{id}/restaurar','discapacidadcontroller@restaurar');
 
-	Route::Resource('/admin/datostipodoc','admin\datosidentificacion\tipodocumentoController');  
+	Route::Resource('/admin/datostipodoc','admin\datosidentificacion\tipodocumentoController');
 	Route::get('/admin/datostipodoc/{id}/restaurar','admin\datosidentificacion\tipodocumentoController@restaurar');
 	Route::get('/admin/datosetnia/{id}/restaurar','admin\datosidentificacion\etniaController@restaurar');
 	Route::Resource('/admin/datosetnia','admin\datosidentificacion\etniaController');
@@ -90,7 +92,7 @@ Auth::routes();
 	// jorcy
         Route::Resource('/admin/financiamientobeca', 'financiamientoBecaController');
 	    Route::get('/admin/financiamientobeca/{id}/restaurar','financiamientoBecaController@restaurar');
-	    
+
 		Route::Resource('/admin/tipobeca', 'TipoBecaController');
 	    Route::get('/admin/tipobeca/{id}/restaurar','TipoBecaController@restaurar');
 
@@ -124,7 +126,7 @@ Auth::routes();
 	    //Admin Sector Económico
 	    Route::Resource('/admin/sectorEcon','SecEcoController');
 	    //--------------------------fin de mantenimiento snna-------------------------
-	    
+
 		//usuario todos
 		Route::Resource('/roles','ListarRolesController');
 
@@ -135,7 +137,7 @@ Auth::routes();
 
     Route::Resource('/admin/carreras','admin\mant_academico\CarrerasController');
     Route::get('/admin/carreras/{id}/restaurar','admin\mant_academico\CarrerasController@restaurar');
-   
+
 //admin areas institucion
 	Route::Resource('/admin/areasInstituto','admin\mant_academico\AreasInstitutoController');
 	Route::get('/admin/areasInstituto/{id}/restaurar', 'admin\mant_academico\AreasInstitutoController@restaurar');
@@ -176,7 +178,7 @@ Route::get('/crud/vista', 'MantenimientoController@vista')->name('man');
 
 	 //Henry
 		Route::Resource('/admin/valorAyudaEconomica', 'ValorMontoAyudaEconomicaController');
-	    Route::get('/admin/valorAyudaEconomica/{id}/restaurar','ValorMontoAyudaEconomicaController@restaurar');	
+	    Route::get('/admin/valorAyudaEconomica/{id}/restaurar','ValorMontoAyudaEconomicaController@restaurar');
 
 	    Route::Resource('/admin/valorMontoCredito', 'ValorMontoCreditoController');
 	    Route::get('/admin/valorMontoCredito/{id}/restaurar','ValorMontoCreditoController@restaurar');
@@ -192,7 +194,7 @@ Route::get('/crud/vista', 'MantenimientoController@vista')->name('man');
 	Route::get('/admin/porcentajebecaarancel/{id}/restaurar', 'PorcentajeBecaArancelController@restaurar');
 
 	// ADMIN JORNADA CARRERA
-	
+
 ////////////////////////////////informacion global//////////////////////////////
 Route::get('informacionGlobal','InformacionGlobalController@index');
 
