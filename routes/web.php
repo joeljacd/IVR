@@ -250,7 +250,9 @@ Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController
 
 		Route::post('informacionGlobal/createEstuLaboral','InformacionGlobalController@AcaEstuLabEco');
 
-		Route::Resource('admin/Areas_Materias','AreasMateriasController');
+Route::group(['middleware' => ['web', 'admin']], function() {
+
+	Route::Resource('admin/Areas_Materias','AreasMateriasController');
 	Route::get('/admin/Areas_Materias/{id}/restaurar','AreasMateriasController@restaurar');
 
 	//************************* MANTENIMIENTO ACAD SEDES **************************
@@ -259,7 +261,7 @@ Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController
 //*****************************************************************************
 
 	Route::Resource('/admin/materias', 'MateriasController');
-Route::get('/admin/materias/{id}/restaurar','MateriasController@restaurar');
+	Route::get('/admin/materias/{id}/restaurar','MateriasController@restaurar');
 
 
 	Route::Resource('/admin/asignacion', 'ParaleloSeneJornadaCarreraController');
@@ -284,4 +286,4 @@ Route::get('/admin/materias/{id}/restaurar','MateriasController@restaurar');
 	Route::post('admin/materiaparalelomostrarfiltrar','MateriaXPeriodoController@mostrarfiltro');
 
 
-	
+});
