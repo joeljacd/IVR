@@ -197,6 +197,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 
 	    //Admin Sector Económico
 	    Route::Resource('/admin/sectorEcon','SecEcoController');
+	    Route::get('/admin/sectorEcon/{id}/restaurar','SecEcoController@restaurar');
 	    //--------------------------fin de mantenimiento snna-------------------------
 
 			Route::Resource('admin/Areas_Materias','AreasMateriasController');

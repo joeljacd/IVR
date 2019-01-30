@@ -15,7 +15,7 @@ class SecEcoController extends Controller
      */
     public function index()
     {
-        $data = SectorEconomico::All();
+        $data = SectorEconomico::withTrashed()->get();   
         return view('admin.sectorEcon.index',['data' => $data]);
     }
 
@@ -29,6 +29,16 @@ class SecEcoController extends Controller
         //
     }
 
+    public function getId()
+    {
+        $id = SectorEconomico::whereRaw('id > ? or deleted_at <> null', [0])->get();
+        $next = count($id);
+        if($next > 0 ){
+            $next+=1;
+        }else
+            $next =1;
+        return $next;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -37,18 +47,12 @@ class SecEcoController extends Controller
      */
     public function store(Request $request)
     {
-        $id = SectorEconomico::All();
-        $next = count($id);
-        if($next < 1)
-            $next = 1;
-        else
-            $next += 1;
         $dato = SectorEconomico::create([
-            'id' => $next,
+            'id' => $this->getId(),
             'etiqueta' => strtoupper($request->input('etiqueta')),
             'id_usu_cre' => Auth::user()->id,
         ]);
-        return $this->index();
+        return redirect('/admin/sectorEcon/');
     }
 
     /**
@@ -84,7 +88,7 @@ class SecEcoController extends Controller
     public function update(Request $request, $id)
     {
         $data = SectorEconomico::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/sectorEcon/');
@@ -98,6 +102,15 @@ class SecEcoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $secEco=SectorEconomico::find($id);
+        $secEco->delete();
+        return redirect('/admin/sectorEcon/');
+    }
+
+
+     public function restaurar($id)
+    {
+         $datos=SectorEconomico::onlyTrashed()->find($id)->restore();
+        return redirect('/admin/sectorEcon/');
     }
 }

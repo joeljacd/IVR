@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.principal')  
 @section('content')
 <div id="content-wrapper">
     <div class="container-fluid">
@@ -6,8 +6,8 @@
         		<div class="col-md-4">
         			{!! Form::open(['url' => 'admin/sectorEcon', 'method' => 'POST']) !!}
         				<div class="form-group">
-        					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta">
+        					<label>Nombre de Sector Económico</label>
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>
@@ -40,13 +40,18 @@
 										<td>{{$datas->fecha_cre}}</td>
 										<td>{{$datas->fecha_mod}}</td>
 										<td>
-											{!!link_to_route('sectorEcon.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@if($datas->deleted_at!='')
+												{!!link_to_route('sectorEcon.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning disabled']);!!}
+											@else
+												{!!link_to_route('sectorEcon.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@endif
+											
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="/admin/formacionpadre/{{$datas->id}}/restaurar">Restaurar</a>
+												<a class="btn btn-primary btn-block" href="sectorEcon/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
-													{!! Form::open(['route' => ['provincias.destroy',$datas->id],'method'=>'DELETE']) !!}
+													{!! Form::open(['route' => ['sectorEcon.destroy',$datas->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">
 											    	{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
 											    </div>
