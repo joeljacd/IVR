@@ -16,7 +16,7 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         $valor=$request->session()->get('ADMINISTRADOR');
-        if ($valor!=3) {
+        if ($valor!=1) {
             return redirect('roles');
         }
         return $next($request);
