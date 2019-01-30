@@ -49,7 +49,7 @@ class SecEcoController extends Controller
     {
         $dato = SectorEconomico::create([
             'id' => $this->getId(),
-            'etiqueta' => strtoupper($request->input('etiqueta')),
+            'etiqueta' => mb_strtoupper($request->input('etiqueta')),
             'id_usu_cre' => Auth::user()->id,
         ]);
         return redirect('/admin/sectorEcon/');
