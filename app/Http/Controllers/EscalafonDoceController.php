@@ -52,7 +52,7 @@ class EscalafonDoceController extends Controller
             'etiqueta' => strtoupper($request->input('etiqueta')),
             'id_usu_cre' => Auth::user()->id,
         ]);
-        return $this->index();
+        return redirect('/admin/docentes/escalafon');
     }
 
     /**
