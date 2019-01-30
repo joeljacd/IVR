@@ -15,8 +15,8 @@ class PaisesController extends Controller
     public function index()
     {
 
-        //$data = Pais::withTrashed()->get();
-        $data = Pais::All();
+        $data = Pais::withTrashed()->get();
+        //$data = Pais::All();
         return view('admin.paises.index', ['data' =>$data] );
     }
 
@@ -52,10 +52,10 @@ class PaisesController extends Controller
         $id=Auth::user()->id;
         $dato = Pais::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
             'id_usu_cre' => $id
         ]);
-        return $this->index();
+        return redirect('/admin/paises/');
     }
 
     /**
@@ -105,9 +105,9 @@ class PaisesController extends Controller
      */
     public function destroy($id)
     {
-        $nivelFormacion=Pais::find($id);
-        $nivelFormacion->delete();
-        return redirect('/admin/formacionpadre/');
+        $paises=Pais::find($id);
+        $paises->delete();
+        return redirect('/admin/paises/');
     }
 
     public function restaurar($id)

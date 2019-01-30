@@ -7,7 +7,7 @@
         			{!! Form::open(['url' => 'admin/provincias', 'method' => 'POST']) !!}
         				<div class="form-group">
         					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta">
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-Z ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>
@@ -40,13 +40,17 @@
 										<td>{{$datas->fecha_cre}}</td>
 										<td>{{$datas->fecha_mod}}</td>
 										<td>
-											{!!link_to_route('paises.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@if($datas->deleted_at!='')
+												{!!link_to_route('paises.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning disabled']);!!}
+											@else
+												{!!link_to_route('paises.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@endif
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="/admin/formacionpadre/{{$datas->id}}/restaurar">Restaurar</a>
+												<a class="btn btn-primary btn-block" href="/admin/paises/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
-													{!! Form::open(['route' => ['formacionpadre.destroy',$datas->id],'method'=>'DELETE']) !!}
+													{!! Form::open(['route' => ['paises.destroy',$datas->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">
 											    	{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
 											    </div>

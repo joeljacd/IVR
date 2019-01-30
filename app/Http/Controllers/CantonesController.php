@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cantones;
+use App\Provincias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class CantonesController extends Controller
      */
     public function index()
     {
-        $data = Cantones::All();
+        $data = $this->getDatos();
         return view('admin.cantones.index', ['data' => $data]);
     }
 
@@ -29,26 +30,38 @@ class CantonesController extends Controller
         //
     }
 
+    public function getDatos()
+    {
+        return $datos = array('cantones'=>Cantones::withTrashed()->get(),
+                              'provincias'=>Provincias::all());
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+      public function getId(){
+        $id = Cantones::whereRaw('id > ? or deleted_at <> null', [0])->get();
+         $next = count($id);
+        if($next > 0 ){
+            $next+=1;
+        }else
+            $next =1;
+        return $next;
+    }
+
     public function store(Request $request)
     {
-        $id = Cantones::All();
-        $next = count($id);
-        if($next < 1)
-            $next = 1;
-        else
-            $next += 1;
         $dato = Cantones::create([
-           'id' => $next,
-           'etiqueta' => strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => Auth::user()->id,
+           'id' => $this->getId(),
+           'etiqueta' => mb_strtoupper($request->input('etiqueta')),
+           'id_provincia' => $request->input('id_provincias'),
+           'id_usu_cre' => Auth::user()->id,
         ]);
-        return $this->index();
+        return redirect('/admin/cantones/');
     }
 
     /**
@@ -71,7 +84,8 @@ class CantonesController extends Controller
     public function edit($id)
     {
         $data = Cantones::find($id);
-        return view('admin.cantones.edit', ["data"=>$data]);
+        $provincias = Provincias::all();
+        return view('admin.cantones.edit', ["data"=>$data,"provincias"=>$provincias]);
     }
 
     /**
@@ -85,6 +99,7 @@ class CantonesController extends Controller
     {
         $data = Cantones::find($id);
         $data->etiqueta=$request->input('etiqueta');
+        $data->id_provincia = $request->input('id_provincia');
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/cantones/');
@@ -98,6 +113,14 @@ class CantonesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cantones=Cantones::find($id);
+        $cantones->delete();
+        return redirect('/admin/cantones/');    
+    }
+
+     public function restaurar($id)
+    {
+         $datos=Cantones::onlyTrashed()->find($id)->restore();
+        return redirect('/admin/cantones/');
     }
 }

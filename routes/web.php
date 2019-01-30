@@ -185,14 +185,15 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 	    Route::Resource('/admin/razon1', 'RazonBecaController1');
 	    Route::get('/admin/razon1/{id}/restaurar','RazonBecaController1@restaurar');
 	// joel campoverde
+	    //Admin Paises
 	    Route::Resource('/admin/paises','PaisesController');
-	    //Route::post('/admin/paises','PaisesController@store')->name('agrePais');
-
+	    Route::get('/admin/paises/{id}/restaurar','PaisesController@restaurar');
 	    //Admin Provincia
 	    Route::Resource('/admin/provincias','ProvinciasController');
-
+	    Route::get('/admin/provincias/{id}/restaurar','ProvinciasController@restaurar');
 	    //Admin Cantones
 	    Route::Resource('/admin/cantones','CantonesController');
+	    Route::get('/admin/cantones/{id}/restaurar','CantonesController@restaurar');
 
 	    //Admin Sector Económico
 	    Route::Resource('/admin/sectorEcon','SecEcoController');

@@ -6,8 +6,17 @@
         		<div class="col-md-4">
         			{!! Form::open(['url' => 'admin/provincias', 'method' => 'POST']) !!}
         				<div class="form-group">
-        					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta">
+        					<label>Nombre de Provincia</label>
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
+        				</div>
+        				<div class="form-group">
+        					<label>Pais</label>
+					    	<select name="id_pais_sene" id="id_pais_sene" class="form-control" required>
+					    		<option value="">--Seleccione--</option>
+					    		@foreach($data['paises'] as $dato)
+									<option value="{{$dato->id}}">{{$dato->etiqueta}}</option>
+					    		@endforeach
+					    	</select>
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>
@@ -27,26 +36,32 @@
 				                  <thead>
 				                    <tr>
 										<th>Etiqueta</th>
-										<th>Creado</th>
-										<th>Modificado</th>
+										<th>Pais</th>
 										<th>Editar</th>
 										<th>Estado</th>		
 									</tr>
 				                  </thead>
 				                  <tbody>
-				                	@foreach($data as $datas)
+				                	@foreach($data['provincias'] as $dato)
 									<tr>
-										<td>{{$datas->etiqueta}}</td>
-										<td>{{$datas->fecha_cre}}</td>
-										<td>{{$datas->fecha_mod}}</td>
+										<td>{{$dato->etiqueta}}</td>
+											@foreach($data['paises'] as $pais)
+												@if($dato->id_pais == $pais->id)
+													<td>{{$pais->etiqueta}}</td>
+												@endif
+											@endforeach
 										<td>
-											{!!link_to_route('provincias.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@if($dato->deleted_at!='')
+												{!!link_to_route('provincias.edit', $title = 'Editar', $parameters = $dato->id, $attributes = ['class'=>'btn btn-warning disabled']);!!}
+											@else
+												{!!link_to_route('provincias.edit', $title = 'Editar', $parameters = $dato->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@endif
 										</td>
 										<td>
-											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="/admin/formacionpadre/{{$datas->id}}/restaurar">Restaurar</a>
+											@if($dato->deleted_at!='')
+												<a class="btn btn-primary btn-block" href="provincias/{{$dato->id}}/restaurar">Restaurar</a>
 											@else
-													{!! Form::open(['route' => ['provincias.destroy',$datas->id],'method'=>'DELETE']) !!}
+													{!! Form::open(['route' => ['provincias.destroy',$dato->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">
 											    	{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
 											    </div>

@@ -3,13 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-//  use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pais extends Model
 {
-    //use SoftDeletes; //Implementamos
+   use SoftDeletes; //Implementamos
 
-   // protected $dates = ['deleted_at'];
+   protected $dates = ['deleted_at'];
 
     protected $table = 'sene_paises';
 
