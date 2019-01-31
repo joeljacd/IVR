@@ -520,6 +520,7 @@
     <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/infAcademica.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/infMatriculacion.js') }}"></script>
     
     <script>
       
