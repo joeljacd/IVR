@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -8,6 +8,8 @@ use App\JornadaCar;
 use App\Carreras;
 use App\AcadSedes;
 use App\ParaleloAcad;
+use App\AcadPeriodos;
+use App\ParalelosxPeriodoModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class ParaleloSeneJornadaCarreraController extends Controller
@@ -20,29 +22,53 @@ class ParaleloSeneJornadaCarreraController extends Controller
     public function index()
     {
         $getdatos=$this->getdatos();
+        //$getdatos = AcadPeriodos::all();
         return view('admin.pa_se_jor_car.index',['getdatos'=>$getdatos]);
     }
 
    public function getdatos()
     {
-    	return $getdatos=array('carrera' =>Carreras::all(),
-    				    'sedes'=>AcadSedes::all(),
-    				    'jornada'=>JornadaCar::all(),
-                        'paralelo'=>ParaleloAcad::all());
+    	return $getdatos=array(
+                        'carrera' => Carreras::all(),
+                        'sedes' => AcadSedes::all(),
+                        'jornada' => JornadaCar::all(),
+                        'paralelo' => ParaleloAcad::all(),
+                        );
     }
-    public function vistatabla()
-    {
-            $data = DB::table('acad_paralelos_sede_jornada_carrera')
-            ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
-            ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
-            ->join('sene_jornadacarrera', 'sene_jornadacarrera.id','=', 'acad_paralelos_sede_jornada_carrera.id_jornada')
-            ->join('acad_paralelos','acad_paralelos.id','=', 'acad_paralelos_sede_jornada_carrera.id_paralelo')
-            ->select('acad_paralelos_sede_jornada_carrera.*', 'acad_carrera.nombreCarrera', 'acad_sedes.nombre_sede','sene_jornadacarrera.etiqueta','acad_paralelos.nombre_paralelo')
-            ->get();
-            return response()->json(
-            $data->toArray()
-            );
+
+    public function getUltimaSede(){
+      $data = DB::table('acad_sedes')->count();
+      return $data;
     }
+
+    public function getParalelos(Request $request){
+      $query = "";
+      //dd($request->all()); exit();
+      if ($request->op == 1) {
+        if ($request->id_sede == 0) {
+          $query = "select distinct(acad_paralelos.id), acad_paralelos.nombre_paralelo "
+                ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
+                ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$this->getUltimaSede(); 
+          }else{
+            $query = "select acad_paralelos.id, acad_paralelos.nombre_paralelo "
+                  ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
+                  ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$request->id_sede; 
+          }
+                if(isset($request->id_carrera) && ($request->id_carrera != 0)){
+                  $query.= " and acad_paralelos_sede_jornada_carrera.id_carrera = ".$request->id_carrera;
+                }
+                if (isset($request->jornada) && ($request->id_jornada != 0)) {
+                  $query.= " and acad_paralelos_sede_jornada_carrera.id_jornada = ".$request->id_jornada;  
+                }
+        $query.=";";
+      }elseif ($request->op == 2) {
+        $query = "select * ".
+                 "from acad_paralelos ";
+      }
+        $data = DB::select($query);
+        return response()->json($data);
+    }               
+
     /**
      * Show the form for creating a new resource.
      *
@@ -63,29 +89,34 @@ class ParaleloSeneJornadaCarreraController extends Controller
             $next =1;
         return $next;
     }
+
     public function store(Request $request)
     {
             $id_usu_cre = Auth::user()->id;
             $id = $this->getId();
             ParaleloSeneJornadaCarreraModel::create ([
-            'id' => $id,
-            'id_carrera'=>$request->input('id_carrera'),
-            'id_sede'=>$request->input('id_sede'),
-            'id_jornada'=>$request->input('id_jornada'),
-            'id_paralelo'=>$request->input('id_paralelo'),
-            'id_usu_cre'=>$id_usu_cre,
-        ]);
-        $data = DB::table('acad_paralelos_sede_jornada_carrera')
-            ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
-            ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
-            ->join('sene_jornadacarrera', 'sene_jornadacarrera.id','=', 'acad_paralelos_sede_jornada_carrera.id_jornada')
-            ->join('acad_paralelos','acad_paralelos.id','=', 'acad_paralelos_sede_jornada_carrera.id_paralelo')
-            ->select('acad_paralelos_sede_jornada_carrera.*', 'acad_carrera.nombreCarrera', 'acad_sedes.nombre_sede','sene_jornadacarrera.etiqueta','acad_paralelos.nombre_paralelo')
-            ->get();
-        return response()->json(
-            $data->toArray()
-        );
-        //return redirect('/admin/asignacion');
+                'id' => $id,
+                'id_sede'=>$request->input('id_sede'),
+                'id_carrera'=>$request->input('id_carrera'),
+                'id_jornada'=>$request->input('id_jornada'),
+                'id_paralelo'=>$request->input('id_paralelo'),
+                'id_usu_cre'=>$id_usu_cre,
+            ]);
+    }
+
+    public function validarParaleloNoRepita(Request $request)
+    {
+        $query = "select count(acad_paralelos.id) as paralelo "
+               ."from acad_paralelos "
+               ."where acad_paralelos.id = (select acad_paralelos_sede_jornada_carrera.id_paralelo "
+                                          ."from acad_paralelos_sede_jornada_carrera "
+                                          ."where acad_paralelos_sede_jornada_carrera.id_carrera = ".$request->id_carrera." "
+                                          ."and acad_paralelos_sede_jornada_carrera.id_jornada = ".$request->id_jornada." "
+                                          ."and acad_paralelos_sede_jornada_carrera.id_sede = ".$request->id_sede." "
+                                          ."and acad_paralelos_sede_jornada_carrera.id_paralelo = ".$request->id_paralelo.");";
+
+        $data =  DB::select($query);
+        return response()->json($data);
     }
 
     /**
@@ -140,12 +171,13 @@ class ParaleloSeneJornadaCarreraController extends Controller
     {
         $data=ParaleloSeneJornadaCarreraModel::find($id);
         $data->delete();
-        return response()->json(["mensaje eliminado"]);
+        //return response()->json(["mensaje eliminado"]);
+        return redirect('/admin/asignacion/');
     }
 
     public function restaurar($id)
     {
         $datos=ParaleloSeneJornadaCarreraModel::onlyTrashed()->find($id)->restore();
-         return response()->json(["mensaje restaurar"]);
+        return redirect('/admin/asignacion/');
     }
 }

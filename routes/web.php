@@ -211,10 +211,17 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 			Route::Resource('/admin/materias', 'MateriasController');
 			Route::get('/admin/materias/{id}/restaurar','MateriasController@restaurar');
 
+		//Paralelo Sede Jornada Carrera
 
 			Route::Resource('/admin/asignacion', 'ParaleloSeneJornadaCarreraController');
-			Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
+			Route::post('/admin/asignacion/guardar', 'ParaleloSeneJornadaCarreraController@store');
+			Route::post('/admin/asignacion/validar','ParaleloSeneJornadaCarreraController@validarParaleloNoRepita');
+			Route::post('/admin/asignacion/paralelos', 'ParaleloSeneJornadaCarreraController@getParalelos');
+			Route::get('/admin/asignacion/{id}/delete','ParaleloSeneJornadaCarreraController@destroy');
 			Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
+
+			// Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
+			// Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
 
 
 			//Paralelo Academico
