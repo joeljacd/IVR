@@ -41,7 +41,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
       return $data;
     }
 
-    public function getParalelos(Request $request){
+    public function getParalelos1(Request $request){
       $query = "";
       //dd($request->all()); exit();
       if ($request->op == 1) {
@@ -50,7 +50,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
                 ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
                 ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$this->getUltimaSede(); 
           }else{
-            $query = "select acad_paralelos.id, acad_paralelos.nombre_paralelo "
+            $query = "select distinct(acad_paralelos.id), acad_paralelos.nombre_paralelo "
                   ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
                   ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$request->id_sede; 
           }
@@ -69,6 +69,51 @@ class ParaleloSeneJornadaCarreraController extends Controller
         return response()->json($data);
     }               
 
+    public function getParalelos(Request $request)
+    {
+        $data = "Dato no encontrado";
+        if($request->op == 1){
+            if ($request->id_sede == 0) {
+                # code...
+            }else{
+                if(isset($request->id_carrera) && ($request->id_carrera != 0)){
+                    $data = $this->getSedesXCarreras($request);
+                }
+                if (isset($request->id_jornada) && ($request->id_jornada != 0)) {
+                    $data = $this->getSedesXCarrerasXJornadas($request);
+                }
+            }
+        }
+        return response()->json($data);
+    }
+
+    public function getSedesXCarreras(Request $request)
+    {
+        $data = DB::table('acad_paralelos_sede_jornada_carrera')
+                    ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
+                    ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
+                    ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
+                    ->select('acad_paralelos.*')
+                    ->where('acad_paralelos_sede_jornada_carrera.id_sede',$request->id_sede)
+                    ->where('acad_paralelos_sede_jornada_carrera.id_carrera',$request->id_carrera)
+                    ->get();
+        return $data;
+    }
+
+    public function getSedesXCarrerasXJornadas(Request $request)
+    {
+         $data = DB::table('acad_paralelos_sede_jornada_carrera')
+                    ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
+                    ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
+                    ->join('sene_jornadacarrera','sene_jornadacarrera.id','=','acad_paralelos_sede_jornada_carrera.id_jornada')
+                    ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
+                    ->select('acad_paralelos.*')
+                    ->where('acad_paralelos_sede_jornada_carrera.id_sede',$request->id_sede)
+                    ->where('acad_paralelos_sede_jornada_carrera.id_carrera',$request->id_carrera)
+                    ->where('sene_jornadacarrera.id',$request->id_jornada)
+                    ->get();
+         return $data;
+    }
     /**
      * Show the form for creating a new resource.
      *

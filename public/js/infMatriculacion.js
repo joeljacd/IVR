@@ -62,20 +62,20 @@ function guardarAsignacion() {
 function consultarAsignacion(op) {
     console.log(op);
     var arreglo = obtenerDatos();
-    if (validarCampos(arreglo[1].id_carrera,arreglo[0].id_sedes,arreglo[2].id_jornada,arreglo[3].id_paralelo)) {
+    if (validarCampos(arreglo[1].id_carrera,arreglo[0].id_sedes,arreglo[2].id_jornada,arreglo[3].id_paralelo)) 
+    {
          $.post(ruta_global+'/admin/asignacion/paralelos',{'op':op,'id_carrera':arreglo[1].id_carrera,'id_sede':arreglo[0].id_sedes,'id_jornada':arreglo[2].id_jornada,'id_paralelo':arreglo[3].id_paralelo},function success(data){
             console.log(data);
            llenarTabla(data);
         });
-    } else {}
+    } else {
+        alert('error');
+    }
 }
 
 function getParalelos(op){
-    var id_sedes = $("#id_sede option:selected").attr("data-sedes");
-    var id_carrera = $("#id_carrera option:selected").attr("data-carreras");
-    var id_jornada = $("#id_jornada option:selected").attr("data-jornada");
     var arreglo = obtenerDatos();
-	//console.log(id);
+	console.log(arreglo);
 	headerAjax();
     $.ajax({
         url: ruta_global+'/admin/asignacion/paralelos',

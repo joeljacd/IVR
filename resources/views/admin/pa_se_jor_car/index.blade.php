@@ -38,7 +38,7 @@
                 
                 <div class="form-group">
                     <label>Seleccionar  jornada</label>
-                    <select class="form-control" name="id_jornada" id="id_jornada" onchange="getParalelos(1);" onclick="getParalelos(2);">
+                    <select class="form-control" name="id_jornada" id="id_jornada" onchange="getParalelos(1);">
                         <option value="0" data-jornada="0">--Seleccione--</option>
                         @foreach($getdatos['jornada'] as $jornada)
                             <option value="{{$jornada->id}}" data-jornada="{{$jornada->id}}">{{$jornada->etiqueta}}</option>
