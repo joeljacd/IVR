@@ -6,8 +6,8 @@
         		<div class="col-md-4">
         			{!! Form::open(['url' => 'admin/docentes/tiempoDed', 'method' => 'POST']) !!}
         				<div class="form-group">
-        					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta">
+        					<label>Nombre de Etiqueta</label>
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>
