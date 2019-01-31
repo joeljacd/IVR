@@ -52,7 +52,7 @@ class RelacionLabController extends Controller
             'id_usu_cre' => Auth::user()->id,
        ]);
 
-        return $this->index();
+        return redirect('/admin/docentes/relacionLab');
     }
 
     /**
