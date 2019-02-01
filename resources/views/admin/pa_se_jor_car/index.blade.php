@@ -1,6 +1,6 @@
 @extends('layouts.principal')
 @section('content')
-<div id="content-wrapper">
+<div id="content-wrapper"> 
     <div class="container-fluid">
     	<div class="row">
             <div class="col-md-4">
@@ -18,7 +18,7 @@
                 
                 <div class="form-group">
                     <label>Seleccionar sedes</label>
-                    <select class="form-control" name="id_sede" id="id_sede">
+                    <select class="form-control" name="id_sede" id="id_sede" required>
                         <option value="0" data-sedes="0">--Seleccione--</option>
                         @foreach($getdatos['sedes'] as $sedes)
                             <option value="{{$sedes->id}}" data-sedes='{{$sedes->id}}'>{{$sedes->nombre_sede}}</option>
@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label>Seleccionar  carrera</label>
-                    <select class="form-control" name="id_carrera" id="id_carrera" onchange="getParalelos(1);">
+                    <select class="form-control" name="id_carrera" id="id_carrera" onchange="getParalelos(1);" required>
                         <option value="0" data-carreras="0">--Seleccione--</option>
                         @foreach($getdatos['carrera'] as $carrera)
                             <option value="{{$carrera->id}}" data-carreras='{{$carrera->id}}'>{{$carrera->nombreCarrera}}</option>
@@ -38,7 +38,7 @@
                 
                 <div class="form-group">
                     <label>Seleccionar  jornada</label>
-                    <select class="form-control" name="id_jornada" id="id_jornada" onchange="getParalelos(1);">
+                    <select class="form-control" name="id_jornada" id="id_jornada" onchange="getParalelos(1);" required>
                         <option value="0" data-jornada="0">--Seleccione--</option>
                         @foreach($getdatos['jornada'] as $jornada)
                             <option value="{{$jornada->id}}" data-jornada="{{$jornada->id}}">{{$jornada->etiqueta}}</option>
@@ -48,8 +48,11 @@
 
                 <div class="form-group" id="cont_paralelo">
                     <label>Seleccionar Paralelo</label>
-                    <select class="form-control" name="id_paralelo" id="id_paralelo">
+                    <select class="form-control" name="id_paralelo" id="id_paralelo" required>
                         <option value="0" data-jornada="0">--Seleccione--</option>
+                        @foreach($getdatos['paralelo'] as $paralelos)
+                            <option value="{{$paralelos->id}}" data-paralelos="{{$paralelos->id}}">{{$paralelos->nombre_paralelo}}</option>
+                        @endforeach
                     </select>
                 </div>                
 
@@ -73,15 +76,29 @@
                             <table class="table table-bordered"  id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Nombre Paralelo</th>
+                                        <th>Editar</th>
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabla">      
                                     @foreach($getdatos['paralelo'] as $paralelo)
                                         <tr>
-                                            <th>{{$paralelo->id}}</th>
-                                            <th>{{$paralelo->nombre_paralelo}}</th>
+                                            <td>{{$paralelo->nombre_paralelo}}</td>
+                                            <td>
+                                                {!!link_to_route('cantones.edit', $title = 'Editar', $parameters = $paralelo->id, $attributes = ['class'=>'btn btn-warning']);!!}
+                                            </td>
+                                            <td>
+                                                @if($paralelo->deleted_at!='')
+                                                <a class="btn btn-primary btn-block" href="cantones/{{$paralelo->id}}/restaurar">Restaurar</a>
+                                            @else
+                                                    {!! Form::open(['route' => ['cantones.destroy',$paralelo->id],'method'=>'DELETE']) !!}
+                                                <div class="form-group">
+                                                    {!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
+                                                </div>
+                                                {!! Form::close() !!}
+                                            @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

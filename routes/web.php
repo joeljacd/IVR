@@ -219,7 +219,6 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 			Route::post('/admin/asignacion/paralelos', 'ParaleloSeneJornadaCarreraController@getParalelos');
 			Route::get('/admin/asignacion/{id}/delete','ParaleloSeneJornadaCarreraController@destroy');
 			Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
-
 			// Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
 			// Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
 

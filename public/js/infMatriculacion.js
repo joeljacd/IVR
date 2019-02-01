@@ -84,11 +84,7 @@ function getParalelos(op){
         data:{'op':op,'id_carrera':arreglo[1].id_carrera,'id_sede':arreglo[0].id_sedes,'id_jornada':arreglo[2].id_jornada,'id_paralelo':arreglo[3].id_paralelo},
         success: function (data) {
             console.info(data);
-            if (op == 1) {
-                llenarTabla(data);
-            } else {
-                llenarCmb(data);
-            }
+            llenarTabla(data);
         }
     });
 }

@@ -39,35 +39,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
     public function getUltimaSede(){
       $data = DB::table('acad_sedes')->count();
       return $data;
-    }
-
-    public function getParalelos1(Request $request){
-      $query = "";
-      //dd($request->all()); exit();
-      if ($request->op == 1) {
-        if ($request->id_sede == 0) {
-          $query = "select distinct(acad_paralelos.id), acad_paralelos.nombre_paralelo "
-                ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
-                ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$this->getUltimaSede(); 
-          }else{
-            $query = "select distinct(acad_paralelos.id), acad_paralelos.nombre_paralelo "
-                  ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
-                  ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$request->id_sede; 
-          }
-                if(isset($request->id_carrera) && ($request->id_carrera != 0)){
-                  $query.= " and acad_paralelos_sede_jornada_carrera.id_carrera = ".$request->id_carrera;
-                }
-                if (isset($request->jornada) && ($request->id_jornada != 0)) {
-                  $query.= " and acad_paralelos_sede_jornada_carrera.id_jornada = ".$request->id_jornada;  
-                }
-        $query.=";";
-      }elseif ($request->op == 2) {
-        $query = "select * ".
-                 "from acad_paralelos ";
-      }
-        $data = DB::select($query);
-        return response()->json($data);
-    }               
+    }             
 
     public function getParalelos(Request $request)
     {
@@ -84,7 +56,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
                 }
             }
         }
-        return response()->json($data);
+        return response()->json($data);  
     }
 
     public function getSedesXCarreras(Request $request)
