@@ -10,7 +10,7 @@
                             <label>Nombre de Materia</label>
                         </div>
                         <div class="col-md-3">
-                            <input class="form-control" type="text" name="etiqueta" required/>
+                            <input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú0-9 ]+"/>
                         </div>
                         <div class="col-md-2">
                             <label>Seleccionar el Area </label>

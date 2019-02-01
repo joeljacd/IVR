@@ -34,7 +34,8 @@ class RazonBecaController4 extends Controller
         $dato = RazonBeca4::create ([
             'id' => $this->getId(),
             'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/razon4/');
     }
@@ -49,6 +50,7 @@ class RazonBecaController4 extends Controller
     {
         $data=RazonBeca4::find($id);
         $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/razon4/');
     }

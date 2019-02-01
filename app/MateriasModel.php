@@ -17,5 +17,9 @@ class MateriasModel extends Model
     	'nombre_materia',
     	'id_area_materia',
     	'descripcion',
+        'id_usu_cre',
+        'fecha_cre',
+        'id_usu_mod',
+        'fecha_mod'
     ];
 }

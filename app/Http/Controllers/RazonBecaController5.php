@@ -35,14 +35,15 @@ class RazonBecaController5 extends Controller
         $dato = RazonBeca5::create ([
             'id' => $this->getId(),
             'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/razon5/');
     }
 
     public function edit($id)
     {
-        $data = RazonBeca6::find($id);
+        $data = RazonBeca5::find($id);
         return view('admin.razon5.edit', ["data"=>$data]);
     }
 
@@ -50,6 +51,7 @@ class RazonBecaController5 extends Controller
     {
         $data=RazonBeca5::find($id);
         $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/razon5/');
     }

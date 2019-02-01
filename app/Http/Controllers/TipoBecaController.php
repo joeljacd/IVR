@@ -40,7 +40,8 @@ class TipoBecaController extends Controller
         $dato = TipoBeca::create ([
             'id' => $this->getId(),
             'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/tipobeca/');
     }
@@ -55,6 +56,7 @@ class TipoBecaController extends Controller
     {
         $data=TipoBeca::find($id);
         $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/tipobeca/');
     }

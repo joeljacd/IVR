@@ -4,7 +4,7 @@
     <div class="container-fluid">
         	<div class="row">
         		<div class="col-md-3">
-        			{!! Form::open(['url' => 'admin/ciclos', 'method' => 'POST']) !!}
+        			{!! Form::open(['url' => 'admin/ciclos', 'method' => 'POST'])!!}
         				<div class="form-group">
         					<label>Nombre de Ciclo</label>
 					    	<input class="form-control" type="text" name="nombre" required pattern="[A-Za-zá-úÁ-Ú ]+">
@@ -47,7 +47,7 @@
 										<td>{{$datas->fecha_mod}}</td>
 										<td>
 											@if($datas->deleted_at!='')
-												{!!link_to_route('ciclos.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn disabled']);!!}
+												{!!link_to_route('ciclos.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning disabled']);!!}
 											@else
 												{!!link_to_route('ciclos.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
 											@endif
