@@ -87,7 +87,7 @@
                                         <tr>
                                             <td>{{$paralelo->nombre_paralelo}}</td>
                                             <td>
-                                                {!!link_to_route('cantones.edit', $title = 'Editar', $parameters = $paralelo->id, $attributes = ['class'=>'btn btn-warning link_asignacion']);!!}
+                                                {!!link_to_route('cantones.edit', $title = 'Editar', $parameters = $paralelo->id, $attributes = ['class'=>'btn btn-warning disabled']);!!}
                                             </td>
                                         </tr>
                                     @endforeach
