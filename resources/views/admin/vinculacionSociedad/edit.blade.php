@@ -10,11 +10,11 @@
 					    	{!!Form::text('etiqueta',null,['class'=>'form-control'])!!}
         				</div>
         				<div class="form-group">
-        					<button class="btn btn-sucess btn-block">Aceptar</button>
+        					<button class="btn btn-primary btn-block">Aceptar</button>
+                  <a class="btn btn-block btn-secondary" role="button" href="{!!URL::to('/admin/vinculacionsociedad');!!}">Cancelar</a>
         				</div>
-        				
-					{!! Form::close() !!}
-					@include('mensaje.mensajeerror')
+    					{!! Form::close() !!}
+    					@include('mensaje.mensajeerror')
         		</div>
         </div>
     </div>

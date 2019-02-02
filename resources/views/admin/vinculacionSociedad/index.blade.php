@@ -13,7 +13,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-sucess btn-block">Aceptar</button>
+            <button class="btn btn-primary btn-block">Aceptar</button>
           </div>
 
           {!! Form::close() !!}
