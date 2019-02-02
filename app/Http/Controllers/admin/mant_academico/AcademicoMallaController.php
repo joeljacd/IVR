@@ -57,8 +57,6 @@ class AcademicoMallaController extends Controller
         $num_sem_per_aca = $request->input('num_sem_per_aca');
         $id_usu_cre = Auth::user()->id;
 
-        return $nombre_malla;
-
         AcademicoMalla::create([
 
             'id' => $id,
@@ -70,7 +68,7 @@ class AcademicoMallaController extends Controller
 
         ]);
 
-        //return redirect('admin/malla');
+        return redirect('admin/malla');
     }
 
     /**
@@ -111,7 +109,7 @@ class AcademicoMallaController extends Controller
         $data->nombre_corto = mb_strtoupper($request->input('nombre_corto'),'UTF-8');
         $data->num_sem_per_aca = $request->input('num_sem_per_aca');
         $data->id_usu_mod = Auth::user()->id;
-        $data->save(); 
+        $data->save();
         return redirect('/admin/malla/');
     }
 
