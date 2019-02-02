@@ -217,7 +217,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 			Route::post('/admin/asignacion/guardar', 'ParaleloSeneJornadaCarreraController@store');
 			Route::post('/admin/asignacion/validar','ParaleloSeneJornadaCarreraController@validarParaleloNoRepita');
 			Route::post('/admin/asignacion/paralelos', 'ParaleloSeneJornadaCarreraController@getParalelos');
-			Route::get('/admin/asignacion/{id}/delete','ParaleloSeneJornadaCarreraController@destroy');
+			Route::get('/admin/asignacion/{id}/edit','ParaleloSeneJornadaCarreraController@edit');
 			Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
 			// Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
 			// Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
