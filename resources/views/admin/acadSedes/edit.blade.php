@@ -9,7 +9,6 @@
           <div class="form-group">
             <label>Nombre de la sede</label>
             <input  class='form-control' name="nombre_sede" required="yes" value="{{ $data->nombre_sede }}">
-
           </div>
 
           <!-- Select Basic -->
@@ -53,6 +52,7 @@
 
           <div class="form-group">
             <button class="btn btn-primary btn-block">Aceptar</button>
+            <a class="btn btn-block btn-secondary" role="button" href="{!!URL::to('/admin/academicoSedes');!!}">Cancelar</a>
           </div>
 
           {!! Form::close() !!}
