@@ -16,7 +16,6 @@ class VinculacionSociedadController extends Controller
      */
     public function index()
     {
-        //$data = VinculacionSociedad::All();
         $data = VinculacionSociedad::withTrashed()->get();
         return view('admin.vinculacionSociedad.index',['data' =>$data] );
     }
@@ -38,39 +37,33 @@ class VinculacionSociedadController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-        public  function calcularId(){
+    public  function calcularId(){
 
-            $registros = VinculacionSociedad::All();
+        $registros = VinculacionSociedad::withTrashed()->get();
+        $max_valor = count($registros);
 
-            $max_valor = count($registros);
-
-
-            if($max_valor > 0){
-
-                $max_valor++;
-
-            } else {
-
-                $max_valor = 1;
-            }
-
-            return $max_valor;
-
+        if($max_valor > 0){
+            $max_valor++;
+        } else {
+            $max_valor = 1;
         }
+
+        return $max_valor;
+    }
 
 
     public function store(VinculacionSociedadRequest $request)
     {
         $id = $this->calcularId();
-       
-        $etiqueta = strtoupper($request->input('etiqueta'));
+
+        $etiqueta = mb_strtoupper($request->input('etiqueta'),'UTF-8');
         $id_usu_cre = Auth::user()->id;
 
         VinculacionSociedad::create([
-
-            'id' => $id, 
+            'id' => $id,
             'etiqueta' => $etiqueta,
             'id_usu_cre' => $id_usu_cre,
+            'id_usu_mod' => $id_usu_cre,
 
         ]);
 
