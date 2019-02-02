@@ -40,11 +40,11 @@ Auth::routes();
 		Route::Resource('admin/tipoSangre','tipoSangreController');
 		Route::get('/admin/tipoSangre/{id}/restaurar','tipoSangreController@restaurar');
 		// admin vinculacion
-		Route::Resource('/admin/vinculacion', 'VinculacionSociedadController');
-		Route::get('/admin/vinculacion/{id}/restaurar','VinculacionSociedadController@restaurar');
+		Route::Resource('/admin/vinculacionsociedad', 'VinculacionSociedadController');
+		Route::get('/admin/vinculacionsociedad/{id}/restaurar','VinculacionSociedadController@restaurar');
 
-		Route::Resource('admin/alcance','AlcanceProyectoVinculacionController');
-		Route::get('/admin/alcance/{id}/restaurar','AlcanceProyectoVinculacionController@restaurar');
+		Route::Resource('admin/alcanceproyecto','AlcanceProyectoVinculacionController');
+		Route::get('/admin/alcanceproyecto/{id}/restaurar','AlcanceProyectoVinculacionController@restaurar');
 
 		Route::Resource('admin/formacionpadre','NivelFormacionPadreController');
 		Route::get('/admin/formacionpadre/{id}/restaurar','NivelFormacionPadreController@restaurar');

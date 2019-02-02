@@ -64,7 +64,6 @@ class VinculacionSociedadController extends Controller
             'etiqueta' => $etiqueta,
             'id_usu_cre' => $id_usu_cre,
             'id_usu_mod' => $id_usu_cre,
-
         ]);
 
         return redirect('admin/vinculacionsociedad');
@@ -100,7 +99,7 @@ class VinculacionSociedadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VinculacionSociedadRequest $request, $id)
     {
         $data=VinculacionSociedad::find($id);
         $data->etiqueta = strtoupper($request->input('etiqueta'));
