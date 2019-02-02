@@ -62,7 +62,7 @@
 											@if($datas->deleted_at!='')
 												<a class="btn btn-primary btn-block" href="/admin/malla/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
-													{!! Form::open(['route' => ['malla.destroy',$datas->id],'method'=>'DELETE']) !!}
+												{!! Form::open(['route' => ['malla.destroy',$datas->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">
 											    	{!!Form::submit('Eliminar',['class'=>'btn btn-danger btn-block'])!!}
 											    </div>

@@ -15,9 +15,7 @@ class AlcanceProyectoVinculacionController extends Controller
      */
     public function index()
     {
- 
         $data = AlcanceProyectoVinculacion::withTrashed()->get();
-        //$data = AlcanceProyectoVinculacion::All();
         return view('admin.alcanceProyectoVinculacion.index',['data' =>$data] );
     }
 
@@ -37,46 +35,32 @@ class AlcanceProyectoVinculacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
- 
     public  function calcularId(){
 
-            $registros = AlcanceProyectoVinculacion::All();
+        $registros = AlcanceProyectoVinculacion::withTrashed()->get();
+        $max_valor = count($registros);
 
-            $max_valor = count($registros);
-
-
-            if($max_valor > 0){
-
-                $max_valor++;
-
-            } else {
-
-                $max_valor = 1;
-            }
-
-            return $max_valor;
-
+        if($max_valor > 0){
+            $max_valor++;
+        } else {
+            $max_valor = 1;
         }
 
-
+        return $max_valor;
+    }
 
     public function store(AlcanceProyectoRequest $request)
     {
         $id = $this->calcularId();
-       
-        $etiqueta = strtoupper($request->input('etiqueta'));
+        $etiqueta = mb_strtoupper($request->input('etiqueta'),'UTF-8');
         $id_usu_cre = Auth::user()->id;
-
         AlcanceProyectoVinculacion::create([
-
-            'id' => $id, 
+            'id' => $id,
             'etiqueta' => $etiqueta,
             'id_usu_cre' => $id_usu_cre,
-
+            'id_usu_mod' => $id_usu_cre,
         ]);
-
         return redirect('admin/alcanceproyecto');
-
     }
 
     /**
@@ -109,10 +93,10 @@ class AlcanceProyectoVinculacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AlcanceProyectoRequest $request, $id)
     {
         $data=AlcanceProyectoVinculacion::find($id);
-        $data->etiqueta=strtoupper($request->input('etiqueta'));
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'),'UTF-8');
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/alcanceproyecto/');

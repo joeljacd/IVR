@@ -18,13 +18,13 @@ Route::get('/', function () {
 
 //modifico jose guaman
 Auth::routes();
-	    
+
 		//usuario todos
 		Route::Resource('/roles','ListarRolesController');
 		Route::get('/crud/vista', 'MantenimientoController@vista')->name('man');
 
-Route::group(['middleware' => ['web', 'admin']], function() {
-			//administrador
+    Route::group(['middleware' => ['web', 'admin']], function() {
+		//administrador
 		//admin rol
 		Route::Resource('/admin/rol','RolesController');
 		Route::get('/admin/rol/{id}/restaurar','RolesController@restaurar');
@@ -36,7 +36,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 		Route::Resource('/admin/opcion','OpcionController');
 		Route::get('/admin/opcion/{id}/restaurar','OpcionController@restaurar');
 
-		
+
 		Route::Resource('admin/tipoSangre','tipoSangreController');
 		Route::get('/admin/tipoSangre/{id}/restaurar','tipoSangreController@restaurar');
 		// admin vinculacion
@@ -52,7 +52,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 		Route::Resource('admin/discapacidad','discapacidadcontroller');
 		Route::get('/admin/discapacidad/{id}/restaurar','discapacidadcontroller@restaurar');
 
-		Route::Resource('/admin/datostipodoc','admin\datosidentificacion\tipodocumentoController');  
+		Route::Resource('/admin/datostipodoc','admin\datosidentificacion\tipodocumentoController');
 		Route::get('/admin/datostipodoc/{id}/restaurar','admin\datosidentificacion\tipodocumentoController@restaurar');
 		Route::get('/admin/datosetnia/{id}/restaurar','admin\datosidentificacion\etniaController@restaurar');
 		Route::Resource('/admin/datosetnia','admin\datosidentificacion\etniaController');
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 
 	 //Henry
 		Route::Resource('/admin/valorAyudaEconomica', 'ValorMontoAyudaEconomicaController');
-	    Route::get('/admin/valorAyudaEconomica/{id}/restaurar','ValorMontoAyudaEconomicaController@restaurar');	
+	    Route::get('/admin/valorAyudaEconomica/{id}/restaurar','ValorMontoAyudaEconomicaController@restaurar');
 
 	    Route::Resource('/admin/valorMontoCredito', 'ValorMontoCreditoController');
 	    Route::get('/admin/valorMontoCredito/{id}/restaurar','ValorMontoCreditoController@restaurar');
@@ -86,7 +86,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 
 	    Route::Resource('/admin/carreras','admin\mant_academico\CarrerasController');
 	    Route::get('/admin/carreras/{id}/restaurar','admin\mant_academico\CarrerasController@restaurar');
-	   
+
 	//admin areas institucion
 		Route::Resource('/admin/areasInstituto','admin\mant_academico\AreasInstitutoController');
 		Route::get('/admin/areasInstituto/{id}/restaurar', 'admin\mant_academico\AreasInstitutoController@restaurar');
@@ -103,10 +103,9 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 		Route::Resource('/admin/nivelFormacion','admin\mant_academico\nivelFormacionController');
 		Route::get('/admin/nivelFormacion/{id}/restaurar', 'admin\mant_academico\nivelFormacionController@restaurar');
 
-	// admin academico malla
 	//ACADEMICO MALLA
 	    Route::Resource('/admin/malla','admin\mant_academico\AcademicoMallaController');
-	    Route::get('/admin/malla/{id}/restaurar', 'admin\mant_academico\AcademicoMallaController@restaurar');
+	    Route::get('/admin/malla/{id}/restaurar','admin\mant_academico\AcademicoMallaController@restaurar');
 	// academico Periodo
 	    Route::Resource('/admin/periodo','admin\mant_academico\Acad_PeriodoController');
 
@@ -121,7 +120,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 		Route::get('/admin/porcentajebecaarancel/{id}/restaurar', 'PorcentajeBecaArancelController@restaurar');
 
 			// ADMIN JORNADA CARRERA
-			
+
 
 		Route::Resource('admin/MallasMaterias','AcadMallasMateriasController');
 		Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController@restaurar');
@@ -163,7 +162,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
 	// jorcy
         Route::Resource('/admin/financiamientobeca', 'financiamientoBecaController');
 	    Route::get('/admin/financiamientobeca/{id}/restaurar','financiamientoBecaController@restaurar');
-	    
+
 		Route::Resource('/admin/tipobeca', 'TipoBecaController');
 	    Route::get('/admin/tipobeca/{id}/restaurar','TipoBecaController@restaurar');
 
