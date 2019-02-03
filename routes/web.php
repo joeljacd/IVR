@@ -220,6 +220,18 @@ Route::group(['middleware' => ['web', 'admin']], function() {
   Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
   // Route::get('/admin/datos', 'ParaleloSeneJornadaCarreraController@vistatabla');
   // Route::get('/admin/asignacion/{id}/restaurar','ParaleloSeneJornadaCarreraController@restaurar');
+    
+    //MANTENIMIENTO ACAD PARALELO POR PERIODO
+Route::Resource('admin/academicoParaleloPeriodo','admin\mant_academico\acadParaleloPeriodoController');
+Route::get('admin/academicoParaleloPeriodo/{id}/restaurar','admin\mant_academico\acadParaleloPeriodoController@restaurar');
+Route::post('admin/academicoParaleloPeriodo/buscar','admin\mant_academico\acadParaleloPeriodoController@obtenerRegistros');
+Route::post('admin/academicoParaleloPeriodo/nuevo','admin\mant_academico\acadParaleloPeriodoController@nuevoRegistro');
+
+//MANTENIMIENTO NUEVO PERIODO
+Route::Resource('admin/academicoNuevoPeriodo','admin\mant_academico\nuevoPeriodoController');
+Route::post('admin/academicoNuevoPeriodo/buscar','admin\mant_academico\nuevoPeriodoController@consultarRegistrosPeriodos');
+Route::post('admin/academicoNuevoPeriodo/mostrar','admin\mant_academico\nuevoPeriodoController@mostrarRegistroPeriodo');
+Route::get('admin/academicoNuevoPeriodo/{id}/restaurar','admin\mant_academico\nuevoPeriodoController@restaurar');        
 
 
   //Paralelo Academico
