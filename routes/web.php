@@ -134,6 +134,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
   Route::get('/admin/genero/{id}/restaurar','admin\datosidentificacion\generoController@restaurar');
   //estadocivil
   Route::Resource('admin/estadocivil','admin\datosidentificacion\estadocivilController');
+  Route::get('/admin/estadocivil/{id}/restaurar','admin\datosidentificacion\estadocivilController@restaurar');
   //formacion madre
   Route::Resource('admin/formacionmadre','NivelFormacionMadreController');
 
