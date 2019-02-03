@@ -38,17 +38,13 @@ class SexoController extends Controller
      */
     public function store(SexoRequest $request)
     {
-        $dato=sexo::All();
-        $contar=count($dato);
-        $valor=strtoupper($request->input('etiqueta'));
-        if ($contar > 0) {   
-            $contar++; 
-            $this->validar($valor,$contar);
-        }else{
-            $contar=1; 
-            $this->validar($valor,$contar);
-        }
-        
+        $next=sexo::max('id');
+        if($next == 0)
+            $next = 1;
+        else
+            $next = $next + 1;
+        $valor=strtoupper($request->input('etiqueta'));        
+        $this->validar($valor,$next);                
         return $this->index();
     }
     public function validar($valor,$contar)
@@ -56,6 +52,7 @@ class SexoController extends Controller
         //$id_user=Auth::user()->id;
         $base=sexo::create([
                 'id'=>$contar,
+                'id_usu_cre' => Auth::user()->id,
                 'etiqueta'=>$valor,
             ]); 
     }
@@ -93,6 +90,7 @@ class SexoController extends Controller
     {
         $datoset = sexo::find($id);
         $datoset->etiqueta = strtoupper($request->input('etiqueta'));
+        $datoset->id_usu_mod = Auth::user()->id;
         $datoset->save();
         return redirect('/admin/sexo/');  
     }
@@ -106,12 +104,17 @@ class SexoController extends Controller
     public function destroy($id)
     {
         $datoset=sexo::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         $datoset->delete();
         return redirect('/admin/sexo/');
     }
     public function restaurar($id)
     {
         $datos=sexo::onlyTrashed()->find($id)->restore();
+        $datoset=sexo::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         return redirect('/admin/sexo/');
     }
 }
