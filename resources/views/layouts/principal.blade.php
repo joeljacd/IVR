@@ -452,6 +452,11 @@
                     <li class="panel panel-default" id="nivel-2-select">
                       <a href="{!!URL::to('/admin/asignacion');!!}">Paralelo/Sede/Jornada/Carrera</a>
                     </li>
+                    
+                    <!--************* PARELELO POR PERIODO ************* -->
+                    <li class="panel panel-default" id="nivel-2-select">
+                      <a href="{!!URL::to('/admin/academicoParaleloPeriodo');!!}">Paralelo por periodo</a>
+                    </li>
 
                   </ul>
                 </div>
