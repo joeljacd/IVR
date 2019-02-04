@@ -93,11 +93,10 @@ class nuevoPeriodoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getId(){
-        $id = AcadParaleloPeriodo::withTrashed()->get();
-        $next = count($id);
-        if($next == 0){
+        $next = AcadParaleloPeriodo::withTrashed()->max('id');
+        if($next == 0)
             $next = 1;
-        }else
+        else
             $next = $next + 1;
         return $next;
     }
@@ -113,11 +112,10 @@ class nuevoPeriodoController extends Controller
                 'id'=>$id,
                 'id_para_sede_jor_car'=>$chkp,
                 'id_periodo'=>$nuevoPeriodo,                
-                'id_usu_cre'=>$id_usu_cre,
-                'id_usu_mod'=>$id_usu_cre,
+                'id_usu_cre'=>$id_usu_cre,                
             ]);           
         } 
-        return json_encode('registrado'); 
+        return json_encode('registrado');
     }
 
     /**
