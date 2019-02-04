@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#buscarAsig").hide();
+    checkRb('#inlineRadio1');
 });
 
 function obtenerDatos() {
@@ -62,15 +63,12 @@ function guardarAsignacion() {
 function consultarAsignacion(op) {
     console.log(op);
     var arreglo = obtenerDatos();
-    if (validarCampos(arreglo[1].id_carrera,arreglo[0].id_sedes,arreglo[2].id_jornada,arreglo[3].id_paralelo)) 
-    {
-         $.post(ruta_global+'/admin/asignacion/paralelos',{'op':op,'id_carrera':arreglo[1].id_carrera,'id_sede':arreglo[0].id_sedes,'id_jornada':arreglo[2].id_jornada,'id_paralelo':arreglo[3].id_paralelo},function success(data){
-            console.log(data);
+    console.info(arreglo);
+        $.post(ruta_global+'/admin/asignacion/paralelos',{'op':op,'id_carrera':arreglo[1].id_carrera,'id_sede':arreglo[0].id_sedes,'id_jornada':arreglo[2].id_jornada,'id_paralelo':arreglo[3].id_paralelo},function success(data){
+           console.log(data);
            llenarTabla(data);
+           $(".link_asignacion").removeClass('disabled');
         });
-    } else {
-        alert('error');
-    }
 }
 
 function getParalelos(op){
@@ -84,20 +82,25 @@ function getParalelos(op){
         data:{'op':op,'id_carrera':arreglo[1].id_carrera,'id_sede':arreglo[0].id_sedes,'id_jornada':arreglo[2].id_jornada,'id_paralelo':arreglo[3].id_paralelo},
         success: function (data) {
             console.info(data);
-            if (op == 1) {
-                llenarTabla(data);
-            } else {
-                llenarCmb(data);
-            }
+            llenarTabla(data);
         }
     });
+}
+
+function editarAsignacion(id) {
+    //alert(id);
+    ruta = ruta_global+"/admin/asignacion/"+id+"/edit"; 
+    $("#formEdit").attr('action',ruta);
+    $("#formEdit").attr('method','get');
+    $("#formEdit").submit();
 }
 
 function llenarTabla(data) {
 	$("#tabla").empty();
     $.each(data, function(i, item){
-        $("#tabla").append("<tr><th>"+item.id+"</th>"    +
-                               "<th>"+item.nombre_paralelo+"</th></tr>");
+        btnEdit = '<button type="button" class="btn btn-warning disabled link_asignacion" onclick="editarAsignacion('+item.id+')">Editar</button>';
+        $("#tabla").append("<tr><th>"+item.nombre_paralelo+"</th>"+
+                               "<th>"+btnEdit+"</th></tr>");    
     });
 }
 

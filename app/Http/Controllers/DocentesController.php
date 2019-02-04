@@ -60,7 +60,6 @@ class DocentesController extends Controller
         $tiempo = DocenteTiempo::all();
 
         return view('docentes.main.index',compact('nivFor', 'reLab', 'escDoc','cargo',
-                                                           'carrera','jornada','tipo','nivel','paralelo',
                                                            'tipDoc','sexo','gen','etni','tipSan','estCiv','naci',
                                                            'prov','canton','tipoDis','tipoEnfCat',
                                                            'tipBec','tipFina','tiempo'));

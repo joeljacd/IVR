@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NivelFormacionRequest extends FormRequest
+class AlcanceProyectoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class NivelFormacionRequest extends FormRequest
     public function rules()
     {
         return [
-            'etiqueta' => 'required|unique:sene_nivelformacionpadre',
+            'etiqueta'=>'required|unique:sene_tipoalcanceproyectovinculacionid'
         ];
     }
 }

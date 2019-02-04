@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TipodocumentoRequest;
 use App\tipodocumento;
+use Illuminate\Support\Facades\Auth;
 
 class tipodocumentoController extends Controller
 {
@@ -43,12 +44,14 @@ class tipodocumentoController extends Controller
      */
     public function store(TipodocumentoRequest $request)
     {        
-        $id = tipodocumento::All();
-        $next = count($id);
+        $next = tipodocumento::max('id');
         if($next == 0)
             $next = 1;
+        else
+            $next = $next + 1;
         $dato = tipodocumento::create ([
             'id' => $next,
+            'id_usu_cre' => Auth::user()->id,
             'etiqueta'=> strtoupper($request->input('etiqueta')),
         ]);
         return $this->index();
@@ -88,6 +91,7 @@ class tipodocumentoController extends Controller
     {
         $tipodoc = tipodocumento::find($id);
         $tipodoc->etiqueta = strtoupper($request->input('etiqueta'));
+        $tipodoc->id_usu_mod = Auth::user()->id;
         $tipodoc->save();
         return redirect('/admin/datostipodoc/'); 
     }
@@ -101,6 +105,8 @@ class tipodocumentoController extends Controller
     public function destroy($id)
     {
         $tipodoc=tipodocumento::find($id);
+        $tipodoc->id_usu_mod = Auth::user()->id;
+        $tipodoc->save();
         $tipodoc->delete();
         return redirect('/admin/datostipodoc/');
     }
@@ -108,6 +114,8 @@ class tipodocumentoController extends Controller
      public function restaurar($id)
     {
         $datos=tipodocumento::onlyTrashed()->find($id)->restore();
+        $tipodoc=tipodocumento::find($id);
+        $tipodoc->id_usu_mod = Auth::user()->id;
         return redirect('/admin/datostipodoc/');
     }
 }

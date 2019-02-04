@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GeneroRequest;
 use App\genero;
+use Illuminate\Support\Facades\Auth;
 class generoController extends Controller
 {
     /**
@@ -43,22 +44,19 @@ class generoController extends Controller
     public function validarId($id,$etiqueta){
         genero::create([
             'id'=>$id,
+            'id_usu_cre' => Auth::user()->id,
             'etiqueta'=>strtoupper($etiqueta),            
             ]);
     }
     public function store(GeneroRequest $request)
     {
-        $data = genero::All();
-        $valor=count($data);
-        $etiqueta = $request->input('etiqueta');
-        if($valor > 0){
-            $valor++;
-            $this->validarId($valor,$etiqueta); 
-        }else{
-            $valor=1;
-            $this->validarId($valor, $etiqueta);
-        }
-        
+        $next = genero::max('id');
+        if($next == 0)
+            $next = 1;
+        else
+            $next = $next + 1;
+        $etiqueta = $request->input('etiqueta');        
+        $this->validarId($next,$etiqueta);                 
         return $this->index();
     }
 
@@ -96,9 +94,7 @@ class generoController extends Controller
     {
         $datoset = genero::find($id);
         $datoset->etiqueta = strtoupper($request->input('etiqueta'));
-        /*$datoset->sexo = strtoupper($request->input('sexo'));
-        
-        $datoset->etiqueta = strtoupper($request->input('etiqueta'));   */     
+        $datoset->id_usu_mod = Auth::user()->id;    
         $datoset->save();
         return redirect('/admin/genero/'); 
     }
@@ -112,12 +108,17 @@ class generoController extends Controller
     public function destroy($id)
     {
         $datoset=genero::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         $datoset->delete();
         return redirect('/admin/genero/');
     }
     public function restaurar($id)
     {
         $datos=genero::onlyTrashed()->find($id)->restore();
+        $datos=genero::find($id);
+        $datos->id_usu_mod = Auth::user()->id;
+        $datos->save();
         return redirect('/admin/genero/');
     }
 }

@@ -35,33 +35,27 @@ class MateriasController extends Controller
     }
 
     public function getId(){
-        $id = MateriasModel::withTrashed()->get();
+        $id = MateriasModel::whereRaw('id > ? or deleted_at <> null', [0])->get();
         $next = count($id);
-        if($next > 0){
+        if($next > 0 ){
             $next+=1;
         }else
             $next =1;
         return $next;
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-            $id_usu_cre = Auth::user()->id;
-            $id = $this->getId();
+            $id = Auth::user()->id;
             //dd($request->all()); exit();
             MateriasModel::create ([
-            'id' => $id,
-            'nombre_materia'=>$request->input('etiqueta'),
-            'id_area_materia'=>$request->input('id_area_materia'),
-            'descripcion' =>$request->input('descripcion'),
-            'id_usu_cre'=>$id_usu_cre,
+                'id' => $this->getId(),
+                'nombre_materia'=>mb_strtoupper($request->input('etiqueta')),
+                'id_area_materia'=>$request->input('id_area_materia'),
+                'descripcion' =>mb_strtoupper($request->input('descripcion')),
+                'id_usu_cre' => $id,
+                'id_usu_mod' => $id,
         ]);
-
         return redirect('/admin/materias');
     }
 
@@ -76,12 +70,6 @@ class MateriasController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $mat = MateriasModel::find($id);
@@ -97,20 +85,14 @@ class MateriasController extends Controller
         return view('admin.materias.edit', ["data"=>$data, 'area' => $areas]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //dd($request->input('etiqueta'));exit();
         $data=MateriasModel::find($id);
-        $data->nombre_materia= $request->input('etiqueta');
+        $data->nombre_materia=mb_strtoupper($request->input('etiqueta'));
         $data->id_area_materia = $request->input('id_area_materia');
-        $data->descripcion =  $request->input('descripcion');
+        $data->descripcion =  mb_strtoupper($request->input('descripcion'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/materias/');
     }
@@ -130,7 +112,7 @@ class MateriasController extends Controller
 
     public function restaurar($id)
     {
-        $datos=MateriasModel::onlyTrashed()->find($id)->restore();
+        $datos = MateriasModel::onlyTrashed()->find($id)->restore();
         return redirect('/admin/materias/');
     }
 }

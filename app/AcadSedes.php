@@ -9,20 +9,16 @@ class AcadSedes extends Model
 {
 	use SoftDeletes;
 
-    protected $table = 'acad_sedes';
-    protected $dates = ['delete_at'];
-
-
-    protected $fillable = [
-    	
-    	'id',
-    	'nombre_sede',
-    	'id_provincia',
-    	'id_canton',
-    	'observacion',
-    	'id_usu_cre',
-    	'id_usu_mod',
-    ];
-
+	protected $table = 'acad_sedes';
+	protected $dates = ['delete_at'];
+	protected $fillable = [
+		'id',
+		'nombre_sede',
+		'id_provincia',
+		'id_canton',
+		'observacion',
+		'id_usu_cre',
+		'id_usu_mod',
+	];
 
 }

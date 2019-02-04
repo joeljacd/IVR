@@ -43,16 +43,13 @@ class etniaController extends Controller
      */
     public function store(EtniaRequest $request)
     {
-        $dato=Etnia::All();
-        $contar=count($dato);
-        $valor=strtoupper($request->input('etiqueta'));
-        if ($contar > 0) {   
-            $contar++; 
-            $this->validar($valor,$contar);
-        }else{
-            $contar=1; 
-            $this->validar($valor,$contar);
-        }
+        $next=Etnia::max('id');
+        if($next == 0)
+            $next = 1;
+        else
+            $next = $next + 1;
+        $valor=strtoupper($request->input('etiqueta'));        
+        $this->validar($valor,$next);        
         
         return $this->index();
     }
@@ -61,6 +58,7 @@ class etniaController extends Controller
         //$id_user=Auth::user()->id;
         $base=Etnia::create([
                 'id'=>$contar,
+                'id_usu_cre' => Auth::user()->id,
                 'etiqueta'=>$valor,
             ]); 
     }
@@ -98,6 +96,7 @@ class etniaController extends Controller
     {
         $datoset = Etnia::find($id);
         $datoset->etiqueta = strtoupper($request->input('etiqueta'));
+        $datoset->id_usu_mod = Auth::user()->id;
         $datoset->save();
         return redirect('/admin/datosetnia/');  
     }
@@ -111,12 +110,17 @@ class etniaController extends Controller
     public function destroy($id)
     {
         $datoset=Etnia::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         $datoset->delete();
         return redirect('/admin/datosetnia/');
     }
     public function restaurar($id)
     {
         $datos=Etnia::onlyTrashed()->find($id)->restore();
+        $datoset=Etnia::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         return redirect('/admin/datosetnia/');
     }
 }

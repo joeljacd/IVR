@@ -17,10 +17,13 @@ class AcadCarreraCoordinador extends Model
 	protected $fillable = [
 
 		
+		'id',
 		'id_carrera',
 		'id_docente',
 		'id_usu_cre',
 		'id_usu_mod',
+		'fecha_cre',
+		'fecha_mod'
 	];
 
 

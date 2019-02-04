@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RazonBecaController1 extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $data = RazonBeca1::withTrashed()->get();
@@ -32,11 +28,12 @@ class RazonBecaController1 extends Controller
 
     public function store(Request $request)
     {
-        $id=Auth::user()->id;
+        $id = Auth::user()->id;
         $dato = RazonBeca1::create ([
             'id' => $this->getId(),
             'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/razon1/');
     }
@@ -51,6 +48,7 @@ class RazonBecaController1 extends Controller
     {
         $data=RazonBeca1::find($id);
         $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/razon1/');
     }

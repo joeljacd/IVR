@@ -5,17 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class AcadParaleloPeriodo extends Model
 {
     use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
-    protected $table = 'sene_estadocivilid';
+	protected $table = 'acad_paralelos_x_periodo';
 
-    protected $fillable = [
-        'id',
-        'id_para_sede_jor_car',
-        'id_periodo',
-    ];
+	protected $dates = ['delete_at'];
+
+	protected $fillable = [
+
+		'id',
+		'id_para_sede_jor_car',
+		'id_periodo',
+		'id_usu_cre',
+		'id_usu_mod',
+	];
 }

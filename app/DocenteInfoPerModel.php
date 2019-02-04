@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocenteInfoPerModel extends Model
 {
-    protected $table = 'acad_doce_infpersonal';
+    protected $table = 'acad_docente';
 
     protected $fillable = ['
         id',
@@ -42,5 +42,9 @@ class DocenteInfoPerModel extends Model
         'nroCona',
         'tipoDiscapacidad',
         'tipoEnfeCatas',
+       'id_usu_cre',
+      'fecha_cre',
+      'id_usu_mod',
+      'fecha_mod'
         ];
 }

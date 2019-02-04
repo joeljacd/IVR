@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EstadocivilRequest;
 use App\estadocivil;
+use Illuminate\Support\Facades\Auth;
 
 class estadocivilController extends Controller
 {
@@ -44,21 +45,19 @@ class estadocivilController extends Controller
     public function validarId($id,$etiqueta){
         estadocivil::create([
             'id'=>$id,
+            'id_usu_cre' => Auth::user()->id,
             'etiqueta'=>strtoupper($etiqueta),            
             ]);
     }
     public function store(EstadocivilRequest $request)
     {        
-        $data = estadocivil::All();
-        $valor=count($data);
-        $etiqueta = $request->input('etiqueta');
-        if($valor > 0){
-            $valor++;
-            $this->validarId($valor,$etiqueta); 
-        }else{
-            $valor=1;
-            $this->validarId($valor, $etiqueta);
-        }
+        $next = estadocivil::max('id');
+        if($next == 0)
+            $next = 1;
+        else
+            $next = $next + 1;
+        $etiqueta = $request->input('etiqueta');        
+        $this->validarId($next,$etiqueta);         
         
         return $this->index();
     }
@@ -96,9 +95,8 @@ class estadocivilController extends Controller
     public function update(EstadocivilRequest $request, $id)
     {
         $datoset = estadocivil::find($id);
-        /*$datoset->sexo = strtoupper($request->input('sexo'));
-        $datoset->genero = strtoupper($request->input('genero'));*/
-        $datoset->etiqueta = strtoupper($request->input('etiqueta'));        
+        $datoset->etiqueta = strtoupper($request->input('etiqueta')); 
+        $datoset->id_usu_mod = Auth::user()->id;  
         $datoset->save();
         return redirect('/admin/estadocivil/'); 
     }
@@ -112,12 +110,17 @@ class estadocivilController extends Controller
     public function destroy($id)
     {
         $datoset=estadocivil::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         $datoset->delete();
         return redirect('/admin/estadocivil/');
     }
     public function restaurar($id)
     {
         $datos=estadocivil::onlyTrashed()->find($id)->restore();
+        $datoset=estadocivil::find($id);
+        $datoset->id_usu_mod = Auth::user()->id;
+        $datoset->save();
         return redirect('/admin/estadocivil/');
     }
 }

@@ -42,7 +42,7 @@
       <a class="navbar-brand mr-1" href="{!!URL::to('/roles');!!}">Principal</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        
+
       </button>
 
       <!-- Navbar Search -->
@@ -57,7 +57,7 @@
       <ul class="navbar-nav ml-auto ml-md-8">
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><label>Bienvenido: </label>
-            {!!Auth::user()->nombre!!} {!!Auth::user()->apellido!!}            
+            {!!Auth::user()->nombre!!} {!!Auth::user()->apellido!!}
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -83,7 +83,7 @@
 
             <!--************* SENESCYT ************* -->
             <li class="panel panel-default">
-              <a data-toggle="collapse" href="#senescyt"><i class="fas fa-fw fa-folder"></i> 
+              <a data-toggle="collapse" href="#senescyt"><i class="fas fa-fw fa-folder"></i>
                 <span>Mantenimiento Senescyt</span><i id="caret" class="fas fa-caret-down"></i>
               </a>
 
@@ -122,7 +122,7 @@
                             </li>
                             <li>
                               <a tabindex="-1" href="#">Pueblo</a>
-                            </li> 
+                            </li>
                             <li>
                               <a tabindex="-1" href="#">Fecha de Nacimiento</a>
                             </li>
@@ -252,7 +252,8 @@
                       <div id="op-proyecto-vin" class="panel-collapse collapse">
                         <div class="panel-body">
                           <ul class="nav navbar-nav" id="nivel-3">
-                            <li><a tabindex="-1" href="{!!URL::to('/admin/alcance');!!}">Tipo Alcance</a></li>
+                            <li><a tabindex="-1" href="{!!URL::to('/admin/alcanceproyecto');!!}">Tipo de Alcance</a></li>
+                            <li><a tabindex="-1" href="{!!URL::to('/admin/vinculacionsociedad');!!}">Participa en Proyecto</a></li>
                           </ul>
                         </div>
                       </div>
@@ -291,7 +292,7 @@
                         </div>
                       </div>
                     </li>
-                    
+
                     <!--************* FORMACION FAMILIAR ************* -->
                     <li class="panel panel-default" id="nivel-2">
                       <a data-toggle="collapse" href="#op-formacion-fam">Formación familiar
@@ -334,20 +335,20 @@
                       </div>
                     </li>
 
-                  </ul> 
+                  </ul>
                 </div>
               </div>
             </li>
 
 <!--*********** MANTENIMIENTO ACADEMICO *********** -->
             <li>
-              <a data-toggle="collapse" href="#academico"><i class="fas fa-fw fa-folder"></i> 
+              <a data-toggle="collapse" href="#academico"><i class="fas fa-fw fa-folder"></i>
                 <span>Mantenimiento Académico</span><i id="caret" class="fas fa-caret-down"></i>
               </a>
               <div id="academico" class="panel-collapse collapse">
                 <div class="panel-body">
                   <ul class="nav navbar-nav" id="nivel-2">
-                    
+
                     <!--************* CARRERAS ************* -->
                     <li class="panel panel-default" id="nivel-2">
                       <a data-toggle="collapse" href="#op-carreras">Carreras
@@ -416,12 +417,12 @@
                         Areas Institución
                       </a>
                     </li>
-                    
+
                     <!--************* CICLOS ************* -->
                     <li class="panel panel-default" id="nivel-2-select">
                       <a href="{!!URL::to('/admin/ciclos');!!}">Ciclos</a>
                     </li>
-                    
+
                     <!--************* NIVEL FORMACION ************* -->
                     <li class="panel panel-default" id="nivel-2-select">
                       <a href="{!!URL::to('/admin/nivelFormacion');!!}">Nivel Formación</a>
@@ -451,10 +452,15 @@
                     <li class="panel panel-default" id="nivel-2-select">
                       <a href="{!!URL::to('/admin/asignacion');!!}">Paralelo/Sede/Jornada/Carrera</a>
                     </li>
+                    
+                    <!--************* PARELELO POR PERIODO ************* -->
+                    <li class="panel panel-default" id="nivel-2-select">
+                      <a href="{!!URL::to('/admin/academicoParaleloPeriodo');!!}">Paralelo por periodo</a>
+                    </li>
 
                   </ul>
                 </div>
-                
+
               </div>
 
             </li>
@@ -464,17 +470,17 @@
 
           </ul>
         </nav>
-        
+
       </div>
 
     @endif
 
     <div id="content">
-      
+
         @yield('content')
-      
+
     </div>
-    
+
 
   </div><!-- FIN DEL WRAPPER -->
 
@@ -522,21 +528,21 @@
     <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/infAcademica.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/infMatriculacion.js') }}"></script>
-    
+
     <script>
-      
+
       var ruta_global = '{{ url('') }}';
 
       $(document).ready(function(){
 
         $('#btn-menu').on('click' , function (){
-          
+
           $('#dashboard, #content').toggleClass('active');
           $('.collapse.in').toggleClass('in');
           $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-          
-        }); 
-    
+
+        });
+
       });
 
     </script>

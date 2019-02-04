@@ -10,19 +10,19 @@
                 <div class="col-md-3">
                     <div class="form-group">
         		<label>Nombre Periodos</label>
-			<input class="form-control" type="text" name="etiqueta">
+			<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú0-9-? ]+">
                     </div>				
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Nombre corto</label>
-                        <input class="form-control" type="text" name="nombrecorto">
+                        <input class="form-control" type="text" name="nombrecorto" required pattern="[A-Za-zá-úÁ-Ú0-9-? ]+">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Año Periodo</label>
-                        <input class="form-control" type="text" name="añoperiodo">
+                        <input class="form-control" type="text" name="añoperiodo" required pattern="[0-9-? ]+">
                     </div> 
                 </div>
                 <div class="col-md-3">

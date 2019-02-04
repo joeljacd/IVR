@@ -39,35 +39,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
     public function getUltimaSede(){
       $data = DB::table('acad_sedes')->count();
       return $data;
-    }
-
-    public function getParalelos1(Request $request){
-      $query = "";
-      //dd($request->all()); exit();
-      if ($request->op == 1) {
-        if ($request->id_sede == 0) {
-          $query = "select distinct(acad_paralelos.id), acad_paralelos.nombre_paralelo "
-                ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
-                ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$this->getUltimaSede(); 
-          }else{
-            $query = "select distinct(acad_paralelos.id), acad_paralelos.nombre_paralelo "
-                  ."from acad_paralelos, acad_paralelos_sede_jornada_carrera "
-                  ."where acad_paralelos_sede_jornada_carrera.id_sede = ".$request->id_sede; 
-          }
-                if(isset($request->id_carrera) && ($request->id_carrera != 0)){
-                  $query.= " and acad_paralelos_sede_jornada_carrera.id_carrera = ".$request->id_carrera;
-                }
-                if (isset($request->jornada) && ($request->id_jornada != 0)) {
-                  $query.= " and acad_paralelos_sede_jornada_carrera.id_jornada = ".$request->id_jornada;  
-                }
-        $query.=";";
-      }elseif ($request->op == 2) {
-        $query = "select * ".
-                 "from acad_paralelos ";
-      }
-        $data = DB::select($query);
-        return response()->json($data);
-    }               
+    }             
 
     public function getParalelos(Request $request)
     {
@@ -84,7 +56,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
                 }
             }
         }
-        return response()->json($data);
+        return response()->json($data);  
     }
 
     public function getSedesXCarreras(Request $request)
@@ -93,7 +65,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
                     ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
                     ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
                     ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
-                    ->select('acad_paralelos.*')
+                    ->select('acad_paralelos.id','acad_paralelos.nombre_paralelo','acad_paralelos_sede_jornada_carrera.*')
                     ->where('acad_paralelos_sede_jornada_carrera.id_sede',$request->id_sede)
                     ->where('acad_paralelos_sede_jornada_carrera.id_carrera',$request->id_carrera)
                     ->get();
@@ -107,7 +79,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
                     ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
                     ->join('sene_jornadacarrera','sene_jornadacarrera.id','=','acad_paralelos_sede_jornada_carrera.id_jornada')
                     ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
-                    ->select('acad_paralelos.*')
+                    ->select('acad_paralelos.id','acad_paralelos.nombre_paralelo','acad_paralelos_sede_jornada_carrera.*')
                     ->where('acad_paralelos_sede_jornada_carrera.id_sede',$request->id_sede)
                     ->where('acad_paralelos_sede_jornada_carrera.id_carrera',$request->id_carrera)
                     ->where('sene_jornadacarrera.id',$request->id_jornada)
@@ -183,8 +155,10 @@ class ParaleloSeneJornadaCarreraController extends Controller
      */
     public function edit($id)
     {
+        //dd($id);exit();
         $getdatos=$this->getdatos();
         $data = ParaleloSeneJornadaCarreraModel::find($id);
+        //dd($data);exit();
         return view('admin.pa_se_jor_car.edit', ["data"=>$data,'getdatos' =>$getdatos]);
     }
 
@@ -202,6 +176,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
         $data->id_sede=$request->input('id_sede');
         $data->id_jornada=$request->input('id_jornada');
         $data->id_paralelo=$request->input('id_paralelo');
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/asignacion/');
     }

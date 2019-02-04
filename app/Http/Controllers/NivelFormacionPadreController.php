@@ -15,7 +15,6 @@ class NivelFormacionPadreController extends Controller
      */
     public function index()
     {
-        //$data = NivelFormacionPadre::All();
         $data = NivelFormacionPadre::withTrashed()->get();
         return view('admin.nivelFormacionPadre.index', ['data' =>$data] );
     }
@@ -39,36 +38,31 @@ class NivelFormacionPadreController extends Controller
 
     public  function calcularId(){
 
-        $registros = NivelFormacionPadre::All();
-
+        $registros = NivelFormacionPadre::withTrashed()->get();
         $max_valor = count($registros);
 
-
         if($max_valor > 0){
-
             $max_valor++;
-
         } else {
-
             $max_valor = 1;
         }
 
         return $max_valor;
-
     }
 
     public function store(NivelFormacionPadreRequest $request)
     {
         $id = $this->calcularId();
-       
-        $etiqueta = strtoupper($request->input('etiqueta'));
+
+        $etiqueta = mb_strtoupper($request->input('etiqueta'),'UTF-8');
         $id_usu_cre = Auth::user()->id;
 
         NivelFormacionPadre::create([
 
-            'id' => $id, 
+            'id' => $id,
             'etiqueta' => $etiqueta,
             'id_usu_cre' => $id_usu_cre,
+            'id_usu_mod' => $id_usu_cre,
 
         ]);
 
@@ -105,10 +99,10 @@ class NivelFormacionPadreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NivelFormacionPadreRequest $request, $id)
     {
-        $data=NivelFormacionPadre::find($id);
-        $data->etiqueta=strtoupper($request->input('etiqueta'));
+        $data = NivelFormacionPadre::find($id);
+        $data->etiqueta = mb_strtoupper($request->input('etiqueta'), 'UTF-8');
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/formacionpadre/');

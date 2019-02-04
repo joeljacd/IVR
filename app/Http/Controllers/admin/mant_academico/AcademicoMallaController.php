@@ -1,16 +1,13 @@
 <?php
 
-
 namespace App\Http\Controllers\admin\mant_academico;
-
 
 use App\AcademicoMalla;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AcademicoMallaRequest;
 
- 
 class AcademicoMallaController extends Controller
 {
     /**
@@ -21,10 +18,8 @@ class AcademicoMallaController extends Controller
     public function index()
     {
         $data  =  AcademicoMalla::All();
-        //$data = AcademicoMalla::withTrashed()->get();
         return view('admin.academicoMalla.index',['data' => $data] );
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -41,47 +36,37 @@ class AcademicoMallaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public  function calcularId(){
 
         $registros = AcademicoMalla::All();
-
         $max_valor = count($registros);
 
-
         if($max_valor > 0){
-
             $max_valor++;
-
         } else {
-
             $max_valor = 1;
         }
-
         return $max_valor;
-
     }
-
 
     public function store(AcademicoMallaRequest $request)
     {
         $id = $this->calcularId();
-       
-        $nombre_malla = strtoupper($request->input('nombre_malla'));
-        $nombre_corto = strtoupper($request->input('nombre_corto'));
+        $nombre_malla = mb_strtoupper($request->input('nombre_malla'),'UTF-8');
+        $nombre_corto = mb_strtoupper($request->input('nombre_corto'),'UTF-8');
         $num_sem_per_aca = $request->input('num_sem_per_aca');
         $id_usu_cre = Auth::user()->id;
 
         AcademicoMalla::create([
 
-            'id' => $id, 
+            'id' => $id,
             'nombre_malla' => $nombre_malla,
             'nombre_corto' => $nombre_corto,
             'num_sem_per_aca' => $num_sem_per_aca,
             'id_usu_cre' => $id_usu_cre,
+            'id_usu_mod' => $id_usu_cre,
 
         ]);
-
 
         return redirect('admin/malla');
     }
@@ -96,6 +81,7 @@ class AcademicoMallaController extends Controller
     {
         //
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -116,17 +102,17 @@ class AcademicoMallaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AcademicoMallaRequest $request, $id)
     {
         $data = AcademicoMalla::find($id);
-        $data->nombre_malla =  strtoupper($request->input('nombre_malla'));
-        $data->nombre_corto =  strtoupper($request->input('nombre_corto'));
-        $data->num_sem_per_aca =  $request->input('num_sem_per_aca');
+        $data->nombre_malla = mb_strtoupper($request->input('nombre_malla'),'UTF-8');
+        $data->nombre_corto = mb_strtoupper($request->input('nombre_corto'),'UTF-8');
+        $data->num_sem_per_aca = $request->input('num_sem_per_aca');
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/malla/');
     }
-        
+
     /**
      * Remove the specified resource from storage.
      *
@@ -140,10 +126,8 @@ class AcademicoMallaController extends Controller
         return redirect('/admin/malla');
     }
 
-
-    public function restaurar($id)
-    {
+    /*{
         $datos=AcademicoMalla::onlyTrashed()->find($id)->restore();
         return redirect('/admin/malla/');
-    }
+    }*/
 }

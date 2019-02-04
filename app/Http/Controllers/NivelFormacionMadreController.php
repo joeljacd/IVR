@@ -6,8 +6,6 @@ use App\Http\Requests\NivelFormacionMadreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-
 class NivelFormacionMadreController extends Controller
 {
     /**
@@ -17,7 +15,6 @@ class NivelFormacionMadreController extends Controller
      */
     public function index()
     {
-        //$data = NivelFormacionMadre::All();
         $data = NivelFormacionMadre::withTrashed()->get();
         return view('admin.nivelFormacionMadre.index', ['data' =>$data] );
     }
@@ -41,38 +38,29 @@ class NivelFormacionMadreController extends Controller
 
     public  function calcularId(){
 
-        $registros = NivelFormacionMadre::All();
-
+        $registros = NivelFormacionMadre::withTrashed()->get();
         $max_valor = count($registros);
 
-
         if($max_valor > 0){
-
             $max_valor++;
-
         } else {
-
             $max_valor = 1;
         }
 
         return $max_valor;
-
     }
 
     public function store(NivelFormacionMadreRequest $request)
-
     {
         $id = $this->calcularId();
-       
-        $etiqueta = strtoupper($request->input('etiqueta'));
+        $etiqueta = mb_strtoupper($request->input('etiqueta'),'UTF-8');
         $id_usu_cre = Auth::user()->id;
 
         NivelFormacionMadre::create([
-
-            'id' => $id, 
+            'id' => $id,
             'etiqueta' => $etiqueta,
             'id_usu_cre' => $id_usu_cre,
-
+            'id_usu_mod' => $id_usu_cre,
         ]);
 
         return redirect('admin/formacionmadre');
@@ -108,10 +96,10 @@ class NivelFormacionMadreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NivelFormacionMadreRequest $request, $id)
     {
         $data=NivelFormacionMadre::find($id);
-        $data->etiqueta=  strtoupper( $request->input('etiqueta') );
+        $data->etiqueta=  mb_strtoupper($request->input('etiqueta'),'UTF-8');
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/formacionmadre/');
