@@ -14,6 +14,8 @@ use App\AcadSedes;
 use App\acad_periodos;
 use App\ParaleloSeneJornadaCarreraModel;
 
+//Nuevo periodo
+
 class nuevoPeriodoController extends Controller
 {
     /**
