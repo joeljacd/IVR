@@ -1,11 +1,11 @@
 <?php
-
+//modificado por andrea alvarado
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\tipoSangre;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\TipoSangreRequest;
 class tipoSangreController extends Controller
 {
     /**
@@ -30,7 +30,7 @@ class tipoSangreController extends Controller
     }
 
     public function getId(){
-        $id = tipoSangre::all();
+        $id = tipoSangre::withTrashed()->get();
         $next = count($id);
         if($next > 0){
             $next+=1;
@@ -38,15 +38,16 @@ class tipoSangreController extends Controller
             $next =1;
         return $next;
     }
-    public function store(Request $request)
+    public function store(TipoSangreRequest $request)
     {
             $id_usu_cre = Auth::user()->id;
             $id = $this->getId();
             $dato = tipoSangre::create ([
             'id' => $id,
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta'),'UTF-8'),
             'id_usu_cre' => $id_usu_cre,
-                ]);
+            'id_usu_mod' => $id_usu_cre,    
+            ]);
 
         return redirect('admin/tipoSangre');
     }
@@ -81,12 +82,16 @@ class tipoSangreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TipoSangreRequest $request, $id)
     {
+        
+        
         $data=tipoSangre::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta= mb_strtoupper($request->input('etiqueta'), 'UTF-8') ;
+        $data->id_usu_mod= Auth::user()->id;
         $data->save();
         return redirect('/admin/tipoSangre/');
+        
     }
 
     /**

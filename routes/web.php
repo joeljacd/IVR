@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+//hola que hace
+
 
 //modifico jose guaman
 Auth::routes();

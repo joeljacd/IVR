@@ -1,10 +1,11 @@
 <?php
-
+//modificado por andrea alvarado
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\tipoColegio;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TipoColegioRequest;
 class tipoColegioController extends Controller
 {
     /**
@@ -28,7 +29,7 @@ class tipoColegioController extends Controller
         //
     }
     public function getId(){
-        $id = tipoColegio::all();
+        $id = tipoColegio::withTrashed()->get();
         $next = count($id);
         if($next > 0){
             $next+=1;
@@ -37,14 +38,15 @@ class tipoColegioController extends Controller
         return $next;
     }
    
-    public function store(Request $request)
+    public function store(TipoColegioRequest $request)
     {
             $id_usu_cre = Auth::user()->id;
             $id = $this->getId();
             $dato = tipoColegio::create ([
             'id' => $id,
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta'),'UTF-8'),
             'id_usu_cre' => $id_usu_cre,
+            'id_usu_mod' => $id_usu_cre,
             
         ]);
 
@@ -81,10 +83,11 @@ class tipoColegioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TipoColegioRequest $request, $id)
     {
         $data=tipoColegio::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta= mb_strtoupper($request->input('etiqueta'), 'UTF-8') ;
+        $data->id_usu_mod= Auth::user()->id;
         $data->save();
         return redirect('/admin/tipoColegio/');
     }
