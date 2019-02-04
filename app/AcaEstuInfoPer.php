@@ -11,12 +11,12 @@ class AcaEstuInfoPer extends Model
    	//use SoftDeletes;
 
    	//protected $dates = ['deleted_at'];
-    protected $table = 'acad_estu_infpersonal';
+    protected $table = 'acad_estudiante';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'tipoDocumento', 
-        'numIdentificacion', 
+        'tipoDocumento',
+        'numIdentificacion',
         'primerApellido',
         'segundoApellido',
         'primerNombre',
