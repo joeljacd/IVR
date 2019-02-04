@@ -24,7 +24,7 @@ class EstadocivilRequest extends FormRequest
     public function rules()
     {
         return [            
-            'etiqueta'=>'required',            
+            'etiqueta'=>'required|unique:sene_etniaid',            
         ];
     }
 }
