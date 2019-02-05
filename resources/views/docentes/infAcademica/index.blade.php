@@ -50,21 +50,6 @@ session_start();
             </div>
             <div class="form-group col-md-2"></div>
         </div>                     
-  <div class="form-row">
-    <div class="form-group col-md-2"></div>
-    <div class="form-group col-md-4">
-      <label for="lblNivFor">{{ __('Nivel de Formación:') }}</label>
-    </div>
-    <div class="form-group col-md-4">
-      <select class="form-control" name="nivelForm">
-        <option value="">--Seleccione--</option>
-        @foreach($nivFor as $data)
-          <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
-        @endforeach
-      </select>
-    </div>
-    <div class="form-group col-md-2"></div>
-  </div>
 
   <div class="form-row">
     <div class="form-group col-md-2"></div>
@@ -76,7 +61,6 @@ session_start();
     </div>
     <div class="form-group col-md-2"></div>
   </div>
->>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
 
   <div class="form-row">
     <div class="form-group col-md-2"></div>
@@ -113,8 +97,8 @@ session_start();
     <div class="form-group col-md-4">
       <select class="form-control" id="relLab" name="relacionLab">
         <option value="">---Seleccionar--</option>
-        @foreach($reLab as $data)
-          <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
+        @foreach($data['relLaboral'] as $laboralRel)
+          <option value="{{$laboralRel->etiqueta}}">{{$laboralRel->etiqueta}}</option>
         @endforeach
       </select>
     </div>
@@ -183,54 +167,6 @@ session_start();
             </div>
             <div class="form-group col-md-2"></div>
         </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-2"></div>
-    <div class="form-group col-md-4">
-      <label for="lblTipIde">{{ __('Escalafón del docente:') }}</label>
-    </div>
-    <div class="form-group col-md-4">
-      <select class="form-control" name="escaDocen">
-        <option value="">--Seleccione--</option>
-        @foreach($escDoc as $data)
-          <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
-        @endforeach
-      </select>
-    </div>
-    <div class="form-group col-md-2"></div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-2"></div>
-    <div class="form-group col-md-4">
-      <label for="lblTipIde">{{ __('Cargo directivo:') }}</label>
-    </div>
-    <div class="form-group col-md-4">
-      <select class="form-control" name="cargoDirectivo">
-        <option value="0">--Seleccione--</option>
-        @foreach($cargo as $data)
-          <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
-        @endforeach
-      </select>
-    </div>
-    <div class="form-group col-md-2"></div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-2"></div>
-    <div class="form-group col-md-4">
-      <label for="lblTipIde">{{ __('Tiempo de dedicación:') }}</label>
-    </div>
-    <div class="form-group col-md-4">
-      <select class="form-control" name="tiempoDedi">
-        <option value="0">--Seleccione--</option>
-        @foreach($tiempo as $data)
-          <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
-        @endforeach
-      </select>
-    </div>
-    <div class="form-group col-md-2"></div>
-  </div>
 
   <div class="form-row">
     <div class="form-group col-md-2"></div>
