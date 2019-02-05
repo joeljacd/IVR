@@ -48,12 +48,14 @@ class TituloCarreraController extends Controller
 
     public function store(Request $request)
     {
-        //$id=Auth::user()->id;
+        $id=Auth::user()->id;
         $dato = TituloCarrera::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta'))
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
-        return redirect("admin/carreras");
+        return redirect("admin/titulocarrera");
     }
 
     /**
@@ -90,6 +92,7 @@ class TituloCarreraController extends Controller
     {
         $data=TituloCarrera::find($id);
         $data->etiqueta= strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/titulocarrera/');
     }
