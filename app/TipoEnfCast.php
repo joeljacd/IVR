@@ -9,7 +9,7 @@ class TipoEnfCast extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'sene_tipoEnfermedadCatastrofica';
+    protected $table = 'sene_tipoenfermedadcatastrofica';
 
     protected $dates = ['deleted_at'];
 
