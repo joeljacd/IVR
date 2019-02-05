@@ -52,7 +52,8 @@ class JornadaCarController extends Controller
         $dato = JornadaCar::create ([
             'id' => $this->getId(),
             'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/jornadaCarrera');;
     }
@@ -91,6 +92,7 @@ class JornadaCarController extends Controller
     {
         $data=JornadaCar::find($id);
         $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/jornadaCarrera/');
     }

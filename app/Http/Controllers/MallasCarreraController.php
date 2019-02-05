@@ -64,14 +64,13 @@ class MallasCarreraController extends Controller
      */
     public function store(Request $request)
     {
-            //dd($request->all()); exit();
-            $id_usu_cre = Auth::user()->id;
-            $id = $this->getId();
+            $id = Auth::user()->id;
             MallasCarrera::create ([
-                'id' => $id,
+                'id' => $this->getId(),
                 'id_malla'=>$request->input('id_malla'),
                 'id_carrera'=>$request->input('id_carrera'),
-                'id_usu_cre' => $this->getId(),
+                'id_usu_cre' => $id,
+                'id_usu_mod' => $id,
         ]);
         return redirect('/admin/mallasCarrera');
     }
@@ -112,6 +111,7 @@ class MallasCarreraController extends Controller
         $data=MallasCarrera::find($id);
         $data->id_malla=$request->input('id_malla');
         $data->id_carrera=$request->input('id_carrera');
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/mallasCarrera/');
     }

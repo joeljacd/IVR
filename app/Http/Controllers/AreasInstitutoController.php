@@ -51,7 +51,8 @@ class AreasInstitutoController extends Controller
         $dato = AreasInstituto::create ([
             'id' => $this->getId(),
             'nombre'=> mb_strtoupper($request->input('nombre')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/areasInstituto');
     }
@@ -90,6 +91,7 @@ class AreasInstitutoController extends Controller
     {
         $data=AreasInstituto::find($id);
         $data->nombre=mb_strtoupper($request->input('nombre'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/areasInstituto/');
     }

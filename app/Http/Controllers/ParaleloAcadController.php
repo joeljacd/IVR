@@ -62,8 +62,6 @@ class ParaleloAcadController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all()); exit();
-        $id_usu_cre = Auth::user()->id;
         $id = $this->getId();
         ParaleloAcad::create ([
             'id' => $id,
@@ -71,7 +69,8 @@ class ParaleloAcadController extends Controller
             'abreviatura'=> mb_strtoupper($request->input('abreviatura')),
             'id_homologacion_sene'=>$request->input('id_homologacion_sene'),
             'observacion'=> strtoupper($request->input('observacion')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/paraleloAcad/');
     }
@@ -114,6 +113,7 @@ class ParaleloAcadController extends Controller
         $data->abreviatura=mb_strtoupper($request->input('abreviatura'));
         $data->id_homologacion_sene=$request->input('id_homologacion_sene');
         $data->observacion=$request->input('observacion');
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/paraleloAcad/');
     }
