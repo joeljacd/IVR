@@ -52,7 +52,8 @@ class ParaleloController extends Controller
         $dato = Paralelo::create ([
             'id' => $this->getId(),
             'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return redirect('/admin/paralelo');
     }
@@ -91,6 +92,7 @@ class ParaleloController extends Controller
     {
         $data=Paralelo::find($id);
         $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/paralelo/');
     }

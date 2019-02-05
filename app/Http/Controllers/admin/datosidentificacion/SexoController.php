@@ -38,7 +38,7 @@ class SexoController extends Controller
      */
     public function store(SexoRequest $request)
     {
-        $next=sexo::max('id');
+        $next=sexo::withTrashed()->max('id');
         if($next == 0)
             $next = 1;
         else
