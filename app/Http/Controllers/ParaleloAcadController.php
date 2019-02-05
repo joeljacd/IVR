@@ -62,9 +62,9 @@ class ParaleloAcadController extends Controller
      */
     public function store(Request $request)
     {
-        $id = $this->getId();
+        $id = Auth::user()->id;
         ParaleloAcad::create ([
-            'id' => $id,
+            'id' => $this->getId(),
             'nombre_paralelo'=> mb_strtoupper($request->input('nombre_paralelo')),
             'abreviatura'=> mb_strtoupper($request->input('abreviatura')),
             'id_homologacion_sene'=>$request->input('id_homologacion_sene'),
