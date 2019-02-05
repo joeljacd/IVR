@@ -23,8 +23,10 @@ use App\tipodocumento;
 use App\TipoEnfCast;
 use App\TipoFinanciamiento;
 use App\TipoSangre;
+use App\CategoriaMigratoria;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;   
+use Illuminate\Support\Facades\Auth;
 
 class DocentesController extends Controller
 {
@@ -35,47 +37,82 @@ class DocentesController extends Controller
      */
     public function index()
     {
-        //jorsy
-        $tipDoc = tipodocumento::all();
-        $sexo = sexo::all();
-        $gen = genero::all();
-        $etni = Etnia::all();
-        $estCiv = estadocivil::all();
-        $naci = Nacionalidad::all();
-        $prov = Provincias::all();
-        $canton = Cantones::all();
-        $tipSan = TipoSangre::all();
-        $tipoDis = tipoDiscapacidad::all();
-        $tipoEnfCat = TipoEnfCast::all();
+        if(!isset($_SESSION))
+            session_start();
+        
+        $this->getDatos();
+        $data = $this->getDatosPer();
+        // dd($data['tipoDocumento']); exit();
+        return view('docentes.main.index',['data' => $data]);
+    }
 
-        //leyner
-        $tipBec = TipoBeca::all();
-        $tipFina = TipoFinanciamiento::all();
+    //Obtencion de Datos esenciales
+    public function getDatos()
+    {
+        $nom = Auth::user()->nombre;
+        $ape = Auth::user()->apellido;
+        $nombresSep = explode(" ",$nom);
+        $apellidosSep = explode(" ",$ape);
 
-        //joel
-        $nivFor = NivForDoce::all();
-        $reLab = RelacionLaboralIess::all();
-        $escDoc = EscalafonDocente::all();
-        $cargo = CargoDirectivo::all();
-        $tiempo = DocenteTiempo::all();
+        $_SESSION['cedula'] = Auth::user()->cedula;
+        $_SESSION['segNombre'] = $nombresSep[1];
+        $_SESSION['priNombre'] = $nombresSep[0];
+        $_SESSION['priApellido'] = $apellidosSep[0];
+        $_SESSION['segApellido'] = $apellidosSep[1];
+    }
 
-        return view('docentes.main.index',compact('nivFor', 'reLab', 'escDoc','cargo',
-                                                           'tipDoc','sexo','gen','etni','tipSan','estCiv','naci',
-                                                           'prov','canton','tipoDis','tipoEnfCat',
-                                                           'tipBec','tipFina','tiempo'));
+    //Obtencion de datos
+        //informacion Personal
+    public function getDatosPer()
+    {
+        $datos = array('tipoDocumento' => tipodocumento::all(),
+                       'sexo' => sexo::all(),
+                       'genero' => genero::all(),
+                       'etnia' => Etnia::all(),
+                       'estadocivil' => estadocivil::all(),
+                       'tipoSangre' => TipoSangre::all(),
+                       'nacionalidad' => Nacionalidad::all(),
+                       'categoriaMigratoria' => CategoriaMigratoria::all(),
+                       'tipoDiscapacidad' => tipoDiscapacidad::all(),
+                       'tipoEnfCatas' => TipoEnfCast::all());
+        return $datos;
+    }
+    
+        //Información Academica
+    public function getDatosAcaLab()
+    {
+        $datos = array('nivFormacion' => NivForDoce::all(),
+                       'relLaboral' => RelacionLaboralIess::all(),
+                       'escaDocente' => EscalafonDocente::all(),
+                       'cargoDir' => CargoDirectivo::all(),
+                       'tiemDedicacion' => DocenteTiempo::all());
+        return $datos;
+    }
+        //Información Beca
+
+    public function getDatosBeca()
+    {
+        $datos = array('tipoBeca' => TipoBeca::all(),
+                       'tipoFinanciamiento' => TipoFinanciamiento::all());
+        return $datos;
     }
 
     //guardar datos
     //Información Personal
     public function saveInfoPer(Request $request){
+        
+        //dd($request->all()); exit();
         $ver = DocenteInfoPerModel::where('numIdentificacion','=',$request->cedula)->count();
         var_dump($ver);
         if ($ver > 0){
             $doce = DB::table('acad_doce_infpersonal')->where('numIdentificacion',$request->cedula)->get();
             $datos = DocenteInfoPerModel::find($doce[0]->id);
+            $datos->id_usu_mod = Auth::user()->id;
         }else{
             $datos = new DocenteInfoPerModel();
+            $datos->tipoDocumento = $request->tipoDocumento;
             $datos->numIdentificacion = $request->cedula;
+            $datos->id_usu_cre = Auth::user()->id;
         }
         $datos->sexo = $request->sexo;
         $datos->genero = $request->genero;
@@ -184,13 +221,25 @@ class DocentesController extends Controller
     }
 
     public function getCantones(Request $request){
-        $data = DB::table('sene_cantones')
-            ->join('sene_provincias_has_sene_cantones','sene_provincias_has_sene_cantones.sene_cantones_id','=', 'sene_cantones.id')
-            ->join('sene_provincias','sene_provincias.id','=','sene_provincias_has_sene_cantones.sene_provincias_id')
-            ->select('sene_cantones.*')
-            ->where('sene_provincias.id','=',$request->id)
-            //->where(strtoupper('sene_provincias.etiqueta'),'=',strtoupper($request->input('id')))
-            ->get();
+        $data = Cantones::where('id_provincia',$request->all())->get();
         return response()->json($data);
+    }
+
+    public function vistaInfPer()
+    {
+        $data = $this->getDatosPer();
+        return view('docentes.infPersonal.index',['data'=>$data]);
+    }
+
+    public function vistaInfAcadLab()
+    {
+        $data = $this->getDatosAcaLab();
+        return view('docentes.infAcademica.index',['data'=>$data]);
+    }
+
+    public function vistaInfBeca()
+    {
+        $data = $this->getDatosBeca();
+        return view('docentes.infBeca.index',['data'=>$data]);
     }
 }

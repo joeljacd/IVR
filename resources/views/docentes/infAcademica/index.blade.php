@@ -24,8 +24,8 @@
             <div class="form-group col-md-4">
                 <select class="form-control" name="nivelForm">
                     <option value="">--Seleccione--</option>
-                    @foreach($nivFor as $data)
-                        <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
+                    @foreach($data['nivFormacion'] as $nivelFormacion)
+                        <option value="{{$nivelFormacion->etiqueta}}">{{$nivelFormacion->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -38,10 +38,19 @@
                 <label for="lblTipIde">Fecha de Ingreso a la Institución (IES)</label>
             </div>
             <div class="form-group col-md-4">
-                <input class="form-control" id="datepicker2" name="fecha_ing" width="276"/>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="fechaini" onchange="cambiarFormatoFecha('fechaini');" required="yes">
+                            <div class="input-group-append">
+                                <label class="input-group-text" for="fechaini">
+                                        <i class="fas fa-calendar-alt fa-lg"></i>
+                                </label>
+                            </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group col-md-2"></div>
-        </div>
+        </div>                     
 
         <div class="form-row">
             <div class="form-group col-md-2"></div>
@@ -63,8 +72,8 @@
             <div class="form-group col-md-4">
                 <select class="form-control" id="relLab" name="relacionLab">
                     <option value="">---Seleccionar--</option>
-                    @foreach($reLab as $data)
-                        <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
+                    @foreach($data['relLaboral'] as $relacionLab)
+                        <option value="{{$relacionLab->etiqueta}}">{{$relacionLab->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -94,8 +103,8 @@
             <div class="form-group col-md-4">
                 <select class="form-control" name="escaDocen">
                     <option value="">--Seleccione--</option>
-                    @foreach($escDoc as $data)
-                        <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
+                    @foreach($data['escaDocente'] as $escalafonDoc)
+                        <option value="{{$escalafonDoc->etiqueta}}">{{$escalafonDoc->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -110,8 +119,8 @@
             <div class="form-group col-md-4">
                 <select class="form-control" name="cargoDirectivo">
                     <option value="0">--Seleccione--</option>
-                    @foreach($cargo as $data)
-                        <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
+                    @foreach($data['cargoDir'] as $cargoDirectivo)
+                        <option value="{{$cargoDirectivo->etiqueta}}">{{$cargoDirectivo->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -126,8 +135,8 @@
             <div class="form-group col-md-4">
                 <select class="form-control" name="tiempoDedi">
                     <option value="0">--Seleccione--</option>
-                    @foreach($tiempo as $data)
-                        <option value="{{$data->etiqueta}}">{{$data->etiqueta}}</option>
+                    @foreach($data['tiemDedicacion'] as $tiemDedicacion)
+                        <option value="{{$tiemDedicacion->etiqueta}}">{{$tiemDedicacion->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -184,6 +193,10 @@
                 <input type="text" class="form-control" name="nombreInst" placeholder="Nombre de Institución"/>
             </div>
             <div class="form-group col-md-2"></div>
+        </div>
+        
+        <div>
+            <input hidden='yes' name="fechaini" id="fechaini">  
         </div>
 
         <div class="form-group row mb-0">

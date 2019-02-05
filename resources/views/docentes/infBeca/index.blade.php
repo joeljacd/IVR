@@ -37,7 +37,7 @@
             <div class="form-group col-md-3">
                 <select name="tipoBeca" class="form-control">
                     <option value="0">--Seleccione--</option>
-                    @foreach($tipBec as $tipoBeca)
+                    @foreach($data['tipoBeca'] as $tipoBeca)
                         <option value="{{$tipoBeca->etiqueta}}">{{$tipoBeca->etiqueta}}</option>
                     @endforeach
                 </select>
@@ -60,7 +60,7 @@
             <div class="form-group col-md-3">
                 <select name="tipoFina" class="form-control">
                     <option value="0">--Seleccione--</option>
-                    @foreach($tipFina as $tipoFinanciamiento)
+                    @foreach($data['tipoFinanciamiento'] as $tipoFinanciamiento)
                         <option value="{{$tipoFinanciamiento->etiqueta}}">{{$tipoFinanciamiento->etiqueta}}</option>
                     @endforeach
                 </select>

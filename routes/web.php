@@ -295,7 +295,9 @@ Route::post('informacionGlobal/createEstuLaboral','InformacionGlobalController@A
 //Informacion docente
 //Principal
 Route::Resource('/docentes/main','DocentesController');
-
+Route::post('/docentes/main/infPer','DocentesController@vistaInfPer');
+Route::post('/docentes/main/infAcadLab','DocentesController@vistaInfAcadLab');
+Route::post('/docentes/main/infBeca','DocentesController@vistaInfBeca');
 Route::post('/docentes/personal','DocentesController@saveInfoPer');
 
 Route::post('/docentes/infAcademica','DocentesController@saveInfAcada');
@@ -303,4 +305,4 @@ Route::post('/docentes/infAcademica','DocentesController@saveInfAcada');
 Route::post('/docentes/beca','DocentesController@saveInfoBeca');
 
 Route::post('/docentes/provincias','DocentesController@getProvincias');
-Route::post('/docentes/cantones','DocentesControllerf@getCantones');
+Route::post('/docentes/cantones','DocentesController@getCantones');

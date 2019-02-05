@@ -219,13 +219,13 @@
                                             <td>{{$datas->nombre_corto}}</td>
                                             <td>{{$datas->año_periodo}}</td>  -->
                                             <td>{{$datas->nombre_ciclo}}</td>
-                                            <td>{{$datas->fecha_inicio_clases." ".$datas->fecha_fin_clases}}</td>
+                                            <td>{{$datas->fecha_inicio_clases." - ".$datas->fecha_fin_clases}}</td>
 
-                                            <td>{{$datas->fecha_inicio_matricula_ord." ".$datas->fecha_fin_matricula_ord}}</td>
+                                            <td>{{$datas->fecha_inicio_matricula_ord." - ".$datas->fecha_fin_matricula_ord}}</td>
 
                                             <td>{{$datas->fecha_inicio_matricula_ext." - ".$datas->fecha_fin_matricula_ext}}</td>
 
-                                            <td>{{$datas->fecha_inicio_matricula_esp." ".$datas->fecha_fin_matricula_esp}}</td>
+                                            <td>{{$datas->fecha_inicio_matricula_esp." - ".$datas->fecha_fin_matricula_esp}}</td>
 
 
                                             <!-- <td>{{$datas->fecha_cre}}</td>
