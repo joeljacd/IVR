@@ -51,7 +51,7 @@ class estadocivilController extends Controller
     }
     public function store(EstadocivilRequest $request)
     {        
-        $next = estadocivil::max('id');
+        $next = estadocivil::withTrashed()->max('id');
         if($next == 0)
             $next = 1;
         else

@@ -86,15 +86,6 @@ class acadParaleloPeriodoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getId(){
-        $id = AcadParaleloPeriodo::withTrashed()->get();
-        $next = count($id);
-        if($next == 0){
-            $next = 1;
-        }else
-            $next = $next + 1;
-        return $next;
-    }
 
     public function nuevoRegistro(Request $request){        
         $id_periodo = $request->periodo;
@@ -119,12 +110,16 @@ class acadParaleloPeriodoController extends Controller
 
     public function store(Request $request)
     {
+        $next = AcadParaleloPeriodo::max('id');
         $id_periodo = $request->periodo;
         $id_psjc = $request->psjc;        
-        $id_usu_cre = Auth::user()->id;
-        $id = $this->getId();
+        $id_usu_cre = Auth::user()->id;        
+        if($next == 0)
+            $next = 1;
+        else
+            $next = $next + 1;
         AcadParaleloPeriodo::create ([
-            'id' => $id,
+            'id' => $next,
             'id_para_sede_jor_car'=>$id_psjc,
             'id_periodo'=>$id_periodo,            
             'id_usu_cre'=>$id_usu_cre,
@@ -174,12 +169,17 @@ class acadParaleloPeriodoController extends Controller
     public function destroy($id)
     {        
         $data=AcadParaleloPeriodo::find($id);
+        $data->id_usu_mod = Auth::user()->id;
+        $data->save();
         $data->delete();
         return response()->json(["mensaje eliminado"]);        
     }
     public function restaurar($id)
     {
         $datos=AcadParaleloPeriodo::onlyTrashed()->find($id)->restore();
+        $data=AcadParaleloPeriodo::find($id);
+        $data->id_usu_mod = Auth::user()->id;
+        $data->save();
          return response()->json(["mensaje restaurar"]);
     }
 }

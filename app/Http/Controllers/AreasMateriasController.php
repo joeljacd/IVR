@@ -1,11 +1,11 @@
 <?php
-
+//modificado por andrea alvarado
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Areas_Materias;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\AreasMateriasRequest;
 class AreasMateriasController extends Controller
 {
     public function index()
@@ -28,7 +28,7 @@ class AreasMateriasController extends Controller
         return view('admin.Areas_Materias.index',['getdatos' =>$getdatos]);
     }
     public function getId(){
-        $id = Areas_Materias::all();
+        $id = Areas_Materias::withTrashed()->get();
         $next = count($id);
         if($next > 0){
             $next+=1;
@@ -37,16 +37,16 @@ class AreasMateriasController extends Controller
         return $next;
     }
    
-    public function store(Request $request)
+    public function store(AreasMateriasRequest $request)
     {
             $id_usu_cre = Auth::user()->id;
             $id = $this->getId();
             $dato = Areas_Materias::create ([
             'id' => $id,
-            'nombre_area'=>$request->input('etiqueta'),
-            'descripción'=>$request->input('descripción'),
+            'nombre_area'=>mb_strtoupper($request->input('nombre_area'),'UTF-8'),
+            'descripcion'=>mb_strtoupper($request->input('descripcion'),'UTF-8'),
             'id_usu_cre' => $id_usu_cre,
-            
+            'id_usu_mod' => $id_usu_cre,
         ]);
 
         return redirect('/admin/Areas_Materias');
@@ -82,11 +82,12 @@ class AreasMateriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AreasMateriasRequest $request, $id)
     {
         $data=Areas_Materias::find($id);
-        $data->nombre_area=$request->input('etiqueta');
-        $data->descripción=$request->input('descripción');
+        $data->nombre_area=mb_strtoupper($request->input('nombre_area'), 'UTF-8');
+        $data->descripcion=mb_strtoupper($request->input('descripcion'), 'UTF-8');
+        $data->id_usu_mod= Auth::user()->id;
         $data->save();
         return redirect('/admin/Areas_Materias/');
     }

@@ -16,3 +16,4 @@ class tipoDiscapacidad extends Model
         'id','etiqueta', 'id_usu_cre', 'id_usu_mod'
     ];
 }
+

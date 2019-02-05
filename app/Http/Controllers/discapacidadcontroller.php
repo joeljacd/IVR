@@ -1,10 +1,11 @@
 <?php
-
+//modificado por andrea alvarado
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\discapacidad;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\DiscapacidadRequest;
 
 class discapacidadcontroller extends Controller
 {
@@ -30,7 +31,7 @@ class discapacidadcontroller extends Controller
     }
 
     public function getId(){
-        $id = discapacidad::All();
+        $id = discapacidad::withTrashed()->get();
         $next = count($id);
         if($next > 0){
             $next+=1;
@@ -38,14 +39,15 @@ class discapacidadcontroller extends Controller
             $next =1;
         return $next;
     }
-    public function store(Request $request)
+    public function store(DiscapacidadRequest $request)
     {
             $id_usu_cre = Auth::user()->id;
             $id = $this->getId();
             discapacidad::create ([
             'id' => $id,
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+    'etiqueta'=> mb_strtoupper($request->input('etiqueta'),'UTF-8'),
             'id_usu_cre' => $id_usu_cre,
+            'id_usu_mod' => $id_usu_cre,
         ]);
 
         return $this->index();
@@ -81,10 +83,11 @@ class discapacidadcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiscapacidadRequest $request, $id)
     {
         $data=discapacidad::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta= mb_strtoupper($request->input('etiqueta'), 'UTF-8') ;
+        $data->id_usu_mod= Auth::user()->id;
         $data->save();
         return redirect('/admin/discapacidad/');
     }
@@ -108,5 +111,3 @@ class discapacidadcontroller extends Controller
         return redirect('/admin/discapacidad/');
     }
 }
-
-

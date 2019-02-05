@@ -48,39 +48,26 @@ class AcadSedesController extends Controller
   * @return \Illuminate\Http\Response
   */
 
-
-  public  function calcularId(){
-
-    $registros = AcadSedes::withTrashed()->get();
-    $max_valor = count($registros);
-
-    if($max_valor == 0){
-      $max_valor = 1;
-    } else {
-      $max_valor = $max_valor+1;
-    }
-
-    return $max_valor;
-  }
-
   public function store(Request $request)
   {
-    $id = $this->calcularId();
+    $next = AcadSedes::max('id');
     $nombre_sede = mb_strtoupper($request->input('nombre_sede'), 'UTF-8') ;
     $id_provincia = $request->input('id_provincia');
     $id_canton = $request->input('id_canton');
     $observacion = $request->input('observacion');
-    $id_usu = Auth::user()->id;
+    $id_usu = Auth::user()->id;    
+    if($next == 0)
+        $next = 1;
+    else
+        $next = $next + 1;
+    $dato = AcadSedes::create([
 
-    AcadSedes::create([
-
-      'id' => $id,
+      'id' => $next,
       'nombre_sede' => $nombre_sede,
       'id_provincia' => $id_provincia,
       'id_canton' => $id_canton,
       'observacion' => $observacion,
-      'id_usu_cre' => $id_usu,
-      'id_usu_mod' => $id_usu,
+      'id_usu_cre' => $id_usu,      
 
     ]);
 
@@ -145,12 +132,17 @@ class AcadSedesController extends Controller
   public function destroy($id)
   {
     $data = AcadSedes::find($id);
+    $data->id_usu_mod = Auth::user()->id;
+    $data->save();
     $data->delete();
     return redirect('/admin/academicoSedes');
   }
 
   public function restaurar($id){
     $data = AcadSedes::onlyTrashed()->find($id)->restore();
+    $data=AcadSedes::find($id);
+    $data->id_usu_mod = Auth::user()->id;
+    $data->save();
     return redirect('/admin/academicoSedes');
   }
 

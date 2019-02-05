@@ -23,7 +23,7 @@
 				             Detalle</div>
 				            <div class="card-body">
 				              <div class="table-responsive">
-				                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				                <table class="table table-bordered small" id="dataTable" width="100%" cellspacing="0">
 				                  <thead>
 				                    <tr>
 										<th>Etiqueta</th>
@@ -43,22 +43,22 @@
                                                                                     
                                                                                     @if($datas->deleted_at != '')
                                                                                     
-                                                                                    <input type="submit" class="btn btn-default" value="Editar" disabled="yes">
+                                                                                    <input type="submit" class="btn btn-default btn-sm" value="Editar" disabled="yes">
                                                                                     
                                                                                     @else
 											{!!link_to_route('discapacidad.edit', 
                                                                                             $title = 'Editar', 
                                                                                             $parameters = $datas->id, 
-                                                                                            $attributes = ['class'=>'btn btn-warning']);!!}
+                                                                                            $attributes = ['class'=>'btn btn-warning btn-sm']);!!}
                                                                                     @endif
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="/admin/discapacidad/{{$datas->id}}/restaurar">Restaurar</a>
+												<a class="btn btn-primary btn-block btn-sm" href="/admin/discapacidad/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
 													{!! Form::open(['route' => ['discapacidad.destroy',$datas->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">
-											    	{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
+											    	{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block btn-sm'])!!}
 											    </div>
 											    {!! Form::close() !!}
 											@endif

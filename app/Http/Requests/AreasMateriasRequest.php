@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EstadocivilRequest extends FormRequest
+class AreasMateriasRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,10 @@ class EstadocivilRequest extends FormRequest
      */
     public function rules()
     {
-        return [            
-            'etiqueta'=>'required|unique:sene_estadocivilid',            
+        return [
+            'nombre_area'=>'required|unique:acad_areas_materias',
+            'descripcion'=>'required:acad_areas_materias'
+            
         ];
     }
 }

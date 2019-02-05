@@ -31,11 +31,6 @@ class AcadCarreraCoordinadorController extends Controller
                                 );
     }
 
-    /*public function AcadCarreraCoordinador(Request $request)
-    {
-        $data=AcadCarreraCoordinador::create($request->all());
-        return redict('/admin/academicoCarreraCoordinador');
-    }*/
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +50,17 @@ class AcadCarreraCoordinadorController extends Controller
      */
     public function store(Request $request)
     {
-        $data=AcadCarreraCoordinador::create($request->all());
+        $next = AcadCarreraCoordinador::max('id');
+        if($next == 0)
+            $next = 1;
+        else
+            $next = $next + 1;
+        $dato = AcadCarreraCoordinador::create ([
+            'id' => $next,
+            'id_carrera' => $request->input('id_carrera'),
+            'id_docente' => $request->input('id_docente'),
+            'id_usu_cre' => Auth::user()->id,            
+        ]);
         return redirect('/admin/academicoCarreraCoordinador');
     }
 
@@ -96,6 +101,7 @@ class AcadCarreraCoordinadorController extends Controller
         $data=AcadCarreraCoordinador::find($id);
         $data->id_carrera=$request->input('id_carrera');
         $data->id_docente=$request->input('id_docente');
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/academicoCarreraCoordinador/');
     }
@@ -109,12 +115,17 @@ class AcadCarreraCoordinadorController extends Controller
     public function destroy($id)
     {
         $data=AcadCarreraCoordinador::find($id);
+        $data->id_usu_mod = Auth::user()->id;
+        $data->save();
         $data->delete();
          return redirect('/admin/academicoCarreraCoordinador/');
     }
     public function restaurar($id)
     {
         $data=AcadCarreraCoordinador::onlyTrashed()->find($id)->restore();
+        $data=AcadCarreraCoordinador::find($id);
+        $data->id_usu_mod = Auth::user()->id;
+        $data->save();
         return redirect('/admin/academicoCarreraCoordinador/');
     }
 }

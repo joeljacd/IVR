@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EstadocivilRequest extends FormRequest
+class TipoColegioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class EstadocivilRequest extends FormRequest
      */
     public function rules()
     {
-        return [            
-            'etiqueta'=>'required|unique:sene_estadocivilid',            
+        return [
+            'etiqueta'=>'required|unique:sene_tipocolegioid'
         ];
     }
 }

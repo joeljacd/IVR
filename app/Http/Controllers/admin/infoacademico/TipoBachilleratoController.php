@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin\infoacademico;
 
 use App\TipoBachillerato;
 use Illuminate\Http\Request;
+use App\Http\Requests\TipoBachilleratoRequest;
 use App\Http\Controllers\Controller;
 
 class TipoBachilleratoController extends Controller
@@ -46,14 +47,16 @@ class TipoBachilleratoController extends Controller
         return $next;
     }
 
-    public function store(Request $request)
+    public function store(TipoBachilleratoRequest $request)
     {
-        //$id=Auth::user()->id;
-        $dato = TipoBachillerato::create ([
-            'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta'))
-        ]);
-        return $this->index();
+      $id = Auth::user()->id;
+      $dato = TipoBachillerato::create ([
+          'id' => $this->getId(),
+          'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
+          'id_usu_cre' => $id,
+          'id_usu_mod' => $id,
+      ]);
+      return redirect('admin/tipobachillerato');
     }
 
     /**
@@ -86,10 +89,11 @@ class TipoBachilleratoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TipoBachilleratoRequest $request, $id)
     {
         $data=TipoBachillerato::find($id);
-        $data->etiqueta= strtoupper($request->input('etiqueta'));
+        $data->etiqueta= mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod=Auth::user()->id;
         $data->save();
         return redirect('/admin/tipobachillerato/');
     }

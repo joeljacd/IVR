@@ -2,17 +2,29 @@ $(document).ready(function () {
     becaDocente();
     publicacionRev();
     getFecha();
+<<<<<<< HEAD
     /*$('.dropdown-submenu a.test').on("click", function(e){
+=======
+    cateMigratoria(2);
+
+    $('#datepicker1').datepicker({
+      format: "dd/mm/yyyy",
+      language: "es",
+      autoclose: true,
+      defaultViewDate: { year: 1990, month: 0, day: 0 }
+    });
+
+
+    $('.dropdown-submenu a.test').on("click", function(e){
+>>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
             $(this).next('ul').toggle();
             e.stopPropagation();
             e.preventDefault();
           });
 
-            $('#datepicker1').datepicker({
-                uiLibrary: 'bootstrap4',
+          /*  $('#datepicker1').datepicker({
                 format: 'yyyy/mm/dd',
-                startDate: '-3d',
-            });
+            });*/
 
             $('#datepicker2').datepicker({
                 uiLibrary: 'bootstrap4',
@@ -151,4 +163,3 @@ function cargar() {
         }
     });
 }
-

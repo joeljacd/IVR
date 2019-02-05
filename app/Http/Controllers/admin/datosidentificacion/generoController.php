@@ -50,7 +50,7 @@ class generoController extends Controller
     }
     public function store(GeneroRequest $request)
     {
-        $next = genero::max('id');
+        $next = genero::withTrashed()->max('id');
         if($next == 0)
             $next = 1;
         else

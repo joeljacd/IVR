@@ -54,11 +54,12 @@ class InformacionGlobalController extends Controller
     public function index()
     {
         $datos = $this->getData();
-    	$academico=$this->informacion();
+    	  $academico=$this->informacion();
         $beca = $this->informacionBecas();
         $laboral = $this->informacionLaboral();
-    	return view('informacion.index',['academico'=>$academico,'beca'=>$beca,'datos' => $datos,'laboral' => $laboral]);
+    	  return view('informacion.index',['academico'=>$academico,'beca'=>$beca,'datos' => $datos,'laboral' => $laboral]);
     }
+    
     public function informacion()
     {
     	$superior=array('SI','NO');
@@ -84,7 +85,7 @@ class InformacionGlobalController extends Controller
         return redirect("/informacionGlobal");
     }
 
-    public function informacionBecas(){     
+    public function informacionBecas(){
         return $beca = array('user' => User::All(),
                             'tipobeca' => TipoBeca::All(),
                             'primerarazonbeca' => RazonBeca1::All(),
@@ -93,7 +94,7 @@ class InformacionGlobalController extends Controller
                             'cuartarazonbeca' => RazonBeca4::All(),
                             'quintarazonbeca' => RazonBeca5::All(),
                             'sextarazonbeca' => RazonBeca6::All(),
-                            'financiamientobeca' => FinanciamientoBeca::All()); 
+                            'financiamientobeca' => FinanciamientoBeca::All());
     }
 
     public function infoBecas(Request $request){
@@ -101,11 +102,11 @@ class InformacionGlobalController extends Controller
         return redirect('/informacionGlobal/');
     }
 
-    public function getData(){ 
+    public function getData(){
 
         return $arrayName=array(
                                 'documentos' => tipodocumento::All(),
-                                'sexos' => sexo::All(), 
+                                'sexos' => sexo::All(),
                                 'generos' => genero::All(),
                                 'estado_civiles' => estadocivil::All(),
                                 'etnias' => Etnia::All(),
