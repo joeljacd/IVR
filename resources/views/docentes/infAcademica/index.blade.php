@@ -1,4 +1,4 @@
-@php
+﻿@php
 if(!isset($_SESSION))
 session_start();
 @endphp
@@ -15,8 +15,6 @@ session_start();
     </div>
     <div class="form-group col-md-2"></div>
   </div>
-
-<<<<<<< HEAD
         <div class="form-row">
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-4">
@@ -52,7 +50,6 @@ session_start();
             </div>
             <div class="form-group col-md-2"></div>
         </div>                     
-=======
   <div class="form-row">
     <div class="form-group col-md-2"></div>
     <div class="form-group col-md-4">
@@ -93,7 +90,6 @@ session_start();
 
   </div>
 
-<<<<<<< HEAD
         <div class="form-row">
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-4">
@@ -109,7 +105,6 @@ session_start();
             </div>
             <div class="form-group col-md-2"></div>
         </div>
-=======
   <div class="form-row">
     <div class="form-group col-md-2"></div>
     <div class="form-group col-md-4">
@@ -125,7 +120,6 @@ session_start();
     </div>
     <div class="form-group col-md-2"></div>
   </div>
->>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
 
   <div class="form-row">
     <div class="form-group col-md-2"></div>
@@ -142,7 +136,6 @@ session_start();
     <div class="form-group col-md-2"></div>
   </div>
 
-<<<<<<< HEAD
         <div class="form-row">
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-4">
@@ -190,7 +183,7 @@ session_start();
             </div>
             <div class="form-group col-md-2"></div>
         </div>
-=======
+
   <div class="form-row">
     <div class="form-group col-md-2"></div>
     <div class="form-group col-md-4">
@@ -238,7 +231,6 @@ session_start();
     </div>
     <div class="form-group col-md-2"></div>
   </div>
->>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
 
   <div class="form-row">
     <div class="form-group col-md-2"></div>
@@ -281,7 +273,6 @@ session_start();
     <div class="form-group col-md-2"></div>
   </div>
 
-<<<<<<< HEAD
         <div id="instCursa" class="form-row" >
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-4">
@@ -296,7 +287,7 @@ session_start();
         <div>
             <input hidden='yes' name="fechaini" id="fechaini">  
         </div>
-=======
+
   <div id="instCursa" class="form-row" >
     <div class="form-group col-md-2"></div>
     <div class="form-group col-md-4">
@@ -307,7 +298,6 @@ session_start();
     </div>
     <div class="form-group col-md-2"></div>
   </div>
->>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
 
   <div class="form-group row mb-0">
     <div class="col-md-8 offset-md-4">

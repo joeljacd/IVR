@@ -2,7 +2,6 @@ $(document).ready(function () {
     becaDocente();
     publicacionRev();
     getFecha();
-<<<<<<< HEAD
     /*$('.dropdown-submenu a.test').on("click", function(e){
 =======
     cateMigratoria(2);
@@ -24,7 +23,7 @@ $(document).ready(function () {
 
           /*  $('#datepicker1').datepicker({
                 format: 'yyyy/mm/dd',
-            });*/
+            });
 
             $('#datepicker2').datepicker({
                 uiLibrary: 'bootstrap4',
