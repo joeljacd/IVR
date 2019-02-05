@@ -12,7 +12,7 @@ class Rol extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $table = 'Rols';
+    protected $table = 'rols';
 
     protected $fillable = [
         'nombre', 'estado','icono',
