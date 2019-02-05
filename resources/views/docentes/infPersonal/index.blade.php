@@ -207,7 +207,7 @@
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('fecNac', 'Fecha de nacimiento:') !!}</div>
             <div class="form-group col-md-3">
-                <input class="form-control" name="fec_nac" id="datepicker1" width="276" onchange="getFecha()" required />
+                <input class="form-control" name="fec_nac" id="datepicker1" width="276" onchange="obtenerEdad();" required autocomplete="off" />
             </div>
             <div class="form-group col-md-4"></div>
         </div>

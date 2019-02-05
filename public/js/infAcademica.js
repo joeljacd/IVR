@@ -1,44 +1,49 @@
 $(document).ready(function () {
-    becaDocente();
-    publicacionRev();
-    getFecha();
-    /*$('.dropdown-submenu a.test').on("click", function(e){
-=======
-    cateMigratoria(2);
+  hablaIdiomaAncestral();
+  discapacidad();
+  becaDocente();
+  publicacionRev();
+  getFecha();
+  cateMigratoria(2);
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
 
-    $('#datepicker1').datepicker({
-      format: "dd/mm/yyyy",
-      language: "es",
-      autoclose: true,
-      defaultViewDate: { year: 1990, month: 0, day: 0 }
-    });
+  $('#datepicker1').datepicker({
+    format: 'yyyy/mm/dd',
+    defaultViewDate: { year: 1990, month: 0, day: 0 },
+  });
 
+  $('#datepicker2').datepicker({
+    uiLibrary: 'bootstrap4',
+    format: 'yyyy/mm/dd',
+  });
 
-    $('.dropdown-submenu a.test').on("click", function(e){
->>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
-            $(this).next('ul').toggle();
-            e.stopPropagation();
-            e.preventDefault();
-          });
-
-          /*  $('#datepicker1').datepicker({
-                format: 'yyyy/mm/dd',
-            });
-
-            $('#datepicker2').datepicker({
-                uiLibrary: 'bootstrap4',
-                format: 'yyyy/mm/dd',
-                startDate: '-3d',
-            });
-
-            $('#datepicker3').datepicker({
-                uiLibrary: 'bootstrap4',
-                format: 'yyyy/mm/dd',
-                startDate: '-3d',
-            });*/
+  $('#datepicker3').datepicker({
+    uiLibrary: 'bootstrap4',
+    format: 'yyyy/mm/dd',
+  });
 });
 
 
+function obtenerEdad(){
+  var fe = $("#datepicker1").val();
+  var fecha = new Date();
+  var anioAct = fecha.getFullYear();
+  var edad = calculateAge(fe) ;
+  $("#edad").val(edad);
+}
+
+
+function calculateAge(birthday) {
+  var birthday_arr = birthday.split("/");
+  var birthday_date = new Date(birthday_arr[0], birthday_arr[1], birthday_arr[2]);
+  var ageDifMs = Date.now() - birthday_date.getTime();
+  var ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear()-1970);
+}
 
 //funcion que muestra u oculta contenedores para casos de elección SI o NO
 function S_o_N(elemento,contenedor) {
