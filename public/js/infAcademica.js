@@ -1,21 +1,30 @@
 $(document).ready(function () {
-    hablaIdiomaAncestral();
-    discapacidad();
     becaDocente();
     publicacionRev();
     getFecha();
+<<<<<<< HEAD
+    /*$('.dropdown-submenu a.test').on("click", function(e){
+=======
     cateMigratoria(2);
+
+    $('#datepicker1').datepicker({
+      format: "dd/mm/yyyy",
+      language: "es",
+      autoclose: true,
+      defaultViewDate: { year: 1990, month: 0, day: 0 }
+    });
+
+
     $('.dropdown-submenu a.test').on("click", function(e){
+>>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
             $(this).next('ul').toggle();
             e.stopPropagation();
             e.preventDefault();
           });
 
-            $('#datepicker1').datepicker({
-                uiLibrary: 'bootstrap4',
+          /*  $('#datepicker1').datepicker({
                 format: 'yyyy/mm/dd',
-                startDate: '-3d',
-            });
+            });*/
 
             $('#datepicker2').datepicker({
                 uiLibrary: 'bootstrap4',
@@ -27,22 +36,10 @@ $(document).ready(function () {
                 uiLibrary: 'bootstrap4',
                 format: 'yyyy/mm/dd',
                 startDate: '-3d',
-            });
+            });*/
 });
 
-/*Esconde el contenedor de opciones de categoria migratoria en la vista docente información personal*/
-function cateMigratoria(par) {
-    var op;
-    if(par != 2)
-        op = $('option:selected',par).attr('data');
-    else
-        op = 0;
-    console.info(op);
-    if(op == 0 || op == 1)
-        $("#contenedorMigratorio").hide();
-    else
-        $("#contenedorMigratorio").show();
-}
+
 
 //funcion que muestra u oculta contenedores para casos de elección SI o NO
 function S_o_N(elemento,contenedor) {
@@ -82,14 +79,7 @@ function calcularEdad(dob) {
 }
 
 
-function hablaIdiomaAncestral() {
-    var op = $("#hab_idi").val();
-    //console.log(op);
-    if(op == 0 || op == 2)
-        $("#idiAnce").hide();
-    else
-        $("#idiAnce").show();
-}
+
 
 function discapacidad() {
     var op = $("#tDisc").val();
@@ -126,24 +116,9 @@ function publicacionRev() {
         $("#nroPubRev").show();
 }
 //___________________________________________
-//Combobox de Pais Nacionalidad
-function paises(par) {
-    //var op = $("#pais").val();
-    var op = $('option:selected', par).attr('data');
-    //console.info(op);
-    if (op != 0){
-        llenarCbx("#provincias",op,'/docentes/provincias');
-    }
-}
 
-//Combobox de Provincias
-function cantones(par) {
-    var ca = $('option:selected',par).attr('data');
-    console.info(ca);
-    if (ca != 0){
-        llenarCbx('#canton',ca,'/docentes/cantones');
-    }
-}
+
+
 //______________________________________________________
 
 //ComboBox de Pais Residencia
@@ -165,29 +140,7 @@ function cantonResi() {
 
 //___________________________________________________________-
 
-function llenarCbx(idSelect, dato, url) {
-    //console.log('entro');
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
-    $.ajax({
-        url: ruta_global+url,
-        type: 'post',
-        dataType: 'json',
-        data: {'id' : dato},
-        success: function (data) {
-            //console.info(data);
-            $(idSelect).empty();
-            $(idSelect).append("<option values='0'>--Seleccione--</option>");
-            $.each(data, function (i,item){
-                $(idSelect).append("<option values='"+item.id+"' data='"+item.id+"'>"+item.etiqueta+"</option>");
-            });
-        }
-    });
-}
 
 function cargar() {
 
@@ -210,4 +163,3 @@ function cargar() {
         }
     });
 }
-

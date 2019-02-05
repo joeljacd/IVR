@@ -44,7 +44,7 @@ class tipodocumentoController extends Controller
      */
     public function store(TipodocumentoRequest $request)
     {        
-        $next = tipodocumento::max('id');
+        $next = tipodocumento::withTrashed()->max('id');
         if($next == 0)
             $next = 1;
         else

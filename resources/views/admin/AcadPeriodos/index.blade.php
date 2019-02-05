@@ -202,9 +202,28 @@
 
                   <th>Matrícula Ordinaria Ini-Fin</th>
 
+<<<<<<< HEAD
+                                        <!-- <th>Creado</th>
+                                        <th>Modificado</th> -->
+                                        <th>Editar</th>
+                                        <th>Estado</th>		
+                                    </tr>
+				</thead>
+				<tbody>
+                                    @foreach($data as $datas)
+                                        <tr>
+                                            <!-- <td>{{$datas->nombre_periodo}}</td>
+                                            <td>{{$datas->nombre_corto}}</td>
+                                            <td>{{$datas->año_periodo}}</td>  -->
+                                            <td>{{$datas->nombre_ciclo}}</td>
+                                            <td>{{$datas->fecha_inicio_clases." - ".$datas->fecha_fin_clases}}</td>
+
+                                            <td>{{$datas->fecha_inicio_matricula_ord." - ".$datas->fecha_fin_matricula_ord}}</td>
+=======
                   <th>Matrícula Extraordinaria Ini-Fin</th>
 
                   <th>Matrícula Especial Ini-Fin</th>
+>>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
 
                   <!-- <th>Creado</th>
                   <th>Modificado</th> -->
@@ -221,7 +240,11 @@
                     <td>{{$datas->nombre_ciclo}}</td>
                     <td>{{$datas->fecha_inicio_clases." ".$datas->fecha_fin_clases}}</td>
 
+<<<<<<< HEAD
+                                            <td>{{$datas->fecha_inicio_matricula_esp." - ".$datas->fecha_fin_matricula_esp}}</td>
+=======
                     <td>{{$datas->fecha_inicio_matricula_ord." ".$datas->fecha_fin_matricula_ord}}</td>
+>>>>>>> aeef5e8cb802e61f86ab9c296393074a43fc8157
 
                     <td>{{$datas->fecha_inicio_matricula_ext." - ".$datas->fecha_fin_matricula_ext}}</td>
 

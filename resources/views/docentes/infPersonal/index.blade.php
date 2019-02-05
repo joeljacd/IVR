@@ -1,20 +1,9 @@
 @php
-        $nom = \Illuminate\Support\Facades\Auth::user()->nombre;
-        $ape = \Illuminate\Support\Facades\Auth::user()->apellido;
-        $nombresSep = explode(" ",$nom);
-        $apellidosSep = explode(" ",$ape);
-
         if(!isset($_SESSION))
             session_start();
-        $_SESSION['cedula'] = \Illuminate\Support\Facades\Auth::user()->cedula;
-        $_SESSION['segNombre'] = $nombresSep[1];
-        $_SESSION['priNombre'] = $nombresSep[0];
-        $_SESSION['priApellido'] = $apellidosSep[0];
-        $_SESSION['segApellido'] = $apellidosSep[1];
-
-
+            
 @endphp
-
+<!--nombre archivo .js => infDocente.js -->
 <div class="container">
     {!! Form::open(['url' => 'docentes/personal', 'method' => 'post']) !!}
 
@@ -26,8 +15,8 @@
             <div class="form-group col-md-3">
                 <select name="tipoDocumento" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($tipDoc as $tipoDocumento)
-                        <option value="{{$tipoDocumento->etiqueta}}">{{$tipoDocumento->etiqueta}}</option>
+                    @foreach($data['tipoDocumento'] as $tipoDoc)
+                        <option value="{{$tipoDoc->etiqueta}}">{{$tipoDoc->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -38,7 +27,7 @@
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('full_name', 'Número de Identificación') !!}</div>
             <div class="form-group col-md-3">
-                <input type="text" name="cedula" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->cedula}}" readonly >
+                <input type="text" name="cedula" class="form-control" value="{{$_SESSION['cedula']}}" readonly >
             </div>
             <div class="form-group col-md-4"></div>
         </div>
@@ -49,8 +38,8 @@
             <div class="form-group col-md-3">
                 <select name="sexo" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($sexo as $sexos)
-                                    <option value="{{$sexos->etiqueta}}">{{$sexos->etiqueta}}</option>
+                    @foreach($data['sexo'] as $sexos)
+                        <option value="{{$sexos->etiqueta}}">{{$sexos->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -63,7 +52,7 @@
             <div class="form-group col-md-3">
                 <select name="genero" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($gen as $genero)
+                    @foreach($data['genero'] as $genero)
                         <option value="{{$genero->etiqueta}}">{{$genero->etiqueta}}</option>
                     @endforeach
                 </select>
@@ -181,25 +170,25 @@
         <div class="form-row">
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('etnia', 'Etnia:') !!}</div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <select name="etnia" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($etni as $etnia)
+                    @foreach($data['etnia'] as $etnia)
                         <option value="{{$etnia->etiqueta}}">{{$etnia->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-3"></div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('idiAnce', 'Habla algún idioma ancestral:') !!}</div>
             <div class="form-group col-md-2">
-                <select name="hab_idi" id="hab_idi" class="form-control" onclick="hablaIdiomaAncestral()" required>
-                    <option value="">--Seleccione--</option>
-                    <option value="1">SI</option>
-                    <option value="2">NO</option>
+                <select name="hab_idi" id="hab_idi" class="form-control" onchange="hablaIdiomaAncestral(this,'hab_idi');" required>
+                    <option value="" data-hab_idi="0">--Seleccione--</option>
+                    <option value="SI" data-hab_idi="1">SI</option>
+                    <option value="NO" data-hab_idi="2">NO</option>
                 </select>
             </div>
             <div class="form-group col-md-5"> </div>
@@ -218,7 +207,7 @@
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('fecNac', 'Fecha de nacimiento:') !!}</div>
             <div class="form-group col-md-3">
-                <input class="form-control" name="fec_nac" id="datepicker1" width="276" onchange="getFecha()"/>
+                <input class="form-control" name="fec_nac" id="datepicker1" width="276" onchange="getFecha()" required />
             </div>
             <div class="form-group col-md-4"></div>
         </div>
@@ -236,7 +225,7 @@
             <div class="form-group col-md-3">
                 <select name="tipoSangre" id="" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($tipSan as $tipoSangre)
+                    @foreach($data['tipoSangre'] as $tipoSangre)
                         <option value="{{$tipoSangre->etiqueta}}">{{$tipoSangre->etiqueta}}</option>
                     @endforeach
                 </select>
@@ -248,10 +237,10 @@
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('pais', 'Pais Nacionalidad:') !!}</div>
             <div class="form-group col-md-3">
-                <select name="pais" id="pais" class="form-control" onchange="paises(this)" required>
-                    <option value="">--Seleccione--</option>
-                    @foreach($naci as $nacionalidad)
-                        <option value="{{$nacionalidad->etiqueta}}" data="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
+                <select name="pais" id="pais" class="form-control" onchange="paises(this,'provincias','pais')" required>
+                    <option value="" data-pais="0">--Seleccione--</option>
+                    @foreach($data['nacionalidad'] as $nacionalidad)
+                        <option value="{{$nacionalidad->etiqueta}}" data-pais="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -262,8 +251,8 @@
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('provincia', 'Provincia de Nacimiento:') !!}</div>
             <div class="form-group col-md-3">
-                <select name="provincias" id="provincias" class="form-control" onchange="cantones(this)" required>
-                    <option value="" data="0">--Seleccione--</option>
+                <select name="provincias" id="provincias" class="form-control" onchange="cantones(this,'canton','provincias')" required>
+                    <option value="" data-provincias="0">--Seleccione--</option>
                 </select>
             </div>
             <div class="form-group col-md-4"></div>
@@ -285,12 +274,10 @@
             <div class="form-group col-md-3">{!! Form::label('catMigra', 'Categoria Migratoria:') !!}</div>
             <div class="form-group col-md-3">
                 <select name="catMigratoria" id="catMigratoria" class="form-control" onchange="cateMigratoria(this);" required>
-                    <option value="" data="0">--Seleccione--</option>
-                    <option value="NO APLICA" data="1">No Aplica</option>
-                    <option value="RESIDENTE PERMANENTE">Residente Permanente</option>
-                    <option value="RESIDENTE TRANSITORIO O NO RESIDENTE">Residente transitorio o no residente</option>
-                    <option value="RESIDENTE TEMPORAL">Residente temporal</option>
-                    <option value="REFUGIADO">Refugiado</option>
+                    <option value="" data-migratoria="0">--Seleccione--</option>
+                    @foreach($data['categoriaMigratoria'] as $cat)
+                        <option value="{{$cat->etiqueta}}" data-migratoria="{{$cat->id}}">{{$cat->etiqueta}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group col-md-4"></div>
@@ -301,10 +288,10 @@
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-3">{!! Form::label('paisRes', 'Pais de residencia:') !!}</div>
                 <div class="form-group col-md-3">
-                    <select name="paisResi" id="paisResi" class="form-control" onclick="paisRes()">
-                        <option value="0">--Seleccione--</option>
-                        @foreach($naci as $nacionalidad)
-                            <option value="{{$nacionalidad->etiqueta}}">{{$nacionalidad->etiqueta}}</option>
+                    <select name="paisResi" id="paisResi" class="form-control" onchange="paises(this,'provResi','paisResi');">
+                        <option value="" data-paisResi="0">--Seleccione--</option>
+                        @foreach($data['nacionalidad'] as $nacionalidad)
+                            <option value="{{$nacionalidad->etiqueta}}" data-paisResi="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -315,8 +302,8 @@
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-3">{!! Form::label('provRes', 'Provincia de residencia:') !!}</div>
                 <div class="form-group col-md-3">
-                    <select name="provResi" id="provResi" class="form-control" onclick="cantonResi()">
-                        <option value="0">--Seleccione--</option>
+                    <select name="provResi" id="provResi" class="form-control" onchange="cantones(this,'cantResi','provResi');">
+                        <option value="" data-provResi="0">--Seleccione--</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4"></div>
@@ -327,7 +314,7 @@
                 <div class="form-group col-md-3">{!! Form::label('canvRes', 'Cantón de residencia:') !!}</div>
                 <div class="form-group col-md-3">
                     <select name="cantResi" id="cantResi" class="form-control">
-                        <option value="0">--Seleccione--</option>
+                        <option value="" data-cantResi="0">--Seleccione--</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4"></div>
@@ -340,7 +327,7 @@
             <div class="form-group col-md-3">
                 <select name="estCivil" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($estCiv as $estadoCiv)
+                    @foreach($data['estadocivil'] as $estadoCiv)
                         <option value="{{$estadoCiv->etiqueta}}">{{$estadoCiv->etiqueta}}</option>
                     @endforeach
                 </select>
@@ -352,10 +339,10 @@
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('tieDisca', 'Tiene discapacidad:') !!}</div>
             <div class="form-group col-md-2">
-                <select name="tDisc" id="tDisc" class="form-control" onclick="discapacidad();" required>
-                    <option value="">--Seleccione--</option>
-                    <option value="1">SI</option>
-                    <option value="2">NO</option>
+                <select name="tDisc" id="tDisc" class="form-control" onchange="discapacidad(this);" required>
+                    <option value="" data-discapacidad="0">--Seleccione--</option>
+                    <option value="SI" data-discapacidad="1">SI</option>
+                    <option value="NO" data-discapacidad="2">NO</option>
                 </select>
             </div>
             <div class="form-group col-md-5"></div>
@@ -366,7 +353,7 @@
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-3">{!! Form::label('porDisc', 'Porcentaje de Discapacidad:') !!}</div>
                 <div class="form-group col-md-2">
-                    <input type="text" name="porDis" placeholder="Porcentaje" class="form-control">
+                    <input type="number" name="porDis" placeholder="Porcentaje" class="form-control">
                 </div>
                 <div class="form-group col-md-5"></div>
             </div>
@@ -375,7 +362,7 @@
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-3">{!! Form::label('nroConadis', 'No. Carnet del CONADIS:') !!}</div>
                 <div class="form-group col-md-2">
-                    <input type="text" name="nroCona" placeholder="Numero" class="form-control">
+                    <input type="number" name="nroCona" placeholder="Numero" class="form-control">
                 </div>
                 <div class="form-group col-md-5"></div>
             </div>
@@ -384,10 +371,10 @@
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-3">{!! Form::label('tipDisc', 'Tipo de Discapacidad:') !!}</div>
                 <div class="form-group col-md-3">
-                    <select name="tipoDiscapacidad" class="form-control">
-                        <option value="">No Aplica</option>
-                        @foreach($tipoDis as $tipoDiscapacidad)
-                            <option value="{{$tipoDiscapacidad->etiqueta}}">{{$tipoDiscapacidad->etiqueta}}</option>
+                    <select name="tipoDis" class="form-control">
+                        <option value="">--Seleccione--</option>
+                        @foreach($data['tipoDiscapacidad'] as $tipoDisca)
+                            <option value="{{$tipoDisca->etiqueta}}">{{$tipoDiscapacidad->etiqueta}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -402,7 +389,7 @@
             <div class="form-group col-md-3">
                 <select name="tipoEnfeCatas" class="form-control" required>
                     <option value="">--Seleccione--</option>
-                    @foreach($tipoEnfCat as $tipoEnfermedadCast)
+                    @foreach($data['tipoEnfCatas'] as $tipoEnfermedadCast)
                         <option value="{{$tipoEnfermedadCast->etiqueta}}">{{$tipoEnfermedadCast->etiqueta}}</option>
                     @endforeach
                 </select>
@@ -425,4 +412,4 @@
         margin: 0;
     }
     input[type=number] { -moz-appearance:textfield; }
-</style>
+</style> 
