@@ -43,7 +43,7 @@ class etniaController extends Controller
      */
     public function store(EtniaRequest $request)
     {
-        $next=Etnia::max('id');
+        $next=Etnia::withTrashed()->max('id');
         if($next == 0)
             $next = 1;
         else
