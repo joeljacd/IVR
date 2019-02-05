@@ -15,7 +15,7 @@ class EstuOcupController extends Controller
      */
     public function index()
     {
-        $data = EstuOcup::All();
+        $data = EstuOcup::withTrashed()->get();
         return view('admin.estuOcup.index',['data' =>$data] );
     }
 
@@ -37,7 +37,7 @@ class EstuOcupController extends Controller
      */
 
     public function getId(){
-        $id = EstuOcup::all();
+        $id = EstuOcup::whereRaw('id > ? or deleted_at <> null', [0])->get();
         $next = count($id);
         if($next > 0 ){
             $next+=1;
@@ -51,9 +51,9 @@ class EstuOcupController extends Controller
         $id=Auth::user()->id;
         $dato = EstuOcup::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
-            'id_usu_mod' => $this->getId(),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
         return $this->index();
     }
@@ -91,7 +91,8 @@ class EstuOcupController extends Controller
     public function update(Request $request, $id)
     {
         $data=EstuOcup::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->nombre=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/estuOcup/');
     }

@@ -7,7 +7,7 @@
         			{!! Form::open(['url' => 'admin/estuOcup', 'method' => 'POST']) !!}
         				<div class="form-group">
         					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta">
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>
@@ -20,7 +20,7 @@
         				<div class="card mb-3">
 				            <div class="card-header">
 				              <i class="fas fa-table"></i>
-				              Nivel de formacion de los padres</div>
+				              Ocupación estudiante</div>
 				            <div class="card-body">
 				              <div class="table-responsive">
 				                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -40,11 +40,15 @@
 										<td>{{$datas->fecha_cre}}</td>
 										<td>{{$datas->fecha_mod}}</td>
 										<td>
-											{!!link_to_route('estuOcup.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@if($datas->deleted_at!='')
+												{!!link_to_route('estuOcup.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn disabled']);!!}
+											@else
+												{!!link_to_route('estuOcup.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
+											@endif
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="/admin/estuOcup/{{$datas->id}}/restaurar">Restaurar</a>
+												<a class="btn btn-primary btn-block" href="estuOcup/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
 													{!! Form::open(['route' => ['estuOcup.destroy',$datas->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">

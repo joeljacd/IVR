@@ -47,10 +47,11 @@ class PensionController extends Controller
         $id = Auth::user()->id;
         $dato = PenDiferenciada::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
-            'id_usu_cre' => $this->getId(),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
-        return $this->index();
+        return redirect('/admin/PoseePension');
     }
 
     /**
@@ -86,7 +87,8 @@ class PensionController extends Controller
     public function update(Request $request, $id)
     {
         $data=PenDiferenciada::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/PoseePension/');
     }

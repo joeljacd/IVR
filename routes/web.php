@@ -155,14 +155,20 @@ Route::group(['middleware' => ['web', 'admin']], function() {
   //admin_EstudianteOcupación
   //Route::Resource('/admin/estuOcup','EstuOcupController');
   //Route::get('/admin/estuOcup/{id}/restaurar', 'estuOcup@restaurar');
+
   //Leyner
   Route::Resource('/admin/perdidaGra','PerdidaGraController');
   Route::get('/admin/perdidaGra/{id}/restaurar', 'PerdidaGraController@restaurar');
-  Route::Resource('/admin/popendi','PensionController');
+
   Route::Resource('/admin/EstudianteIngreso','IngresoEstudianteController');
   Route::get('/admin/EstudianteIngreso/{id}/restaurar', 'IngresoEstudianteController@restaurar');
+
   Route::Resource('/admin/PoseePension','PensionController');
   Route::get('/admin/PoseePension/{id}/restaurar', 'PensionController@restaurar');
+
+    Route::Resource('/admin/estuOcup','EstuOcupController');
+    Route::get('/admin/estuOcup/{id}/restaurar', 'estuOcup@restaurar');
+
   // jorcy
   Route::Resource('/admin/financiamientobeca', 'financiamientoBecaController');
   Route::get('/admin/financiamientobeca/{id}/restaurar','financiamientoBecaController@restaurar');

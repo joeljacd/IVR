@@ -46,11 +46,14 @@ class IngresoEstudianteController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::user()->id;
         $dato = EstIngreso::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
-        return $this->index();
+        return redirect('/admin/EstudianteIngreso');
     }
 
     /**
@@ -86,7 +89,8 @@ class IngresoEstudianteController extends Controller
     public function update(Request $request, $id)
     {
         $data=EstIngreso::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->nombre=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/EstudianteIngreso/');
     }

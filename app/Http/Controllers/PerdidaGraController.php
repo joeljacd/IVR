@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PerGratuidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PerdidaGraController extends Controller
 {
@@ -45,11 +46,14 @@ class PerdidaGraController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::user()->id;
         $dato = PerGratuidad::create ([
             'id' => $this->getId(),
-            'etiqueta'=> strtoupper($request->input('etiqueta')),
+            'etiqueta'=> mb_strtoupper($request->input('etiqueta')),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
-        return $this->index();
+        return redirect('/admin/perdidaGra');
     }
 
     /**
@@ -85,7 +89,8 @@ class PerdidaGraController extends Controller
     public function update(Request $request, $id)
     {
         $data=PerGratuidad::find($id);
-        $data->etiqueta=$request->input('etiqueta');
+        $data->etiqueta=mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/perdidaGra/');
     }
