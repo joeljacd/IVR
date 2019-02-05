@@ -5,17 +5,24 @@ $(document).ready(function () {
     publicacionRev();
     getFecha();
     cateMigratoria(2);
+
+    $('#datepicker1').datepicker({
+      format: "dd/mm/yyyy",
+      language: "es",
+      autoclose: true,
+      defaultViewDate: { year: 1990, month: 0, day: 0 }
+    });
+
+
     $('.dropdown-submenu a.test').on("click", function(e){
             $(this).next('ul').toggle();
             e.stopPropagation();
             e.preventDefault();
           });
 
-            $('#datepicker1').datepicker({
-                uiLibrary: 'bootstrap4',
+          /*  $('#datepicker1').datepicker({
                 format: 'yyyy/mm/dd',
-                startDate: '-3d',
-            });
+            });*/
 
             $('#datepicker2').datepicker({
                 uiLibrary: 'bootstrap4',
@@ -210,4 +217,3 @@ function cargar() {
         }
     });
 }
-
