@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AlcanceProyectoVinculacion extends Model
 {
-    use SoftDeletes; //Implementamos 
+    use SoftDeletes; //Implementamos
 
    	protected $dates = ['deleted_at'];
 
@@ -16,6 +16,6 @@ class AlcanceProyectoVinculacion extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id', 'etiqueta', 'id_usu_cre', 'id_usu_mod',
+        'id', 'etiqueta', 'id_usu_cre', 'fecha_cre', 'id_usu_mod', 'fecha_mod',
     ];
 }
