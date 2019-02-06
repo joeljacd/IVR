@@ -31,26 +31,6 @@ session_start();
             <div class="form-group col-md-2"></div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-2"></div>
-            <div class="form-group col-md-4">
-                <label for="lblTipIde">Fecha de Ingreso a la Institución (IES)</label>
-            </div>
-            <div class="form-group col-md-4">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input class="form-control" type="text" id="fechaini" onchange="cambiarFormatoFecha('fechaini');" required="yes">
-                            <div class="input-group-append">
-                                <label class="input-group-text" for="fechaini">
-                                        <i class="fas fa-calendar-alt fa-lg"></i>
-                                </label>
-                            </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-md-2"></div>
-        </div>                     
-
   <div class="form-row">
     <div class="form-group col-md-2"></div>
     <div class="form-group col-md-4">
@@ -218,10 +198,6 @@ session_start();
                 <input type="text" class="form-control" name="nombreInst" placeholder="Nombre de Institución"/>
             </div>
             <div class="form-group col-md-2"></div>
-        </div>
-        
-        <div>
-            <input hidden='yes' name="fechaini" id="fechaini">  
         </div>
 
   <div id="instCursa" class="form-row" >

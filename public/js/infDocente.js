@@ -1,8 +1,6 @@
 $(document).ready(function(){
-	cateMigratoria(0);
-	discapacidad(0);
-	hablaIdiomaAncestral(0,'hab_idi');
-
+	funcionesCargar();
+    fechaPicker('inicio');
 	fechaPicker('fechaini');
 
 	$('.dropdown-submenu a.test').on("click", function(e){
@@ -12,6 +10,12 @@ $(document).ready(function(){
 	});
 });
 
+//funciones de arranque
+function funcionesCargar() {
+    cateMigratoria(0);
+    discapacidad(0);
+    hablaIdiomaAncestral(0,'hab_idi');
+}
 
 //configuracion de calendario
 function fechaPicker(nombre){
@@ -25,6 +29,7 @@ function fechaPicker(nombre){
 
 //cambiar a fecha local
 function cambiarFormatoFecha(nombre){
+    console.log(nombre);
     var fecha = $('#'+nombre).val();
     var partes = fecha.split("/",3);
     var fechan = partes[2]+"-"+partes[1]+"-"+partes[0];
@@ -135,6 +140,7 @@ function getAjax(ruta) {
 		success:function(data){
 			$(".tab-content").empty();
 			$(".tab-content").append(data);
+            funcionesCargar();
 		}
 	});
 }

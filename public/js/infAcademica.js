@@ -1,10 +1,7 @@
 $(document).ready(function () {
-  hablaIdiomaAncestral();
-  discapacidad();
   becaDocente();
   publicacionRev();
   getFecha();
-  cateMigratoria(2);
   $('.dropdown-submenu a.test').on("click", function(e){
     $(this).next('ul').toggle();
     e.stopPropagation();
@@ -17,7 +14,7 @@ $(document).ready(function () {
   });
 
   $('#datepicker2').datepicker({
-    uiLibrary: 'bootstrap4',
+    defaultViewDate: { year: 1990, month: 0, day: 0 },
     format: 'yyyy/mm/dd',
   });
 

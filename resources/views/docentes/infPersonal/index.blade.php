@@ -374,7 +374,7 @@
                     <select name="tipoDis" class="form-control">
                         <option value="">--Seleccione--</option>
                         @foreach($data['tipoDiscapacidad'] as $tipoDisca)
-                            <option value="{{$tipoDisca->etiqueta}}">{{$tipoDiscapacidad->etiqueta}}</option>
+                            <option value="{{$tipoDisca->etiqueta}}">{{$tipoDisca->etiqueta}}</option>
                         @endforeach
                     </select>
                 </div>
