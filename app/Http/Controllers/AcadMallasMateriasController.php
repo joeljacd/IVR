@@ -30,10 +30,23 @@ class AcadMallasMateriasController extends Controller
     public function getdatos()
     {
         $decision=array('SI','NO');
-    	return $getdatos=array('malla' =>AcademicoMalla::all(),
-    				    'materia'=>MateriasModel::all(),
-    				    'nivel'=>NivAcademico::all(),
+        return $getdatos=array('malla' =>AcademicoMalla::all(),
+                        'materia'=>MateriasModel::all(),
+                        'nivel'=>NivAcademico::all(),
                         'decision'=>$decision);
+    }
+
+    public function buscar($id)
+    {
+        $data=DB::table('acad_mallas_materias')
+                ->join('acad_mallas','acad_mallas.id','=','acad_mallas_materias.id_malla')
+                ->join('acad_materias','acad_materias.id','=','acad_mallas_materias.id_materia')
+                ->where('acad_mallas_materias.id_malla','=',$id)
+                ->select('acad_mallas_materias.id','acad_materias.nombre_materia')
+                ->get();
+        return response()->json(
+            $data->toArray()
+            );
     }
     /**
      * Show the form for creating a new resource.
@@ -140,3 +153,4 @@ class AcadMallasMateriasController extends Controller
         return redirect('/admin/MallasMaterias/');
     }
 }
+

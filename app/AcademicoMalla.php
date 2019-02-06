@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AcademicoMalla extends Model
 {
     //use SoftDeletes;
-
    //protected $dates = ['deleted_at'];
 
     protected $table = 'acad_mallas';
@@ -16,12 +15,13 @@ class AcademicoMalla extends Model
 
 
     protected $fillable = [
-
     	'id',
     	'nombre_malla',
     	'nombre_corto',
     	'num_sem_per_aca',
     	'id_usu_cre',
-        'id_usu_mod', 
+      'fecha_cre',
+      'id_usu_mod',
+      'fecha_mod',
     ];
 }
