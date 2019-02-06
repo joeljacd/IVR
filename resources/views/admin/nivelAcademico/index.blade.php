@@ -7,7 +7,7 @@
         			{!! Form::open(['url' => 'admin/nivelAcademico', 'method' => 'POST']) !!}
         				<div class="form-group">
         					<label>Nombre de Etiquetas</label>
-					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
+					    	<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú0-9 ]+">
         				</div>
         				<div class="form-group">
         					<button class="btn btn-sucess btn-block">Aceptar</button>

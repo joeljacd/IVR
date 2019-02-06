@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PenDiferenciada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PensionController extends Controller
 {

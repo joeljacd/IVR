@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EstIngreso;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IngresoEstudianteController extends Controller
 {
