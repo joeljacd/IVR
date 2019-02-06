@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	funcionesCargar();
-    fechaPicker('inicio');
 	fechaPicker('fechaini');
 
 	$('.dropdown-submenu a.test').on("click", function(e){
@@ -15,6 +14,9 @@ function funcionesCargar() {
     cateMigratoria(0);
     discapacidad(0);
     hablaIdiomaAncestral(0,'hab_idi');
+    cursaEstSupe(0);
+    cmb_poseeBeca(0);
+    realizoPublicacion(0)
 }
 
 //configuracion de calendario
@@ -64,6 +66,27 @@ function hablaIdiomaAncestral(item,opcion) {
         $("#idiAnce").show();
 }
 
+
+/*Esconde el contenedor de opciones de si cursa estudios superiores en la vista docente información personal*/
+
+function cursaEstSupe(item) {
+    op = $('option:selected', item).attr('data-cursasup');
+    console.log(op);
+    if(op == 0 || op == 2 || item == 0)
+        $("#instCursa").hide();
+    else
+        $("#instCursa").show();
+}
+
+/*Esconde el contenedor de opciones de  en la vista docente*/
+function cmb_poseeBeca(item) {
+    op = $('option:selected', item).attr('data-poseebeca');    
+    if (item == 0 || op == 0 || op == 2) 
+        $('#contenedor-beca').hide();
+    else
+        $('#contenedor-beca').show();
+}
+
 /*Esconde el contenedor de opciones de categoria migratoria en la vista docente información personal*/
 function cateMigratoria(item) {
     if (item != 0) 
@@ -87,6 +110,15 @@ function discapacidad(item) {
         $(".discapacidad").hide();
     else
         $(".discapacidad").show();
+}
+
+//funcion que muestra u oculta contenedores para casos de elección SI o NO
+function realizoPublicacion(item) {
+    op = $('option:selected', item).attr('data-reaPub'); 
+    if(item == 0 || op == 0 || op == 2)
+        $("#nroPubRev").hide();
+    else
+        $("#nroPubRev").show();
 }
 
 //Dependiente sea la opcion escogida carga sus provincias

@@ -80,26 +80,6 @@ function calcularEdad(dob) {
 }
 
 
-
-
-function discapacidad() {
-    var op = $("#tDisc").val();
-    //console.log(op);
-    if(op == 0 || op == 2)
-        $(".discapacidad").hide();
-    else
-        $(".discapacidad").show();
-}
-
-function cursaEstSupe() {
-    var op = $("#curEstSup").val();
-    //console.log(op);
-    if(op === '--Seleccione--' || op === 'NO')
-        $("#instCursa").hide();
-    else
-        $("#instCursa").show();
-}
-
 function becaDocente() {
     var op = $("#poseeBeca").val();
     //console.info(op);

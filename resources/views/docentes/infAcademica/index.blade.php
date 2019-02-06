@@ -180,36 +180,25 @@ session_start();
       <label for="lblTipIde">Está cursando estudios superiores</label>
     </div>
     <div class="form-group col-md-4">
-      <select class="form-control" name="cursaEstSup" id="curEstSup" onclick="cursaEstSupe();">
-        <option value="NO">--Seleccione--</option>
-        <option value="SI">SI</option>
-        <option value="NO">NO</option>
+      <select class="form-control" name="cursaEstSup" id="curEstSup" onchange="cursaEstSupe(this);" required>
+        <option value=""   data-cursasup="0">--Seleccione--</option>
+        <option value="SI" data-cursasup="1">SI</option>
+        <option value="NO" data-cursasup="2">NO</option>
       </select>
     </div>
     <div class="form-group col-md-2"></div>
   </div>
 
-        <div id="instCursa" class="form-row" >
-            <div class="form-group col-md-2"></div>
-            <div class="form-group col-md-4">
-                <label for="lblTipIde">Institución donde cursa estudios superiores</label>
-            </div>
-            <div class="form-group col-md-4">
-                <input type="text" class="form-control" name="nombreInst" placeholder="Nombre de Institución"/>
-            </div>
-            <div class="form-group col-md-2"></div>
+    <div id="instCursa" class="form-row" >
+        <div class="form-group col-md-2"></div>
+        <div class="form-group col-md-4">
+            <label for="lblTipIde">Institución donde cursa estudios superiores</label>
         </div>
-
-  <div id="instCursa" class="form-row" >
-    <div class="form-group col-md-2"></div>
-    <div class="form-group col-md-4">
-      <label for="lblTipIde">Institución donde cursa estudios superiores</label>
+        <div class="form-group col-md-4">
+            <input type="text" class="form-control" name="nombreInst" placeholder="Nombre de Institución"/>
+        </div>
+        <div class="form-group col-md-2"></div>
     </div>
-    <div class="form-group col-md-4">
-      <input type="text" class="form-control" name="nombreInst" placeholder="Nombre de Institución"/>
-    </div>
-    <div class="form-group col-md-2"></div>
-  </div>
 
   <div class="form-group row mb-0">
     <div class="col-md-8 offset-md-4">
