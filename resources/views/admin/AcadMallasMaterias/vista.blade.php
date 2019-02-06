@@ -25,8 +25,10 @@
 								<th>Operativa sn</th>
 								<th>n° de horas semanales</th>
 								<th>n° de horas totales</th>
-								<th>num_creditos</th>
-								<th>Estado</th>		
+								<th>Editar</th>
+								<th>Estado</th>	
+								<th>Pre_requisitos</th>
+								<th>Co_requisitos</th>		
 							</tr>
 		                  </thead>
 		                  <tbody>
@@ -56,9 +58,14 @@
 											    {!! Form::close() !!}
 											@endif
 										</td>
+										<td>
+											<button value="{{$datas->id_malla}}" OnClick='Mostrar(this);' class='btn btn-info' data-toggle='modal' data-target='#prerequisitos'>Agregar</button>
+										</td>
+										<td></td>
 									</tr>
 								@endforeach
 				                  </tbody>
+				                   @include("admin.AcadMallasMaterias.modal_prerequisitos")
 				                </table>
 				              </div>
 				            </div>
@@ -68,4 +75,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script type="text/javascript" src="{{ asset('js/ajax/MallasMaterias.js') }}"></script>
 @endsection
