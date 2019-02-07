@@ -48,6 +48,7 @@ class AcadPeriodosController extends Controller
    
     public function store(Request $request)
     {
+        //dd($request->all());exit();
             $id_usu_cre = Auth::user()->id;
             $id = $this->getId();
             $dato = AcadPeriodos::create ([
