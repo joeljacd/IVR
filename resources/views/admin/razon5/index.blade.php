@@ -13,8 +13,6 @@
 							<label>Nombre de Etiquetas</label>
 							<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
 							<button class="btn btn-success btn-block mt-3">Aceptar</button>
-							{!! Form::close() !!}
-							@include('mensaje.mensajeerror')
 						</div>
 					</div>
 					{!! Form::close() !!}

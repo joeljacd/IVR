@@ -22,8 +22,6 @@
 							<div class="form-group">
 								<button class="btn btn-success btn-block mt-3">Aceptar</button>
 							</div>
-							{!! Form::close() !!}
-							@include('mensaje.mensajeerror')
 						</div>
 					</div>
 					{!! Form::close() !!}
