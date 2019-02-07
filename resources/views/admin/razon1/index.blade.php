@@ -5,14 +5,18 @@
         	<div class="row">
         		<div class="col-md-4">
         			{!! Form::open(['url' => 'admin/razon1', 'method' => 'POST'])!!}
-        				<div class="form-group">
-        					<label>Nombre de Etiquetas</label>
+					<div class="card mb-3">
+						<div class="card-header">
+							<i class="fas fa-table"></i>
+							Razón 1</div>
+						<div class="card-body">
+							<label>Nombre de Etiquetas</label>
 							<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
-        				</div>
-        				<div class="form-group">
-        					<button class="btn btn-sucess btn-block">Aceptar</button>
-        				</div>
-        				
+							<button class="btn btn-success btn-block mt-3">Aceptar</button>
+							{!! Form::close() !!}
+							@include('mensaje.mensajeerror')
+						</div>
+					</div>
 					{!! Form::close() !!}
 					@include('mensaje.mensajeerror')
         		</div>

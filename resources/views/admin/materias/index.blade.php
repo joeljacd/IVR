@@ -33,7 +33,7 @@
                             <textarea class="form-control" type="text" name="descripcion" style="resize: none; max-height: 100%;" required></textarea>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-sucess btn-block">Aceptar</button>
+                            <button class="btn btn-success btn-block">Aceptar</button>
                         </div>
                         <div class="col-md-2"></div>
                     </div>

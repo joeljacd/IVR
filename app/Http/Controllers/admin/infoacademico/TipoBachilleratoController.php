@@ -6,6 +6,7 @@ use App\TipoBachillerato;
 use Illuminate\Http\Request;
 use App\Http\Requests\TipoBachilleratoRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TipoBachilleratoController extends Controller
 {

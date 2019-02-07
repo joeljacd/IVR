@@ -28,9 +28,8 @@
                         </div>
 
         				<div class="form-group">
-        					<button class="btn btn-sucess btn-block">Aceptar</button>
-
-        				</div>
+                            <button class="btn btn-warning btn-block mt-3">Aceptar</button>
+                        </div>
         				
 					{!! Form::close() !!}
 					@include('mensaje.mensajeerror')

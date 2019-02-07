@@ -5,18 +5,27 @@
         	<div class="row">
         		<div class="col-md-3">
         			{!! Form::open(['url' => 'admin/ciclos', 'method' => 'POST'])!!}
-        				<div class="form-group">
-        					<label>Nombre de Ciclo</label>
-					    	<input class="form-control" type="text" name="nombre" required pattern="[A-Za-zá-úÁ-Ú ]+">
-        				</div>
-        				<div class="form-group">
-        					<label>Nombre de Corto Ciclo</label>
-					    	<input class="form-control" type="text" name="nombre_corto" required pattern="[A-Za-zá-úÁ-Ú ]+">
-        				</div>
-        				<div class="form-group">
-        					<button class="btn btn-sucess btn-block">Aceptar</button>
-        				</div>
-        				
+
+					<div class="card mb-3">
+						<div class="card-header">
+							<i class="fas fa-table"></i>
+							Ciclos </div>
+						<div class="card-body">
+							<div class="form-group">
+								<label>Nombre de Ciclo</label>
+								<input class="form-control" type="text" name="nombre" required pattern="[A-Za-zá-úÁ-Ú0-9-? ]+">
+							</div>
+							<div class="form-group">
+								<label>Nombre de Corto Ciclo</label>
+								<input class="form-control" type="text" name="nombre_corto" required pattern="[A-Za-zá-úÁ-Ú0-9-? ]+">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-success btn-block mt-3">Aceptar</button>
+							</div>
+							{!! Form::close() !!}
+							@include('mensaje.mensajeerror')
+						</div>
+					</div>
 					{!! Form::close() !!}
 					@include('mensaje.mensajeerror')
         		</div>

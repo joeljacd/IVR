@@ -97,6 +97,15 @@ class DocentesController extends Controller
         return $datos;
     }
 
+    public function getId(){
+        $id = DocenteInfoPerModel::whereRaw('id > ? <> null', [0])->get();
+        $next = count($id);
+        if($next > 0 ){
+            $next+=1;
+        }else
+            $next =1;
+        return $next;
+    }
     //guardar datos
     //Información Personal
     public function saveInfoPer(Request $request){
@@ -105,7 +114,7 @@ class DocentesController extends Controller
         $ver = DocenteInfoPerModel::where('numIdentificacion','=',$request->cedula)->count();
         var_dump($ver);
         if ($ver > 0){
-            $doce = DB::table('acad_doce_infpersonal')->where('numIdentificacion',$request->cedula)->get();
+            $doce = DB::table('acad_docente')->where('numIdentificacion',$request->cedula)->get();
             $datos = DocenteInfoPerModel::find($doce[0]->id);
             $datos->id_usu_mod = Auth::user()->id;
         }else{
@@ -114,6 +123,7 @@ class DocentesController extends Controller
             $datos->numIdentificacion = $request->cedula;
             $datos->id_usu_cre = Auth::user()->id;
         }
+        $datos -> id = $this->getId();
         $datos->sexo = $request->sexo;
         $datos->genero = $request->genero;
         $datos->primerApellido = $request->primerApellido;
@@ -160,7 +170,9 @@ class DocentesController extends Controller
         }else{
             $data = new DocenteInfoAcadModelo();
             $data->numDocumento = $request->cedula;
+            $data->id_usu_cre = Auth::user()->id;
         }
+        $data -> id = $this->getId();
         $data->nivelForm = $request->nivelForm;
         $data->fecha_ing = $request->fecha_ing;
         $data->fecha_sal = $request->fecha_sal;
@@ -174,7 +186,7 @@ class DocentesController extends Controller
         $data->cursaEstSup = $request->cursaEstSup;
         $data->nombreInst = $request->nombreInst;
         $data->save();
-        return redirect('/docentes/main');
+        return redirect('/docentes/main')->with('status', 'Registro Exitoso');
     }
 
     //Información Beca
@@ -189,10 +201,12 @@ class DocentesController extends Controller
             //echo $doce[0]->id; exit();
         }else{
             $datos = new DocenteInfoBecaModel();
+            $datos->id_usu_cre = Auth::user()->id;
             $datos->cedula = $request->cedula;
             $this->verificarBeca($request,$datos);
             //var_dump($ver); exit();
         }
+            $datos -> id = $this->getId();
             $datos->poseeBeca = $request->poseeBeca;
             $datos->tipoBeca = $request->tipoBeca;
             $datos->valorBeca = $request->valorBeca;

@@ -10,9 +10,9 @@
 				              <i class="fas fa-table"></i>
 				              Tipo de financiamiento de la beca</div>
 				            <div class="card-body">
-				              	<label>Etiqueta</label>
-					    		<input class="form-control" type="text" name="etiqueta">	    		
-					    		<button class="btn btn-success btn-block mt-3">Aceptar</button>
+								<label>Nombre de Etiquetas</label>
+								<input class="form-control" type="text" name="etiqueta" required pattern="[A-Za-zá-úÁ-Ú ]+">
+								<button class="btn btn-success btn-block mt-3">Aceptar</button>
 								{!! Form::close() !!}
 								@include('mensaje.mensajeerror')			           
 				            </div>
@@ -36,27 +36,27 @@
 									</tr>
 				                  </thead>
 				                  <tbody>
-				                	@foreach($finanBeca as $datas)
+				                	@foreach($data as $datas)
 									<tr>
 										<td>{{$datas->etiqueta}}</td>
 										<td>{{$datas->fecha_cre}}</td>
 										<td>{{$datas->fecha_mod}}</td>								
-										<td>											
-											@if($datas->deleted_at!='')										
-												<input type="button" value="Editar" disabled="yes" class="btn btn-default" />
+										<td>
+											@if($datas->deleted_at!='')
+												{!!link_to_route('financiamientobeca.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning disabled']);!!}
 											@else
 												{!!link_to_route('financiamientobeca.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn btn-warning']);!!}
 											@endif
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="/admin/financiamientobeca/{{$datas->id}}/restaurar">Restaurar</a>
+												<a class="btn btn-primary btn-block" href="financiamientobeca/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
-													{!! Form::open(['route' => ['financiamientobeca.destroy',$datas->id],'method'=>'DELETE']) !!}
-											    <div class="form-group">
-											    	{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
-											    </div>
-											    {!! Form::close() !!}
+												{!! Form::open(['route' => ['financiamientobeca.destroy',$datas->id],'method'=>'DELETE']) !!}
+												<div class="form-group">
+													{!!Form::submit('Desactivar',['class'=>'btn btn-danger btn-block'])!!}
+												</div>
+												{!! Form::close() !!}
 											@endif
 										</td>
 									</tr>

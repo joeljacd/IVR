@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FinanciamientoBeca extends Model
 {
-	use SoftDeletes; //Implementamos 
-
+	use SoftDeletes; //Implementamos
     protected $dates = ['deleted_at'];
     protected $table = 'sene_financiamientobeca';
     protected $fillable = [
@@ -18,6 +17,5 @@ class FinanciamientoBeca extends Model
       'fecha_cre',
       'id_usu_mod',
       'fecha_mod'
-
     ];
 }

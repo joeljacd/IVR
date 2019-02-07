@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin\infoacademico;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\TituloCarrera;
+use Illuminate\Support\Facades\Auth;
 
 class TituloCarreraController extends Controller
 {
