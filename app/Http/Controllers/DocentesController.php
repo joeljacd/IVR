@@ -21,7 +21,7 @@ use App\TipoBeca;
 use App\tipoDiscapacidad;
 use App\tipodocumento;
 use App\TipoEnfCast;
-use App\TipoFinanciamiento;
+use App\TipoFinanciamientoDoceModel;
 use App\TipoSangre;
 use App\CategoriaMigratoria;
 use Illuminate\Http\Request;
@@ -93,7 +93,7 @@ class DocentesController extends Controller
     public function getDatosBeca()
     {
         $datos = array('tipoBeca' => TipoBeca::all(),
-                       'tipoFinanciamiento' => TipoFinanciamiento::all());
+                       'tipoFinanciamiento' => TipoFinanciamientoDoceModel::all());
         return $datos;
     }
 
