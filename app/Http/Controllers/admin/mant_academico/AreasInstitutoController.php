@@ -48,13 +48,14 @@ class AreasInstitutoController extends Controller
 
     public function store(Request $request)
     {
-        $id=Auth::user()->id;
+        $id = Auth::user()->id;
         $dato = AreasInstituto::create ([
             'id' => $this->getId(),
-            'nombre'=> strtoupper($request->input('nombre')),
-            'id_usu_cre' => $this->getId(),
+            'nombre'=> mb_strtoupper($request->input('nombre')),
+            'id_usu_cre' => $id,
+            'id_usu_mod' => $id,
         ]);
-        return $this->index();
+        return redirect('/admin/areasInstituto');
     }
 
     /**
@@ -90,7 +91,8 @@ class AreasInstitutoController extends Controller
     public function update(Request $request, $id)
     {
         $data=AreasInstituto::find($id);
-        $data->nombre=$request->input('nombre');
+        $data->nombre=mb_strtoupper($request->input('nombre'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/areasInstituto/');
     }
