@@ -58,7 +58,7 @@
         <div class="form-row">
             <div class="form-group col-md-2"></div>
             <div class="form-group col-md-3">{!! Form::label('full_name', 'Tipo de financiamiento de la beca:') !!}</div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <select name="tipoFina" class="form-control">
                     <option value="0">--Seleccione--</option>
                     @foreach($data['tipoFinanciamiento'] as $tipoFinanciamiento)
@@ -66,7 +66,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-3"></div>
         </div>
 
         <div class="form-row">
