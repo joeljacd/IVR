@@ -369,9 +369,6 @@
                               <a tabindex="-1" href="{!!URL::to('/admin/carreras');!!}">Nombre Carrera</a>
                             </li>
                             <li>
-                              <a tabindex="-1" href="{!!URL::to('/admin/tipocarrera');!!}">Tipo Carrera</a>
-                            </li>
-                            <li>
                               <a tabindex="-1" href="{!!URL::to('/admin/titulocarrera');!!}">
                                 Titulo de la carrera
                               </a>

@@ -69,9 +69,6 @@ Route::group(['middleware' => ['web', 'admin']], function() {
   //tipo bachillerato
   Route::Resource('/admin/tipobachillerato','admin\infoacademico\TipoBachilleratoController');
   Route::get('/admin/tipobachillerato/{id}/restaurar','admin\infoacademico\TipoBachilleratoController@restaurar');
-  //tipo carrera
-  Route::Resource('/admin/tipocarrera','admin\infoacademico\TipoCarreraController');
-  Route::get('/admin/tipocarrera/{id}/restaurar','admin\infoacademico\TipoCarreraController@restaurar');
   // titulo carrera
   Route::Resource('/admin/titulocarrera','admin\infoacademico\TituloCarreraController');
   Route::get('/admin/titulocarrera/{id}/restaurar','admin\infoacademico\TituloCarreraController@restaurar');
