@@ -10,7 +10,6 @@ use App\AcadSedes;
 use App\ParaleloAcad;
 use App\AcadPeriodos;
 use App\ParalelosxPeriodoModel;
-use App\ModalidadCar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class ParaleloSeneJornadaCarreraController extends Controller
@@ -33,8 +32,7 @@ class ParaleloSeneJornadaCarreraController extends Controller
                         'carrera' => Carreras::all(),
                         'sedes' => AcadSedes::all(),
                         'jornada' => JornadaCar::all(),
-                        'paralelo' => ParaleloAcad::all(),
-                        'modalidad' => ModalidadCar::all(),
+                        'paralelo' => ParaleloAcad::all(),                        
                         );
     }
 

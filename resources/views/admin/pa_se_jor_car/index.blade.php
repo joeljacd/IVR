@@ -30,12 +30,8 @@
                     <label>Seleccionar  carrera</label>
                     <select class="form-control" name="id_carrera" id="id_carrera" onchange="getParalelos(1);" required>
                         <option value="0" data-carreras="0">--Seleccione--</option>
-                            @foreach($getdatos['carrera'] as $carrera)
-                                @foreach($getdatos['modalidad'] as $modalidad)
-                                    @if($modalidad->id == $carrera->id_modalidad)
-                                        <option value="{{$carrera->id}}" data-carreras='{{$carrera->id}}'>{{$carrera->nombreCarrera}} - {{$modalidad->etiqueta}}</option>                                        
-                                    @endif
-                                @endforeach
+                            @foreach($getdatos['carrera'] as $carrera)                                                                    
+                                        <option value="{{$carrera->id}}" data-carreras='{{$carrera->id}}'>{{$carrera->nombreCarrera}}</option>                                                                                                            
                             @endforeach
                     </select>
                 </div> 
