@@ -434,6 +434,10 @@
                     <li class="panel panel-default" id="nivel-2-select">
                       <a href="{!!URL::to('/admin/categoriaMigratoria');!!}">Migratoria</a>
                     </li>
+                    <!--************* PARALELO ************* -->
+                    <li class="panel panel-default" id="nivel-2-select">
+                      <a href="{!!URL::to('/admin/paraleloAcad');!!}">Paralelo</a>
+                    </li>
 
                     <!--************* PERIODO ************* -->
                     <li class="panel panel-default" id="nivel-2-select">
