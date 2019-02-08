@@ -59,6 +59,7 @@ class CarrerasController extends Controller
         $dato = Carreras::create([
             'id' => $this->getId(),
             'nombreCarrera' => mb_strtoupper($request->input('nombreCarrera'),'UTF-8'),
+            'id_modalidad' => $request->input('modCarrera'),
             'id_usu_cre' => Auth::user()->id,
             //'id_modalidad' => strtoupper($request->input('cmbMod')),
         ]);
@@ -84,9 +85,9 @@ class CarrerasController extends Controller
      */
     public function edit($id)
     {
-        
+        $moda = ModalidadCar::All();
         $data = Carreras::find($id);
-        return view('admin.carreras.edit',["data" => $data]);
+        return view('admin.carreras.edit',["data" => $data,"moda"=>$moda]);
     }
 
     /**
@@ -100,6 +101,7 @@ class CarrerasController extends Controller
     {
         $data = Carreras::find($id);
         $data->nombreCarrera=mb_strtoupper($request->input('nombreCarrera'),'UTF-8');
+        $data->id_modalidad = $request->input('modCarrera');
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/carreras/');

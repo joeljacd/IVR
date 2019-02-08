@@ -10,8 +10,19 @@
 				              <i class="fas fa-table"></i>
 				              Datos de carreras</div>
 				            <div class="card-body">
-				              	<label>Etiqueta</label>
-					    		<input class="form-control" type="text" name="nombreCarrera">	    		
+				            	<div class="form-group">
+				            		<label>Etiqueta</label>
+					    			<input class="form-control" type="text" name="nombreCarrera">
+				            	</div>
+				              	<div class="form-group">
+				              		<label>Modalidad</label>
+					    		<select name="modCarrera" class="form-control">
+					    			@foreach($moda as $modas)
+					    				<option value="{{$modas->id}}">{{$modas->etiqueta}}</option>
+					    			@endforeach
+					    		</select>
+				              	</div>	  
+					    			
 					    		<button class="btn btn-success btn-block mt-3">Aceptar</button>
 								{!! Form::close() !!}
 								@include('mensaje.mensajeerror')			           
