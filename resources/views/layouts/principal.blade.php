@@ -441,7 +441,7 @@
 
                     <!--************* PERIODO ************* -->
                     <li class="panel panel-default" id="nivel-2-select">
-                      <a href="{!!URL::to('/admin/periodo');!!}">Periodo</a>
+                      <a href="{!!URL::to('/admin/AcadPeriodos');!!}">Periodo</a>
                     </li>
 
                     <!--************* SEDES ************* -->

@@ -16,7 +16,7 @@ class AcadPeriodosController extends Controller
                  "date_format(acad_periodos.fecha_inicio_matricula_ord,'%d/%m/%Y') as fecha_inicio_matricula_ord,date_format(acad_periodos.fecha_fin_matricula_ord,'%d/%m/%Y') as fecha_fin_matricula_ord, ".
                  "date_format(acad_periodos.fecha_inicio_matricula_ext,'%d/%m/%Y') as fecha_inicio_matricula_ext,date_format(acad_periodos.fecha_fin_matricula_ext,'%d/%m/%Y') as fecha_fin_matricula_ext, ".
                  "date_format(acad_periodos.fecha_inicio_matricula_esp,'%d/%m/%Y') as fecha_inicio_matricula_esp,date_format(acad_periodos.fecha_fin_matricula_esp,'%d/%m/%Y') as fecha_fin_matricula_esp, ".
-                 "acad_ciclos.nombre_ciclo,acad_periodos.nombre_periodo,acad_periodos.nombre_corto,acad_periodos.año_periodo,acad_periodos.fecha_cre,acad_periodos.fecha_mod,acad_periodos.deleted_at ".
+                 "acad_ciclos.nombre_ciclo,acad_periodos.nombre_periodo,acad_periodos.nombre_corto,acad_periodos.anio_periodo,acad_periodos.fecha_cre,acad_periodos.fecha_mod,acad_periodos.deleted_at ".
                  "from acad_periodos ".
                  "inner join acad_ciclos on acad_ciclos.id = acad_periodos.id_ciclo";
         $getdats = $this->getdatos();
@@ -55,7 +55,7 @@ class AcadPeriodosController extends Controller
             'id' => $id,
             'nombre_periodo'=>$request->input('etiqueta'),
             'nombre_corto'=>$request->input('nombrecorto'),
-            'año_periodo'=>$request->input('añoperiodo'),
+            'anio_periodo'=>$request->input('añoperiodo'),
             'id_usu_cre' => $id_usu_cre,
             'id_usu_mod' => $id_usu_cre,
             'id_ciclo'=>$request->input('id_ciclo'),

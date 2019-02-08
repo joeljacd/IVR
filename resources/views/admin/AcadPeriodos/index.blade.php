@@ -217,7 +217,7 @@
                                         <tr>
                                             <!-- <td>{{$datas->nombre_periodo}}</td>
                                             <td>{{$datas->nombre_corto}}</td>
-                                            <td>{{$datas->año_periodo}}</td>  -->
+                                            <td>{{$datas->anio_periodo}}</td>  -->
                                             <td>{{$datas->nombre_ciclo}}</td>
                                             <td>{{$datas->fecha_inicio_clases." - ".$datas->fecha_fin_clases}}</td>
 

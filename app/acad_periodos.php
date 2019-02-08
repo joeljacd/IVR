@@ -14,6 +14,6 @@ class acad_periodos extends Model
     protected $table = 'acad_periodos';
 
     protected $fillable = [
-        'id', 'nombre_periodo','id_ciclo','anio_periodo','id_usu_cre'
+        'id', 'nombre_periodo','id_ciclo','anio_periodo','id_usu_cre', 'nombre_corto'
     ];
 }

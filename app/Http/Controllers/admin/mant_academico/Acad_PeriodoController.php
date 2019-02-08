@@ -52,11 +52,13 @@ class Acad_PeriodoController extends Controller
     {
         $nombre_periodo=strtoupper($request->input('nombre_periodo'));
         $anio_periodo=strtoupper($request->input('anio_periodo'));
+        $nombre_corto=strtoupper($request->input('nombrecorto'));
         $id_usu_cre =Auth::user()->id;
         $dato = acad_periodos::create ([
             'id'=>$this->id_valor(),
             'nombre_periodo'=> $nombre_periodo,
             'anio_periodo'=>$anio_periodo,
+            'nombre_corto'=>$nombre_corto,
             'id_ciclo'=>$request->input('id_ciclo'),
             'id_usu_cre'=> $id_usu_cre,
         ]);

@@ -12,7 +12,7 @@ class AcadPeriodos extends Model
         'id',
         'nombre_periodo',
         'nombre_corto',
-        'año_periodo',
+        'anio_periodo',
         'id_ciclo',
         'fecha_inicio_clases',
         'fecha_fin_clases',
