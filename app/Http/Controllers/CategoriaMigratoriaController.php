@@ -50,7 +50,7 @@ class CategoriaMigratoriaController extends Controller
         $id=Auth::user()->id;
         $data = CategoriaMigratoria::create ([
             'id' => $this->getId(),
-            'nombre'=> mb_strtoupper($request->input('nombre')),
+            'etiqueta'=> mb_strtoupper($request->input('nombre')),
             'id_usu_cre' => $id,
         ]);
         return redirect('/admin/categoriaMigratoria');
@@ -89,8 +89,8 @@ class CategoriaMigratoriaController extends Controller
     public function update(Request $request, $id)
     {
         $data=CategoriaMigratoria::find($id);
-        $data->nombre=mb_strtoupper($request->input('nombre'));
-        $data->nombre=$request->input('nombre');
+        $data->etiqueta= mb_strtoupper($request->input('etiqueta'));
+        $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/categoriaMigratoria/');
     }
