@@ -30,9 +30,7 @@ class MateriaXPeriodoController extends Controller
     {
         $periodo=$request->input('id_periodo');
         $sede=$request->input('id_sede');
-        $carrera=$request->input('id_carrera');
-        $jornada=$request->input('id_jornada');
-        $data=DB::table('acad_paralelos_x_periodo')
+        $data=DB::table('acad_paralelos_x_periodo')->distinct()
             ->join('acad_periodos','acad_periodos.id','=','acad_paralelos_x_periodo.id_periodo')
             ->join('acad_paralelos_sede_jornada_carrera','acad_paralelos_sede_jornada_carrera.id','=','acad_paralelos_x_periodo.id_para_sede_jor_car')
             ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
@@ -40,10 +38,79 @@ class MateriaXPeriodoController extends Controller
             ->join('sene_jornadacarrera','sene_jornadacarrera.id','=','acad_paralelos_sede_jornada_carrera.id_jornada')
             ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
             ->where('acad_paralelos_x_periodo.id_periodo','=',$periodo)
-            ->orWhere('acad_paralelos_sede_jornada_carrera.id_sede','=',$sede)
-            ->orWhere('acad_paralelos_sede_jornada_carrera.id_carrera','=',$carrera)
-            ->orWhere('acad_paralelos_sede_jornada_carrera.id_jornada','=',$jornada)
-            ->select('acad_sedes.*','acad_carrera.*','sene_jornadacarrera.*','acad_paralelos.*')->get();
+            ->when($sede, function ($query, $sede) {
+                    return $query->where('acad_paralelos_sede_jornada_carrera.id_sede','=',$sede);
+                })
+            ->select('acad_sedes.*')->get();
+        return response()->json(
+            $data->toArray()
+            );
+    }
+    public function carrera(Request $request)
+    {
+        $periodo=$request->input('id_periodo');
+        $sede=$request->input('id_sede');
+        $data=DB::table('acad_paralelos_x_periodo')->distinct()
+            ->join('acad_periodos','acad_periodos.id','=','acad_paralelos_x_periodo.id_periodo')
+            ->join('acad_paralelos_sede_jornada_carrera','acad_paralelos_sede_jornada_carrera.id','=','acad_paralelos_x_periodo.id_para_sede_jor_car')
+            ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
+            ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
+            ->join('sene_jornadacarrera','sene_jornadacarrera.id','=','acad_paralelos_sede_jornada_carrera.id_jornada')
+            ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
+            ->where('acad_paralelos_x_periodo.id_periodo','=',$periodo)
+            ->when($sede, function ($query, $sede) {
+                    return $query->where('acad_paralelos_sede_jornada_carrera.id_sede','=',$sede);
+                })
+            ->select('acad_carrera.*')->get();
+        return response()->json(
+            $data->toArray()
+            );
+    }
+    public function jornada(Request $request)
+    {
+        $periodo=$request->input('id_periodo');
+        $sede=$request->input('id_sede');
+        $carrera=$request->input('id_carrera');
+        $jornada=$request->input('id_jornada');
+        $data=DB::table('acad_paralelos_x_periodo')->distinct()
+            ->join('acad_periodos','acad_periodos.id','=','acad_paralelos_x_periodo.id_periodo')
+            ->join('acad_paralelos_sede_jornada_carrera','acad_paralelos_sede_jornada_carrera.id','=','acad_paralelos_x_periodo.id_para_sede_jor_car')
+            ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
+            ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
+            ->join('sene_jornadacarrera','sene_jornadacarrera.id','=','acad_paralelos_sede_jornada_carrera.id_jornada')
+            ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
+            ->where('acad_paralelos_x_periodo.id_periodo','=',$periodo)
+            ->when($sede, function ($query, $sede) {
+                    $query->where('acad_paralelos_sede_jornada_carrera.id_sede','=',$sede);
+                })
+            ->where('acad_paralelos_sede_jornada_carrera.id_carrera','=',$carrera)
+            ->select('sene_jornadacarrera.*')->get();
+        return response()->json(
+            $data->toArray()
+            );
+    }
+    public function paralelo(Request $request)
+    {
+        $periodo=$request->input('id_periodo');
+        $sede=$request->input('id_sede');
+        $carrera=$request->input('id_carrera');
+        $jornada=$request->input('id_jornada');
+        $data=DB::table('acad_paralelos_x_periodo')->distinct()
+            ->join('acad_periodos','acad_periodos.id','=','acad_paralelos_x_periodo.id_periodo')
+            ->join('acad_paralelos_sede_jornada_carrera','acad_paralelos_sede_jornada_carrera.id','=','acad_paralelos_x_periodo.id_para_sede_jor_car')
+            ->join('acad_sedes','acad_sedes.id','=','acad_paralelos_sede_jornada_carrera.id_sede')
+            ->join('acad_carrera','acad_carrera.id','=','acad_paralelos_sede_jornada_carrera.id_carrera')
+            ->join('sene_jornadacarrera','sene_jornadacarrera.id','=','acad_paralelos_sede_jornada_carrera.id_jornada')
+            ->join('acad_paralelos','acad_paralelos.id','=','acad_paralelos_sede_jornada_carrera.id_paralelo')
+            ->where('acad_paralelos_x_periodo.id_periodo','=',$periodo)
+            ->when($sede, function ($query, $sede) {
+                    $query->where('acad_paralelos_sede_jornada_carrera.id_sede','=',$sede);
+                })
+            ->where('acad_paralelos_sede_jornada_carrera.id_carrera','=',$carrera)
+            ->when($jornada, function ($query, $jornada) {
+                    $query->where('acad_paralelos_sede_jornada_carrera.id_jornada','=',$jornada);
+                })
+            ->select('acad_paralelos.*')->get();
         return response()->json(
             $data->toArray()
             );
@@ -53,14 +120,32 @@ class MateriaXPeriodoController extends Controller
         $malla=$request->input("id_malla");
         $nivel=$request->input("id_nivel");
         $materia=$request->input("id_materia");
-        $data=DB::table('acad_mallas_materias')
+        $data=DB::table('acad_mallas_materias')->distinct()
                 ->join('acad_mallas','acad_mallas.id','=','acad_mallas_materias.id_malla')
                 ->join('acad_materias','acad_materias.id','=','acad_mallas_materias.id_materia')
                 ->join('sene_nivelacademicocurso','sene_nivelacademicocurso.id','=','acad_mallas_materias.id_nivel')
                 ->where('acad_mallas_materias.id_malla','=',$malla)
-                ->orWhere('acad_mallas_materias.id_nivel','=',$nivel)
-                ->orWhere('acad_mallas_materias.id_materia','=',$materia)
-                ->select('acad_mallas.*','acad_materias.*','sene_nivelacademicocurso.*')->get();
+                ->select('sene_nivelacademicocurso.*')->get();
+        return response()->json(
+            $data->toArray()
+            );
+    }
+    public function nivel(Request $request)
+    {
+        $malla=$request->input("id_malla");
+        $nivel=$request->input("id_nivel");
+        $materia=$request->input("id_materia");
+        $data=DB::table('acad_mallas_materias')->distinct()
+                ->join('acad_mallas','acad_mallas.id','=','acad_mallas_materias.id_malla')
+                ->join('acad_materias','acad_materias.id','=','acad_mallas_materias.id_materia')
+                ->join('sene_nivelacademicocurso','sene_nivelacademicocurso.id','=','acad_mallas_materias.id_nivel')
+                ->where('acad_mallas_materias.id_malla','=',$malla)
+                ->when($nivel, function ($query, $nivel) {
+                    return $query->where('acad_mallas_materias.id_nivel','=',$nivel);
+                })
+                //->orWhere('acad_mallas_materias.id_nivel','=',$nivel)
+                //->orWhere('acad_mallas_materias.id_materia','=',$materia)
+                ->select('acad_materias.*')->get();
         return response()->json(
             $data->toArray()
             );

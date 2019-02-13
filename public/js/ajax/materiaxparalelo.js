@@ -8,19 +8,19 @@ function periodo(par) {
 function sede(par) {
     var op = $('option:selected',par).attr('data');
     if (op != 0){
-        llenar("#id_carrera",op,"/admin/materiaparalelosede");
+        llenar("#id_carrera",op,"/admin/materiaparalelocarrera");
     }
 }
 function carrera(par) {
     var op = $('option:selected',par).attr('data');
     if (op != 0){
-        llenar("#id_jornada",op,"/admin/materiaparalelosede");
+        llenar("#id_jornada",op,"/admin/materiaparalelojornada");
     }
 }
 function jornada(par) {
     var op = $('option:selected',par).attr('data');
     if (op != 0){
-        llenar("#id_paralelo",op,"/admin/materiaparalelosede");
+        llenar("#id_paralelo",op,"/admin/materiaparaleloparalelo");
     }
 }
 function malla(par) {
@@ -32,7 +32,7 @@ function malla(par) {
 function nivel(par) {
     var op = $('option:selected',par).attr('data');
     if (op != 0){
-        llenar("#id_materia",op,"/admin/materiaparalelomalla");
+        llenar("#id_materia",op,"/admin/materiaparalelonivel");
     }
 }
 function llenar(idSelect, dato, url) {

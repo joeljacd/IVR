@@ -256,7 +256,12 @@ Route::get('admin/academicoNuevoPeriodo/{id}/restaurar','admin\mant_academico\nu
   //joel campoverde y guaman
   Route::Resource('admin/materiaparalelo','MateriaXPeriodoController');
   Route::post('admin/materiaparalelosede','MateriaXPeriodoController@sedes');
+  Route::post('admin/materiaparalelocarrera','MateriaXPeriodoController@carrera');
+  Route::post('admin/materiaparalelojornada','MateriaXPeriodoController@jornada');
+  Route::post('admin/materiaparaleloparalelo','MateriaXPeriodoController@paralelo');
   Route::post('admin/materiaparalelomalla','MateriaXPeriodoController@mallas');
+  Route::post('admin/materiaparalelonivel','MateriaXPeriodoController@nivel');
+
   //Route::get('admin/materiaparalelomostrar','MateriaXPeriodoController@mostrar');
   Route::post('admin/materiaparalelomostrarfiltrar','MateriaXPeriodoController@mostrarfiltro');
   //Admin Docentes Nivel
