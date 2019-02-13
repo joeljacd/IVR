@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\DocenteInfoPerModel;
 use App\DocentesMateriasModel;
 use App\MateriasModel;
-use App\MateriaxParaleloModel;
+use App\MateriaxParalelo;
 use App\ParaleloAcad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +59,7 @@ class DocentesMateriasController extends Controller
         return $getdato=array('Docente' =>DocenteInfoPerModel::all(),
             'materia'=>MateriasModel::all(),
             'paralelo'=>ParaleloAcad::all(),
-            'materiaparalelo'=>MateriaxParaleloModel::all(),
+            'materiaparalelo'=>MateriaxParalelo::all(),
             'decision'=>$decision);
     }
 
@@ -78,7 +78,7 @@ class DocentesMateriasController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all()); exit();
+        dd($request->all()); exit();
         $id_usu_cre = Auth::user()->id;
         $id = $this->getId();
         DocentesMateriasModel::create ([
