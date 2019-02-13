@@ -42,15 +42,7 @@ function calculateAge(birthday) {
   return Math.abs(ageDate.getUTCFullYear()-1970);
 }
 
-//funcion que muestra u oculta contenedores para casos de elección SI o NO
-function S_o_N(elemento,contenedor) {
-    var op = $(elemento).val();
-    console.info(op);
-    if(op === 'NO' || op === 'SELECCIONE')
-        $(contenedor).hide();
-    else
-        $(contenedor).show();
-}
+
 
 //Retorna la edad mediante la fecha de nacimiento
 function getFecha() {
