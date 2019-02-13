@@ -36,7 +36,7 @@
 				                  <tbody>
 				                	@foreach($data as $datas)
 									<tr>
-										<td>{{$datas->nombre}}</td>
+										<td>{{$datas->etiqueta}}</td>
 										<td>{{$datas->fecha_cre}}</td>
 										<td>{{$datas->fecha_mod}}</td>
 										<td>

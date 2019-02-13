@@ -166,6 +166,9 @@ Route::group(['middleware' => ['web', 'admin']], function() {
     Route::Resource('/admin/estuOcup','EstuOcupController');
     Route::get('/admin/estuOcup/{id}/restaurar', 'estuOcup@restaurar');
 
+     Route::Resource('/admin/docenteMateria', 'DocentesMateriasController');
+        Route::get('/admin/docenteMateria/{id}/restaurar','DocentesMateriasController@restaurar');
+
   // jorcy
   Route::Resource('/admin/financiamientobeca', 'financiamientoBecaController');
   Route::get('/admin/financiamientobeca/{id}/restaurar','financiamientoBecaController@restaurar');
