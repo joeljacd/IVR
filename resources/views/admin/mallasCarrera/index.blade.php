@@ -24,7 +24,10 @@
 							@endforeach
 						</select>
 					</div>
-
+					<div class="form-group">
+						<label>Títutlo</label>
+						<input class="form-control" type="text" name="titulo" required pattern="[A-Za-zá-úÁ-Ú ]+">
+					</div>
 					<div class="form-group">
 						<button class="btn btn-sucess btn-block">Aceptar</button>
 					</div>

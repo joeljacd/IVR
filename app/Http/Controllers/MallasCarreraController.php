@@ -69,6 +69,7 @@ class MallasCarreraController extends Controller
                 'id' => $this->getId(),
                 'id_malla'=>$request->input('id_malla'),
                 'id_carrera'=>$request->input('id_carrera'),
+                'titulo'=> mb_strtoupper($request->input('titulo')),
                 'id_usu_cre' => $id,
                 'id_usu_mod' => $id,
         ]);
@@ -111,6 +112,7 @@ class MallasCarreraController extends Controller
         $data=MallasCarrera::find($id);
         $data->id_malla=$request->input('id_malla');
         $data->id_carrera=$request->input('id_carrera');
+        $data->titulo=mb_strtoupper($request->input('titulo'));
         $data->id_usu_mod = Auth::user()->id;
         $data->save();
         return redirect('/admin/mallasCarrera/');

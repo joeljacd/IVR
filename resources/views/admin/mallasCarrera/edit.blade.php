@@ -29,7 +29,11 @@
 								@endforeach
 							</select>
 						</div>
-					<div class="row">
+					<div class="form-group">
+						<label>Título</label>
+						<input type="text" name="titulo" required pattern="[A-Za-zá-úÁ-Ú ]+" class="{!!Form::text('titulo',null,['class'=>'form-control'])!!}
+					</div>
+                    <div class="row">
 						<div class="col-md-4">
 							<button class="btn btn-sucess btn-block">Aceptar</button>
 						</div>
