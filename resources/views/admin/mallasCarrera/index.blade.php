@@ -47,6 +47,7 @@
 									<tr>
 										<th>Mallas</th>
 										<th>Carrera</th>
+										<th>Título</th>
 										<th>Editar</th>
 										<th>Estado</th>
 									</tr>
@@ -56,6 +57,8 @@
 										<tr>
 											<td>{{$datas->nombre_malla}}</td>
 											<td>{{$datas->nombreCarrera}}</td>
+											<td>{{$datas->titulo}}</td>
+
 											<td>
 												@if($datas->deleted_at!='')
 													{!!link_to_route('mallasCarrera.edit', $title = 'Editar', $parameters = $datas->id, $attributes = ['class'=>'btn disabled']);!!}
