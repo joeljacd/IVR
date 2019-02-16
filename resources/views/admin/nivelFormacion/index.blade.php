@@ -21,7 +21,7 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Nivel de formación Académica</div>
+              Nivel de Formación Académica</div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-bordered small" id="dataTable" width="100%" cellspacing="0">
