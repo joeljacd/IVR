@@ -291,10 +291,11 @@ Route::get('admin/academicoNuevoPeriodo/{id}/restaurar','admin\mant_academico\nu
   Route::Resource('admin/academicoCarreraCoordinador','admin\mant_academico\AcadCarreraCoordinadorController');
   Route::get('admin/academicoCarreraCoordinador/{id}/restaurar','admin\mant_academico\AcadCarreraCoordinadorController@restaurar');
 
+  Route::Resource('admin/MallasMaterias','AcadMallasMateriasController');
+  Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController@restaurar');
 });
 
-Route::Resource('admin/MallasMaterias','AcadMallasMateriasController');
-  Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController@restaurar');
+
 
 
 ////////////////////////////////informacion global  ESTUDIANTE//////////////////////////////
