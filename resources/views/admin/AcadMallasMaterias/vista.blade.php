@@ -6,20 +6,21 @@
     		<div class="col-md-12">
     			<a href="MallasMaterias/create" class="btn btn-primary">Crear</a>
     		</div>
+    	</div> <br>
     	<div class="row">
     		<div class="col-md-12">
     			<form>
     			<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-    			<select class="form-control" id="selectcarrera" onchange="carrera(this)">
-    					<option value="0" data="0">-------Buscar---------</option>
+    			<select class="form-control form-inline" id="selectcarrera" onchange="carrera(this)">
+    					<option value="0" data="0">-------Buscar por Carrera---------</option>
     				@foreach($getdatos['materia'] as $getdato)
     					<option value="{{$getdato->id}}" data="{{$getdato->id}}">{{$getdato->nombre_materia}}</option>
     				@endforeach
     			</select>
     			</form>
     		</div>	
-    	</div>
     	</div> <br>
+    	
         <div class="row">
         	<div class="col-md-12">
         		<div class="card mb-6">
