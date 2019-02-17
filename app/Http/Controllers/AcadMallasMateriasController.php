@@ -49,6 +49,21 @@ class AcadMallasMateriasController extends Controller
             $data->toArray()
             );
     }
+    public function filtro(Request $request)
+    {
+        $id=$request->input('selectcarrera');
+        $data=DB::table('acad_mallas_materias')
+                ->join('acad_mallas','acad_mallas.id','=','acad_mallas_materias.id_malla')
+                ->join('acad_materias','acad_materias.id','=','acad_mallas_materias.id_materia')
+                ->join('sene_nivelacademicocurso', 'sene_nivelacademicocurso.id', '=', 'acad_mallas_materias.id_nivel')
+                ->where('acad_mallas_materias.id_materia','=',$id)
+                ->select('acad_mallas_materias.*','acad_materias.nombre_materia','sene_nivelacademicocurso.etiqueta','acad_mallas.nombre_malla')
+                ->get();
+        return response()->json(
+            $data->toArray()
+            );
+        //return $id;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -145,7 +160,7 @@ class AcadMallasMateriasController extends Controller
     {
         $data=AcadMallasMateriasModel::find($id);
         $data->delete();
-         return redirect('/admin/MallasMaterias/');
+        return redirect('/admin/MallasMaterias/');
     }
 
     public function restaurar($id)

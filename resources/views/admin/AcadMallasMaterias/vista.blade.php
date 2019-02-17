@@ -8,12 +8,15 @@
     		</div>
     	<div class="row">
     		<div class="col-md-12">
+    			<form>
+    			<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
     			<select class="form-control" id="selectcarrera" onchange="carrera(this)">
-    					<option value="0">-------Buscar---------</option>
+    					<option value="0" data="0">-------Buscar---------</option>
     				@foreach($getdatos['materia'] as $getdato)
-    					<option value="{{$getdato->id}}">{{$getdato->nombre_materia}}</option>
+    					<option value="{{$getdato->id}}" data="{{$getdato->id}}">{{$getdato->nombre_materia}}</option>
     				@endforeach
     			</select>
+    			</form>
     		</div>	
     	</div>
     	</div> <br>
@@ -22,7 +25,7 @@
         		<div class="card mb-6">
 		            <div class="card-header">
 				              <i class="fas fa-table"></i>
-				              Mallas Carreras</div>
+				              Mallas Materias</div>
 		            <div class="card-body">
 		              <div class="table-responsive">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -40,7 +43,7 @@
 								<th>Co_requisitos</th>		
 							</tr>
 		                  </thead>
-		                  <tbody>
+		                  <tbody id="tabla">
 				                	@foreach($data as $datas)
 									<tr>
 										<td>{{$datas->nombre_malla}}</td>
@@ -58,7 +61,7 @@
 										</td>
 										<td>
 											@if($datas->deleted_at!='')
-												<a class="btn btn-primary btn-block" href="MallasMaterias/{{$datas->id}}/restaurar">Restaurar</a>
+												<a class="btn btn-info btn-block" href="MallasMaterias/{{$datas->id}}/restaurar">Restaurar</a>
 											@else
 													{!! Form::open(['route' => ['MallasMaterias.destroy',$datas->id],'method'=>'DELETE']) !!}
 											    <div class="form-group">
@@ -87,4 +90,5 @@
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('js/ajax/MallasMaterias.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/ajax/mallacarrera.js') }}"></script>
 @endsection

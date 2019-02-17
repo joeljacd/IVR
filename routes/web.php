@@ -293,6 +293,7 @@ Route::get('admin/academicoNuevoPeriodo/{id}/restaurar','admin\mant_academico\nu
 
   Route::Resource('admin/MallasMaterias','AcadMallasMateriasController');
   Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController@restaurar');
+  Route::post('/admin/MallasMaterias/filtro', 'AcadMallasMateriasController@filtro');
 });
 
 
