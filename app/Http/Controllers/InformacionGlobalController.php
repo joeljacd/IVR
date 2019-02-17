@@ -24,7 +24,7 @@ use App\NivAcademico;
 use App\Carreras;
 use App\ModalidadCar;
 use App\TituloCarrera;
-use App\TipoCarrera;
+//use App\TipoCarrera;
 use App\JornadaCar;
 use App\InformacionGlobalModel;
 //
@@ -72,7 +72,7 @@ class InformacionGlobalController extends Controller
     							  'paralelo'=>Paralelo::all(),
     							  'nombrecarrera'=>Carreras::all(),
     							  'titulocarrera'=>TituloCarrera::all(),
-    							  'tipocarrera'=>TipoCarrera::all(),
+    							 // 'tipocarrera'=>TipoCarrera::all(),
     							  'modalidadcarrera'=>ModalidadCar::all(),
     							  'jornadacarrera'=>JornadaCar::all(),
     							  'repetidocarrera'=>$superior,

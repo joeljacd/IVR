@@ -24,7 +24,8 @@ class AcadMallasMateriasController extends Controller
             ->join('sene_nivelacademicocurso', 'sene_nivelacademicocurso.id', '=', 'acad_mallas_materias.id_nivel')
             ->select('acad_mallas_materias.*', 'acad_materias.nombre_materia', 'acad_mallas.nombre_malla','sene_nivelacademicocurso.etiqueta')
             ->get();
-        return view('admin.AcadMallasMaterias.vista',['data' =>$data]);
+        $getdatos=$this->getdatos();
+        return view('admin.AcadMallasMaterias.vista',['data' =>$data,'getdatos'=>$getdatos]);
     }
 
     public function getdatos()

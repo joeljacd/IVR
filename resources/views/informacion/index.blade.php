@@ -614,19 +614,6 @@
 	</div> <br>
 	<div class="row justify-content-center">
 		<div class="col-md-4">
-				<label>Tipo de carrera:</label>
-		</div>
-		<div class="col-md-4">
-			<select name="tipocarrera" class="form-control">
-					<option value="">-----------seleccione-------------</option>
-					@foreach($academico['tipocarrera'] as $valor)
-						<option value="{{$valor->etiqueta}}">{{$valor->etiqueta}}</option>
-					@endforeach
-			</select>
-		</div>
-	</div> <br>
-	<div class="row justify-content-center">
-		<div class="col-md-4">
 				<label>Modalidad de carrera:</label>
 		</div>
 		<div class="col-md-4">

@@ -5,9 +5,17 @@
     	<div class="row">
     		<div class="col-md-12">
     			<a href="MallasMaterias/create" class="btn btn-primary">Crear</a>
-    			<p>wiiii</p>
     		</div>
-    		
+    	<div class="row">
+    		<div class="col-md-12">
+    			<select class="form-control" id="selectcarrera" onchange="carrera(this)">
+    					<option value="0">-------Buscar---------</option>
+    				@foreach($getdatos['materia'] as $getdato)
+    					<option value="{{$getdato->id}}">{{$getdato->nombre_materia}}</option>
+    				@endforeach
+    			</select>
+    		</div>	
+    	</div>
     	</div> <br>
         <div class="row">
         	<div class="col-md-12">

@@ -121,8 +121,7 @@ Route::group(['middleware' => ['web', 'admin']], function() {
   // ADMIN JORNADA CARRERA
 
 
-  Route::Resource('admin/MallasMaterias','AcadMallasMateriasController');
-  Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController@restaurar');
+  
 
   //Sexo
   Route::Resource('admin/sexo','admin\datosidentificacion\sexoController');
@@ -293,6 +292,11 @@ Route::get('admin/academicoNuevoPeriodo/{id}/restaurar','admin\mant_academico\nu
   Route::get('admin/academicoCarreraCoordinador/{id}/restaurar','admin\mant_academico\AcadCarreraCoordinadorController@restaurar');
 
 });
+
+Route::Resource('admin/MallasMaterias','AcadMallasMateriasController');
+  Route::get('/admin/MallasMaterias/{id}/restaurar', 'AcadMallasMateriasController@restaurar');
+
+
 ////////////////////////////////informacion global  ESTUDIANTE//////////////////////////////
 Route::get('informacionGlobal','InformacionGlobalController@index');
 
