@@ -304,7 +304,7 @@ Route::post('informacionGlobal/ifacademica','InformacionGlobalController@infacad
 Route::post('informacionGlobal','InformacionGlobalController@infoBecas');
 Route::post('informacionGlobal/createEstuLaboral','InformacionGlobalController@AcaEstuLabEco');
 
-
+//rutas docentes
 //Informacion docente
 //Principal
 Route::Resource('/docentes/main','DocentesController');
