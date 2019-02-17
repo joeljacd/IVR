@@ -29,7 +29,7 @@ class InformacionGlobalModel extends Model
       'paralelo',
       'nombrecarrera',
       'titulocarrera',
-      'tipocarrera',
+      //'tipocarrera',
       'modalidadcarrera',
       'jordanadacarrera',
       'repetidocarrera',
