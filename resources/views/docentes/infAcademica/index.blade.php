@@ -34,24 +34,28 @@ session_start();
   <div class="form-row">
     <div class="form-group col-md-2"></div>
     <div class="form-group col-md-4">
-      <label for="lblTipIde">Fecha de Ingreso a la Institución (IES)</label>
+      <label for="">Fecha de Ingreso a la Institución (IES)</label>
     </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" id="datepicker2" name="fecha_ing" width="276"/>
+    <div class="form-group col-md-4">      
+        <div class="input-group">
+            <input class="form-control" type="text" id="fecha_ing" onchange="cambiarFormatoFecha('fecha_ing');" required="yes">
+            <div class="input-group-append">
+                <label class="input-group-text" for="fecha_ing">
+                    <i class="fas fa-calendar-alt fa-lg"></i>
+                </label>
+            </div>
+        </div>  
     </div>
     <div class="form-group col-md-2"></div>
   </div>
-
+  
   <div class="form-row">
     <div class="form-group col-md-2"></div>
-    <div class="form-group col-md-4">
-      <label for="lblTipIde">Fecha de salida de la institución (IES)</label>
+    <div class="form-group col-md-4">{!! Form::label('fecing', 'Fecha de salida de la institución (IES):') !!}</div>
+    <div class="form-group col-md-3">
+      <input class="form-control" name="fec_sal" id="datepicker3" width="276" required autocomplete="off" /> 
     </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" id="datepicker3" name="fecha_sal" width="276"/>
-    </div>
-    <div class="form-group col-md-2"></div>
-
+    <div class="form-group col-md-3"></div>
   </div>
 
         <div class="form-row">
@@ -205,5 +209,10 @@ session_start();
       {!! Form::submit('Enviar', ['class' => 'btn btn-primary ' ] ) !!}
     </div>
   </div>
+
+  <div>
+        <input hidden='yes' name="fecha_ingreso" id="fecha_ingreso">  
+      </div>
   {!! Form::close() !!}
 </div>
+

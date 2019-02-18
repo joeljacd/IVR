@@ -12,16 +12,6 @@ $(document).ready(function () {
     format: 'yyyy/mm/dd',
     defaultViewDate: { year: 1990, month: 0, day: 0 },
   });
-
-  $('#datepicker2').datepicker({
-    defaultViewDate: { year: 1990, month: 0, day: 0 },
-    format: 'yyyy/mm/dd',
-  });
-
-  $('#datepicker3').datepicker({
-    uiLibrary: 'bootstrap4',
-    format: 'yyyy/mm/dd',
-  });
 });
 
 

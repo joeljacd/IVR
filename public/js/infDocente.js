@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	funcionesCargar();
-	fechaPicker('fechaini');
-
+    // fechaPicker('fecha_ing');
+    // fechaPicker('datepicker3');
 	$('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').toggle();
         e.stopPropagation();
@@ -158,7 +158,7 @@ function llenarCbx(idSelect, dato, url) {
             $('#'+idSelect).empty();
             $('#'+idSelect).append("<option value='' data-"+idSelect+"='0'>--Seleccione--</option>");
             $.each(data, function (i,item){
-                $('#'+idSelect).append("<option value='"+item.etiqueta+"' data-"+idSelect+"='"+item.id+"'>"+item.etiqueta+"</option>");
+                $('#'+idSelect).append("<option value='"+item.id+"' data-"+idSelect+"='"+item.id+"'>"+item.etiqueta+"</option>");
             });
         }
     });

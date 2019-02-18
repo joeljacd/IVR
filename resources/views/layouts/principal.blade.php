@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/datatables/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/sb-admin.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dashboard.css') }}">
+      
 <style>
 .dropdown-submenu {
     position: relative;
@@ -529,7 +530,7 @@
     <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/infAcademica.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/infMatriculacion.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/infDocente.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/infDocente.js') }}"></script>}}"></script>
 
     <script>
 

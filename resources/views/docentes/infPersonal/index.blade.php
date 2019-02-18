@@ -2,7 +2,7 @@
         if(!isset($_SESSION))
             session_start();
             
-@endphp
+@endphp    
 <!--nombre archivo .js => infDocente.js -->
 <div class="container">
     {!! Form::open(['url' => 'docentes/personal', 'method' => 'post']) !!}
@@ -16,7 +16,7 @@
                 <select name="tipoDocumento" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['tipoDocumento'] as $tipoDoc)
-                        <option value="{{$tipoDoc->etiqueta}}">{{$tipoDoc->etiqueta}}</option>
+                        <option value="{{$tipoDoc->id}}">{{$tipoDoc->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -39,7 +39,7 @@
                 <select name="sexo" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['sexo'] as $sexos)
-                        <option value="{{$sexos->etiqueta}}">{{$sexos->etiqueta}}</option>
+                        <option value="{{$sexos->id}}">{{$sexos->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -53,7 +53,7 @@
                 <select name="genero" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['genero'] as $genero)
-                        <option value="{{$genero->etiqueta}}">{{$genero->etiqueta}}</option>
+                        <option value="{{$genero->id}}">{{$genero->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -174,7 +174,7 @@
                 <select name="etnia" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['etnia'] as $etnia)
-                        <option value="{{$etnia->etiqueta}}">{{$etnia->etiqueta}}</option>
+                        <option value="{{$etnia->id}}">{{$etnia->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -226,7 +226,7 @@
                 <select name="tipoSangre" id="" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['tipoSangre'] as $tipoSangre)
-                        <option value="{{$tipoSangre->etiqueta}}">{{$tipoSangre->etiqueta}}</option>
+                        <option value="{{$tipoSangre->id}}">{{$tipoSangre->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -240,7 +240,7 @@
                 <select name="pais" id="pais" class="form-control" onchange="paises(this,'provincias','pais')" required>
                     <option value="" data-pais="0">--Seleccione--</option>
                     @foreach($data['nacionalidad'] as $nacionalidad)
-                        <option value="{{$nacionalidad->etiqueta}}" data-pais="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
+                        <option value="{{$nacionalidad->id}}" data-pais="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -276,7 +276,7 @@
                 <select name="catMigratoria" id="catMigratoria" class="form-control" onchange="cateMigratoria(this);" required>
                     <option value="" data-migratoria="0">--Seleccione--</option>
                     @foreach($data['categoriaMigratoria'] as $cat)
-                        <option value="{{$cat->etiqueta}}" data-migratoria="{{$cat->id}}">{{$cat->etiqueta}}</option>
+                        <option value="{{$cat->id}}" data-migratoria="{{$cat->id}}">{{$cat->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -291,7 +291,7 @@
                     <select name="paisResi" id="paisResi" class="form-control" onchange="paises(this,'provResi','paisResi');">
                         <option value="" data-paisResi="0">--Seleccione--</option>
                         @foreach($data['nacionalidad'] as $nacionalidad)
-                            <option value="{{$nacionalidad->etiqueta}}" data-paisResi="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
+                            <option value="{{$nacionalidad->id}}" data-paisResi="{{$nacionalidad->id}}">{{$nacionalidad->etiqueta}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -328,7 +328,7 @@
                 <select name="estCivil" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['estadocivil'] as $estadoCiv)
-                        <option value="{{$estadoCiv->etiqueta}}">{{$estadoCiv->etiqueta}}</option>
+                        <option value="{{$estadoCiv->id}}">{{$estadoCiv->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>
@@ -374,7 +374,7 @@
                     <select name="tipoDis" class="form-control">
                         <option value="">--Seleccione--</option>
                         @foreach($data['tipoDiscapacidad'] as $tipoDisca)
-                            <option value="{{$tipoDisca->etiqueta}}">{{$tipoDisca->etiqueta}}</option>
+                            <option value="{{$tipoDisca->id}}">{{$tipoDisca->etiqueta}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -390,7 +390,7 @@
                 <select name="tipoEnfeCatas" class="form-control" required>
                     <option value="">--Seleccione--</option>
                     @foreach($data['tipoEnfCatas'] as $tipoEnfermedadCast)
-                        <option value="{{$tipoEnfermedadCast->etiqueta}}">{{$tipoEnfermedadCast->etiqueta}}</option>
+                        <option value="{{$tipoEnfermedadCast->id}}">{{$tipoEnfermedadCast->etiqueta}}</option>
                     @endforeach
                 </select>
             </div>

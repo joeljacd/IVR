@@ -110,7 +110,6 @@ class DocentesController extends Controller
     //Información Personal
     public function saveInfoPer(Request $request){
         
-        //dd($request->all()); exit();
         $ver = DocenteInfoPerModel::where('numIdentificacion','=',$request->cedula)->count();
         var_dump($ver);
         if ($ver > 0){
