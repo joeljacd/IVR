@@ -3,7 +3,7 @@
 	<div id="content-wrapper">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-3">
 					{!! Form::open(['url' => 'admin/docenteMateria', 'method' => 'POST']) !!}
 
 					<!--<div class="form-group">
@@ -18,57 +18,43 @@
 
 					<div class="form-group">
 						<label>Seleccionar 	Docente</label>
-						<select class="form-control" name="id_docente" required>
-							<option value="">--Seleccione--</option>
+						<select class="form-control" name="id_docente">
 							@foreach($getdato['Docente'] as $getdata)
-								<option value="{{$getdata->id}}">{{$getdata->primerApellido.' '.$getdata->segundoApellido.' '.$getdata->primerNombre.' '.$getdata->segundoNombre}}</option>
+								<option value="{{$getdata->id}}">{{$getdata->primerApellido}}</option>
 							@endforeach
-						</select>  
+						</select>
 					</div>
-				</div>
-				<div class="col-md-6">
+
 					<div class="form-group">
 						<label>Seleccionar 	Materia</label>
-						<select class="form-control" name="id_materia_x_paralelo" required>
-							<option value="">--Seleccione--</option>	
+						<select class="form-control" name="id_materia_x_paralelo">
 							@foreach($getdato['materia'] as $getdata)
 								<option value="{{$getdata->id}}">{{$getdata->nombre_materia}}</option>
 							@endforeach
 						</select>
 					</div>
-				</div>
-			</div>
 
-			<div class="row">
-				<div class="col-md-3">
 					<div class="form-group">
 						<label>Paralelo</label>
-						<select class="form-control" name="id_materia_x_paralelo" required>
-								<option value="0">--Seleccione--</option>
+						<select class="form-control" name="id_materia_x_paralelo">
 							@foreach($getdato['paralelo'] as $getdata)
 								<option value="{{$getdata->id}}">{{$getdata->nombre_paralelo}}</option>
 							@endforeach
 						</select>
 					</div>
-				</div>
-				
-				<div class="col-md-3"></div>
-				<div class="col-md-3">
-					<div class="form-group" style="padding-top: 13%;">
+
+					<div class="form-group">
 						<button class="btn btn-sucess btn-block">Aceptar</button>
 					</div>
-				</div>
-				<div class="col-md-3"></div>
-			</div>
+
 					{!! Form::close() !!}
 					@include('mensaje.mensajeerror')
-			</div>
-			<div class="row">
-				<div class="col-md-12">
+				</div>
+				<div class="col-md-9">
 					<div class="card mb-3">
 						<div class="card-header">
 							<i class="fas fa-table"></i>
-							Docente por Materia</div>
+							Mallas Carrera</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -117,4 +103,5 @@
 				</div>
 			</div>
 		</div>
+	</div>
 @endsection

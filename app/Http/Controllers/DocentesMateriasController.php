@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\DocenteInfoPerModel;
 use App\DocentesMateriasModel;
 use App\MateriasModel;
-use App\MateriaxParalelo;
+use App\MateriaxParaleloModel;
 use App\ParaleloAcad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,15 +25,16 @@ class DocentesMateriasController extends Controller
             ->join('acad_docente', 'acad_docente.id', '=', 'acad_docentes_materia.id_docente')
             ->join('acad_materia_x_paralelo', 'acad_materia_x_paralelo.id', '=', 'acad_docentes_materia.id_materia_x_paralelo')
             ->join ('acad_mallas_materias', 'acad_mallas_materias.id', '=', 'acad_materia_x_paralelo.id_materia_malla')
-            ->join ('acad_paralelos_x_periodo', 'acad_paralelos_x_periodo.id', '=', 'acad_materia_x_paralelo.id_paralelo_periodo')
+            //->join ('acad_paralelos_x_periodo', 'acad_paralelos_x_periodo.id', '=', 'acad_materia_x_paralelo.id_paralelo_periodo')
             ->join ('acad_materias', 'acad_materias.id', '=', 'acad_mallas_materias.id_materia')
-            ->join ('acad_paralelos_sede_jornada_carrera', 'acad_paralelos_sede_jornada_carrera.id', '=', 'acad_paralelos_x_periodo.id_para_sede_jor_car')
-            ->join ('acad_paralelos', 'acad_paralelos.id', '=', 'acad_paralelos_sede_jornada_carrera.id_paralelo')
-            ->select('acad_docentes_materia.*','acad_docente.*','acad_materia_x_paralelo.*', 'acad_materias.id', 'acad_materias.nombre_materia', 'acad_paralelos.id','acad_paralelos.nombre_paralelo')
+            //->join ('acad_paralelos_sede_jornada_carrera', 'acad_paralelos_sede_jornada_carrera.id', '=', 'acad_paralelos_x_periodo.id_para_sede_jor_car')
+            //->join ('acad_paralelos', 'acad_paralelos.id', '=', 'acad_paralelos_sede_jornada_carrera.id_paralelo')
+            ->join ('acad_paralelos', 'acad_paralelos.id', '=', 'acad_docentes_materia.id_materia_x_paralelo')
+            ->select('acad_docentes_materia.*','acad_docente.primerApellido',/*'acad_materia_x_paralelo.*', 'acad_materias.id',*/ 'acad_materias.nombre_materia', /*'acad_paralelos.id',*/'acad_paralelos.nombre_paralelo')
             ->get();
-        
+
         $getdats = $this->getdatos();
-        //dd($data);exit();
+        //dd($data);
         return view('admin.docenteMateria.index',['data' =>$data,'getdato' => $getdats]);
     }
 
@@ -59,7 +60,7 @@ class DocentesMateriasController extends Controller
         return $getdato=array('Docente' =>DocenteInfoPerModel::all(),
             'materia'=>MateriasModel::all(),
             'paralelo'=>ParaleloAcad::all(),
-            'materiaparalelo'=>MateriaxParalelo::all(),
+            'materiaparalelo'=>MateriaxParaleloModel::all(),
             'decision'=>$decision);
     }
 
@@ -78,7 +79,7 @@ class DocentesMateriasController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all()); exit();
+        //dd($request->all()); exit();
         $id_usu_cre = Auth::user()->id;
         $id = $this->getId();
         DocentesMateriasModel::create ([
