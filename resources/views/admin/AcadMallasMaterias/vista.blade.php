@@ -13,8 +13,8 @@
     			<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
     			<select class="form-control form-inline" id="selectcarrera" onchange="carrera(this)">
     					<option value="0" data="0">-------Buscar por Carrera---------</option>
-    				@foreach($getdatos['materia'] as $getdato)
-    					<option value="{{$getdato->id}}" data="{{$getdato->id}}">{{$getdato->nombre_materia}}</option>
+    				@foreach($getdatos['carrera'] as $getdato)
+    					<option value="{{$getdato->id}}" data="{{$getdato->id}}">{{$getdato->nombreCarrera}}</option>
     				@endforeach
     			</select>
     			</form>
@@ -33,6 +33,7 @@
 		                  <thead>
 		                    <tr>
 								<th>Malla</th>
+								<th>Carrera</th>
 								<th>Materia</th>
 								<th>Nivel</th>
 								<th>Operativa sn</th>
@@ -40,14 +41,14 @@
 								<th>n° de horas totales</th>
 								<th>Editar</th>
 								<th>Estado</th>	
-								<th>Pre_requisitos</th>
-								<th>Co_requisitos</th>		
+								<th>Pre_requisitos</th>		
 							</tr>
 		                  </thead>
 		                  <tbody id="tabla">
 				                	@foreach($data as $datas)
 									<tr>
 										<td>{{$datas->nombre_malla}}</td>
+										<td>{{$datas->nombreCarrera}}</td>
 										<td>{{$datas->nombre_materia}}</td>
 										<td>{{$datas->etiqueta}}</td>
 										<td>{{$datas->optativa_sn}}</td>

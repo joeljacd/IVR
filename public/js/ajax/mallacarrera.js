@@ -34,6 +34,7 @@ function completar(tabla, dato, url) {
 		          }
             	da+="<tr>";
             	da+="<td>"+item.nombre_malla+"</td>";
+                da+="<td>"+item.nombreCarrera+"</td>";
             	da+="<td>"+item.nombre_materia+"</td>";
             	da+="<td>"+item.etiqueta+"</td>";
             	da+="<td>"+item.optativa_sn+"</td>";

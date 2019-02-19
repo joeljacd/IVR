@@ -7,6 +7,7 @@ use App\AcadMallasMateriasModel;
 use App\AcademicoMalla;
 use App\MateriasModel;
 use App\NivAcademico;
+use App\Carreras;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class AcadMallasMateriasController extends Controller
@@ -19,10 +20,12 @@ class AcadMallasMateriasController extends Controller
     public function index()
     {
         $data = DB::table('acad_mallas_materias')
-            ->join('acad_mallas', 'acad_mallas.id', '=', 'acad_mallas_materias.id_malla')
+            ->join('acad_mallas_carrera', 'acad_mallas_carrera.id', '=', 'acad_mallas_materias.id_malla')
+            ->join('acad_mallas','acad_mallas.id','=','acad_mallas_carrera.id_malla')
+            ->join('acad_carrera','acad_carrera.id','=','acad_mallas_carrera.id_carrera')
             ->join('acad_materias', 'acad_materias.id', '=', 'acad_mallas_materias.id_materia')
             ->join('sene_nivelacademicocurso', 'sene_nivelacademicocurso.id', '=', 'acad_mallas_materias.id_nivel')
-            ->select('acad_mallas_materias.*', 'acad_materias.nombre_materia', 'acad_mallas.nombre_malla','sene_nivelacademicocurso.etiqueta')
+            ->select('acad_mallas_materias.*', 'acad_materias.nombre_materia', 'acad_mallas.nombre_malla','sene_nivelacademicocurso.etiqueta','acad_carrera.nombreCarrera')
             ->get();
         $getdatos=$this->getdatos();
         return view('admin.AcadMallasMaterias.vista',['data' =>$data,'getdatos'=>$getdatos]);
@@ -34,6 +37,7 @@ class AcadMallasMateriasController extends Controller
         return $getdatos=array('malla' =>AcademicoMalla::all(),
                         'materia'=>MateriasModel::all(),
                         'nivel'=>NivAcademico::all(),
+                        'carrera'=>Carreras::all(),
                         'decision'=>$decision);
     }
 
@@ -52,13 +56,15 @@ class AcadMallasMateriasController extends Controller
     public function filtro(Request $request)
     {
         $id=$request->input('selectcarrera');
-        $data=DB::table('acad_mallas_materias')
-                ->join('acad_mallas','acad_mallas.id','=','acad_mallas_materias.id_malla')
-                ->join('acad_materias','acad_materias.id','=','acad_mallas_materias.id_materia')
-                ->join('sene_nivelacademicocurso', 'sene_nivelacademicocurso.id', '=', 'acad_mallas_materias.id_nivel')
-                ->where('acad_mallas_materias.id_materia','=',$id)
-                ->select('acad_mallas_materias.*','acad_materias.nombre_materia','sene_nivelacademicocurso.etiqueta','acad_mallas.nombre_malla')
-                ->get();
+        $data = DB::table('acad_mallas_materias')
+            ->join('acad_mallas_carrera', 'acad_mallas_carrera.id', '=', 'acad_mallas_materias.id_malla')
+            ->join('acad_mallas','acad_mallas.id','=','acad_mallas_carrera.id_malla')
+            ->join('acad_carrera','acad_carrera.id','=','acad_mallas_carrera.id_carrera')
+            ->join('acad_materias', 'acad_materias.id', '=', 'acad_mallas_materias.id_materia')
+            ->join('sene_nivelacademicocurso', 'sene_nivelacademicocurso.id', '=', 'acad_mallas_materias.id_nivel')
+            ->where('acad_mallas_carrera.id_carrera','=',$id)
+            ->select('acad_mallas_materias.*', 'acad_materias.nombre_materia', 'acad_mallas.nombre_malla','sene_nivelacademicocurso.etiqueta','acad_carrera.nombreCarrera')
+            ->get();
         return response()->json(
             $data->toArray()
             );
