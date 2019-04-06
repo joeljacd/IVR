@@ -1,5 +1,5 @@
 @extends('layouts.informacion')
-
+<?php //dd($laboral)?>
 
 @section('personal')
 <div class="container">
@@ -683,7 +683,7 @@
                 <div class="col-md-4">
                     <select class="form-control"
                     id='practicasPre'
-                    name="haRealizadoPracticasPreprofesionales"
+                    name="practicasPre"
                     onclick="horasPractiasPre()">
                         <option value="">--Seleccione--</option>
                         <option value="SI">SI</option>
@@ -702,7 +702,7 @@
                     </label>
                     <div class="col-md-4">
                         <input type="text" class="form-control input-md" id="horasPracticas" 
-                        name="nroHorasPracticasPreprofesionalesPorPeriodo"
+                        name="nroHorasPracticas"
                         required="yes">
                     </div>
                 </div>
@@ -714,7 +714,7 @@
                     </label>  
                     <div class="col-md-4">
                         <select class="form-control" id="entornoInstitucional" 
-                        name="entornoInstitucionalPracticasProfesionales"
+                        name="entornoInstitucional"
                         required="yes"> 
                             <option value="">--Seleccione--</option>
                             @foreach( $laboral['tipoColegios'] as $tipoColegio)
@@ -732,7 +732,7 @@
                         Sector económico en el que realizó las prácticas pre profesionales
                     </label>  
                     <div class="col-md-4">
-                        <select class="form-control" id="sectorEconomico" name="sectorEconomicoPracticaProfesional"> 
+                        <select class="form-control" id="sectorEconomico" name="sectorEconomico"> 
                             <option value="">--Seleccione--</option>
                             @foreach( $laboral['SectorEconomicos'] as $SectorEconomico)
                                 <option value="{{$SectorEconomico->etiqueta}}">
@@ -750,7 +750,7 @@
             <div class="row mt-3">
               <label class="col-md-6 control-label text-right" for="textinput">Ha participado en algun proyecto de Vinculacion con la Sociedad en el Instituto:</label>  
               <div class="col-md-4">
-                  <select class="form-control" id="proyectoVinculacion" name="participaEnProyectoVinculacionSociedad" 
+                  <select class="form-control" id="proyectoVinculacion" name="proyectoVinculacion" 
                   onclick="alcanceProyectoVinculacion()" 
                   required="yes">
                       <option value="">--Seleccione--</option>
@@ -765,7 +765,7 @@
             <div class="row mt-3" id="seccionAlcanceProyecto">
                 <label class="col-md-6 control-label text-right" for="textinput">Cual es el alcance del proyecto de Vinculacion con la Sociedad</label>  
                 <div class="col-md-4">
-                    <select class="form-control" id="alcanceProyecto" name="tipoAlcanceProyectoVinculacionId">
+                    <select class="form-control" id="alcanceProyecto" name="alcanceProyecto">
                         <option value="">--Seleccione--</option>
                         @foreach( $laboral['AlcanceProyectoVinculacions'] as $AlcanceProyectoVinculacion)
                             <option value="{{$AlcanceProyectoVinculacion->etiqueta}}">
@@ -813,7 +813,7 @@
                 <div class="row mt-3">
                   <label class="col-md-6 control-label text-right" for="textinput">Sector económico en el que de la empresa en que labora</label>  
                   <div class="col-md-4">
-                    <select class="form-control" id="sectorEcoLaboral" name="sectorEcoLaboral" required="yes">
+                    <select class="form-control" id="sectorEcoLaboral" name="sectorEcoLaboral">
                         <option value="">--Seleccione--</option>
                         @foreach( $laboral['SectorEconomicos'] as $SectorEconomico)
                             <option value="{{$SectorEconomico->etiqueta}}">{{$SectorEconomico->etiqueta}}</option>

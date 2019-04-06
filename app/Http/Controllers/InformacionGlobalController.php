@@ -137,6 +137,7 @@ class InformacionGlobalController extends Controller
         );
     }
         public function AcaEstuLabEco(Request $request){
+            // dd($request->all());
         $datos=AcadEstuLabEco::create($request->all());
         return redirect('/informacionGlobal');
     }
